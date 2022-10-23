@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.dtos;
+package monolith2microservice.shared.dto;
 
 import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
@@ -6,7 +6,7 @@ import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
 /**
  * Created by gmazlami on 1/17/17.
  */
-public class DecompositionDTO {
+public class DecompositionDto {
 
     private GitRepository repo;
 

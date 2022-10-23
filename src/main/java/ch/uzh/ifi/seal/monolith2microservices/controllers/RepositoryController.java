@@ -1,54 +1,81 @@
 package ch.uzh.ifi.seal.monolith2microservices.controllers;
 
-
-import ch.uzh.ifi.seal.monolith2microservices.dtos.RepositoryDTO;
+import ch.uzh.ifi.seal.monolith2microservices.conversion.GraphRepresentation;
+import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
+import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
+import ch.uzh.ifi.seal.monolith2microservices.services.decomposition.DecompositionService;
+import ch.uzh.ifi.seal.monolith2microservices.services.evaluation.EvaluationService;
+import monolith2microservice.logic.repository.RepositoryLogic;
+import monolith2microservice.shared.dto.RepositoryDto;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.persistence.RepositoryRepository;
-import ch.uzh.ifi.seal.monolith2microservices.services.git.GitCloneService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-@Configuration
-@EnableAutoConfiguration
 @RestController
-@Component
+@RequestMapping("repositories")
 public class RepositoryController {
-	
+
+	private final Logger logger = LoggerFactory.getLogger(RepositoryController.class);
+
 	@Autowired
-	private RepositoryRepository repository;
-	
+	private DecompositionService decompositionService;
+
 	@Autowired
-	private GitCloneService gitCloneService;
+	private EvaluationService evaluationService;
+
+	@Autowired
+	private RepositoryLogic repositoryLogic;
 
 	@CrossOrigin
-    @RequestMapping(value="/repositories", method=RequestMethod.POST)
-    public GitRepository addRepository(@RequestBody RepositoryDTO repo) throws Exception{
-    	
-    	GitRepository r = new GitRepository();
-    	r.setName(repo.getName());
-    	r.setRemotePath(repo.getUri());
-    	
-    	GitRepository saved = repository.save(r);
-    	gitCloneService.processRepository(r);
-    	
-    	return saved;	
+    @RequestMapping(method=RequestMethod.POST)
+    public ResponseEntity<GitRepository> addRepository(@RequestBody RepositoryDto repositoryDto) {
+		GitRepository storedRepository = null;
+		try {
+			storedRepository = repositoryLogic.add(repositoryDto);
+		} catch (Exception exception) {
+			// TODO
+		}
+		return ResponseEntity.ok(storedRepository);
     }
 
 	@CrossOrigin
-	@RequestMapping(value="/repositories", method=RequestMethod.GET)
-	public List<GitRepository> listRepositories() throws Exception{
-		return repository.findAll();
+	@RequestMapping(method=RequestMethod.GET)
+	public List<GitRepository> listRepositories() {
+		return repositoryLogic.findAll();
 	}
 
 	@CrossOrigin
-	@RequestMapping(value="repositories/{repositoryId}", method=RequestMethod.GET)
-	public GitRepository getRepository(@PathVariable Long repositoryId){
-		return repository.findById(repositoryId);
+	@RequestMapping(value="{repositoryId}", method=RequestMethod.GET)
+	public GitRepository getRepository(@PathVariable Long repositoryId) {
+		return repositoryLogic.findById(repositoryId);
+	}
+
+	@CrossOrigin
+	@RequestMapping(value="{repoId}/decomposition", method=RequestMethod.POST)
+	public ResponseEntity<Set<GraphRepresentation>> decomposition(@PathVariable Long repoId, @RequestBody DecompositionParameters decompositionDTO) {
+		logger.info(decompositionDTO.toString());
+
+		//find repository to be decomposed
+		GitRepository repo = repositoryLogic.findById(repoId);
+
+		//perform decomposition
+		Decomposition decomposition = decompositionService.decompose(repo,decompositionDTO);
+
+		// convert to graph representation for frontend
+		Set<GraphRepresentation> graph = decomposition.getServices().stream().map(GraphRepresentation::from).collect(Collectors.toSet());
+
+		// Compute evaluation metrics
+		evaluationService.performEvaluation(decomposition);
+
+		return new ResponseEntity<>(graph, HttpStatus.OK);
 	}
     
 }

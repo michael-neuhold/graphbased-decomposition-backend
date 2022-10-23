@@ -1,10 +1,10 @@
-package ch.uzh.ifi.seal.monolith2microservices.dtos;
+package monolith2microservice.shared.dto;
 
 import com.google.common.collect.Iterables;
 
 import java.util.Arrays;
 
-public class RepositoryDTO {
+public class RepositoryDto {
 
 	private String uri;
 

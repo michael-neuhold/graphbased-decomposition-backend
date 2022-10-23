@@ -1,4 +1,4 @@
-import ch.uzh.ifi.seal.monolith2microservices.dtos.RepositoryDTO;
+import monolith2microservice.shared.dto.RepositoryDto;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -8,11 +8,11 @@ import static org.junit.Assert.*;
  */
 public class RepositoryDTOTest {
 
-    private RepositoryDTO repositoryDTO;
+    private RepositoryDto repositoryDTO;
 
     @Before
     public void setUp(){
-        repositoryDTO = new RepositoryDTO();
+        repositoryDTO = new RepositoryDto();
         repositoryDTO.setUri("https://github.com/feincms/feincms.git");
     }
 

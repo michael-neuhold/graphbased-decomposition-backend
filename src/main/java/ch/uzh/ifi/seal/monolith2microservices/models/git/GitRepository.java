@@ -7,8 +7,15 @@ import javax.persistence.Id;
 
 @Entity
 public class 	GitRepository {
+	public GitRepository() {
+	}
 
-    @Id
+	public GitRepository(String remotePath, String name) {
+		this.remotePath = remotePath;
+		this.name = name;
+	}
+
+	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	

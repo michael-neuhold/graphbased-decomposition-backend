@@ -13,13 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Created by gmazlami on 1/26/17.
- */
-@Configuration
-@EnableAutoConfiguration
 @RestController
-@Component
 public class ExportController {
 
     @Autowired
