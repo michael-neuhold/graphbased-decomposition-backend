@@ -1,12 +1,6 @@
-import ch.uzh.ifi.seal.monolith2microservices.conversion.EdgeRepresentation;
-import ch.uzh.ifi.seal.monolith2microservices.conversion.GraphRepresentationConverter;
-import ch.uzh.ifi.seal.monolith2microservices.conversion.NodeRepresentation;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
 import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Set;

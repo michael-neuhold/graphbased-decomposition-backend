@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.conversion;
+package ch.uzh.ifi.seal.monolith2microservices.graph.component;
 
 import java.io.File;
 

@@ -1,6 +1,5 @@
 package monolith2microservice.logic.repository.impl;
 
-import ch.uzh.ifi.seal.monolith2microservices.controllers.RepositoryController;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.RepositoryRepository;
 import ch.uzh.ifi.seal.monolith2microservices.services.git.GitCloneService;

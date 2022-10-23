@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.monolith2microservices.controllers;
 
-import ch.uzh.ifi.seal.monolith2microservices.conversion.GraphRepresentation;
+import ch.uzh.ifi.seal.monolith2microservices.graph.component.GraphRepresentation;
 import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
 import ch.uzh.ifi.seal.monolith2microservices.services.decomposition.DecompositionService;
