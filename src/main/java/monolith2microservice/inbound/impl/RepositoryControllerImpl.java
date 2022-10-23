@@ -1,9 +1,9 @@
-package ch.uzh.ifi.seal.monolith2microservices.controllers;
+package monolith2microservice.inbound.impl;
 
 import ch.uzh.ifi.seal.monolith2microservices.graph.component.GraphRepresentation;
 import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
-import ch.uzh.ifi.seal.monolith2microservices.services.decomposition.DecompositionService;
+import monolith2microservice.logic.decomposition.engine.DecompositionService;
 import ch.uzh.ifi.seal.monolith2microservices.services.evaluation.EvaluationService;
 import monolith2microservice.logic.repository.RepositoryLogic;
 import monolith2microservice.shared.dto.RepositoryDto;
@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("repositories")
-public class RepositoryController {
+public class RepositoryControllerImpl {
 
-	private final Logger logger = LoggerFactory.getLogger(RepositoryController.class);
+	private final Logger logger = LoggerFactory.getLogger(RepositoryControllerImpl.class);
 
 	@Autowired
 	private DecompositionService decompositionService;

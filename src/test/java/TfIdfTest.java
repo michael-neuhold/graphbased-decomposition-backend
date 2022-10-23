@@ -1,4 +1,3 @@
-import ch.uzh.ifi.seal.monolith2microservices.services.decomposition.semanticcoupling.tfidf.TfIdfWrapper;
 import com.google.common.collect.ImmutableSet;
 import org.junit.Before;
 import org.junit.Test;

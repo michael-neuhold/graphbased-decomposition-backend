@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.controllers;
+package monolith2microservice.inbound.impl;
 
 import ch.uzh.ifi.seal.monolith2microservices.graph.component.GraphRepresentation;
 import monolith2microservice.shared.dto.DecompositionDto;
@@ -18,9 +18,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-public class MicroservicesController {
+public class MicroservicesControllerImpl {
 
-    private Logger logger = LoggerFactory.getLogger(MicroservicesController.class);
+    private Logger logger = LoggerFactory.getLogger(MicroservicesControllerImpl.class);
 
     @Autowired
     DecompositionRepository decompositionRepository;

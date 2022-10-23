@@ -1,14 +1,29 @@
 package ch.uzh.ifi.seal.monolith2microservices.graph;
 
+import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.*;
+import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
+import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.logic.decomposition.engine.CouplingEngine;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by gmazlami on 12/15/16.
  */
 public class LinearGraphCombination {
+
+    private GitRepository gitRepository;
+
+    private DecompositionParameters decompositionParameters;
+
+    private List<ChangeEvent> history;
+
+    public LinearGraphCombination(GitRepository gitRepository, List<ChangeEvent> history, DecompositionParameters decompositionParameters) {
+        this.gitRepository = gitRepository;
+        this.history = history;
+        this.decompositionParameters = decompositionParameters;
+    }
 
     private List<LogicalCoupling> logicalCouplings;
 
@@ -22,22 +37,23 @@ public class LinearGraphCombination {
 
     private int contributorCouplingFactor = 1;
 
-    public static LinearGraphCombination create(){
-        return new LinearGraphCombination();
+
+    public static LinearGraphCombination create(GitRepository gitRepository, List<ChangeEvent> history, DecompositionParameters decompositionParameters) {
+        return new LinearGraphCombination(gitRepository, history, decompositionParameters);
     }
 
-    public LinearGraphCombination withLogicalCouplings(List<LogicalCoupling> logicalCouplings){
-        this.logicalCouplings = logicalCouplings;
+    public LinearGraphCombination withLogicalCoupling(boolean include, CouplingEngine<LogicalCoupling> couplingEngine){
+        this.logicalCouplings = include ? couplingEngine.compute(gitRepository, history, decompositionParameters) : null;
         return this;
     }
 
-    public LinearGraphCombination withSemanticCouplings(List<SemanticCoupling> semanticCouplings){
-        this.semanticCouplings= semanticCouplings;
+    public LinearGraphCombination withSemanticCoupling(boolean include, CouplingEngine<SemanticCoupling> couplingEngine){
+        this.semanticCouplings = include ? couplingEngine.compute(gitRepository, history, decompositionParameters) : null;
         return this;
     }
 
-    public LinearGraphCombination withContributorCouplings(List<ContributorCoupling> contributorCouplings){
-        this.contributorCouplings = contributorCouplings;
+    public LinearGraphCombination withContributorCoupling(boolean include, CouplingEngine<ContributorCoupling> couplingEngine){
+        this.contributorCouplings = include ? couplingEngine.compute(gitRepository, history, decompositionParameters) : null;
         return this;
     }
 
@@ -117,7 +133,7 @@ public class LinearGraphCombination {
             });
         }
 
-        return couplingMap.values().stream().collect(Collectors.toList());
+        return new ArrayList<>(couplingMap.values());
     }
 
     private String generateKeyFromFileNames(String firstFileName, String secondFileName){

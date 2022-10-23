@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.monolith2microservices.utils;
 
-import ch.uzh.ifi.seal.monolith2microservices.services.decomposition.semanticcoupling.classprocessing.StopWords;
+import monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing.StopWords;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;

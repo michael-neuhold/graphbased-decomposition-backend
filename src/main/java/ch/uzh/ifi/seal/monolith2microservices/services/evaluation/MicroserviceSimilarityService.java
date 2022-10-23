@@ -3,7 +3,7 @@ package ch.uzh.ifi.seal.monolith2microservices.services.evaluation;
 import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
-import ch.uzh.ifi.seal.monolith2microservices.services.decomposition.semanticcoupling.tfidf.TfIdfWrapper;
+import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
 import ch.uzh.ifi.seal.monolith2microservices.utils.ClassContentFilter;
 import ch.uzh.ifi.seal.monolith2microservices.utils.FilterInterface;
 import org.springframework.beans.factory.annotation.Autowired;

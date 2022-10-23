@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.decomposition.semanticcoupling.tfidf;
+package monolith2microservice.logic.decomposition.engine.impl.sc.tfidf;
 
 import com.google.common.collect.Lists;
 

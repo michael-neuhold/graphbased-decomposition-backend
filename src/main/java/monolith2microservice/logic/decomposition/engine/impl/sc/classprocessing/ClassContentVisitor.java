@@ -1,9 +1,8 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.decomposition.semanticcoupling.classprocessing;
+package monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing;
 
 import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
 import ch.uzh.ifi.seal.monolith2microservices.models.ClassContent;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.utils.ClassContentFilter;
 import ch.uzh.ifi.seal.monolith2microservices.utils.FilterInterface;
 
 import java.io.BufferedReader;

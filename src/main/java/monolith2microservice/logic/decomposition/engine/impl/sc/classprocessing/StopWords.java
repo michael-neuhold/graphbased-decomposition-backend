@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.decomposition.semanticcoupling.classprocessing;
+package monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing;
 
 import java.util.Arrays;
 import java.util.List;
