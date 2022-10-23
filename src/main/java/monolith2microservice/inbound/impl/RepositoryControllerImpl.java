@@ -1,6 +1,6 @@
 package monolith2microservice.inbound.impl;
 
-import ch.uzh.ifi.seal.monolith2microservices.graph.component.GraphRepresentation;
+import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
 import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
 import monolith2microservice.logic.decomposition.engine.DecompositionService;

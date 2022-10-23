@@ -1,8 +1,7 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.git;
+package monolith2microservice.logic.decomposition.util.git;
 
 import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.utils.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

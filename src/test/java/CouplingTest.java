@@ -1,5 +1,5 @@
-import ch.uzh.ifi.seal.monolith2microservices.graph.LinearGraphCombination;
-import ch.uzh.ifi.seal.monolith2microservices.graph.MSTGraphClusterer;
+import monolith2microservice.logic.decomposition.graph.LinearGraphCombination;
+import monolith2microservice.logic.decomposition.graph.MSTGraphClusterer;
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.ContributorCoupling;
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.LogicalCoupling;

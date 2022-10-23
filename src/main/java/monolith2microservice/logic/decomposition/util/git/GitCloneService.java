@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.git;
+package monolith2microservice.logic.decomposition.util.git;
 
 import java.io.File;
 

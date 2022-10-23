@@ -1,4 +1,4 @@
-import ch.uzh.ifi.seal.monolith2microservices.graph.MSTGraphClusterer;
+import monolith2microservice.logic.decomposition.graph.MSTGraphClusterer;
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;

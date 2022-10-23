@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.graph;
+package monolith2microservice.logic.decomposition.graph;
 
 
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;

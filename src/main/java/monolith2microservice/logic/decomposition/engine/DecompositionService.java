@@ -1,8 +1,8 @@
 package monolith2microservice.logic.decomposition.engine;
 
 import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
-import ch.uzh.ifi.seal.monolith2microservices.graph.LinearGraphCombination;
-import ch.uzh.ifi.seal.monolith2microservices.graph.MSTGraphClusterer;
+import monolith2microservice.logic.decomposition.graph.LinearGraphCombination;
+import monolith2microservice.logic.decomposition.graph.MSTGraphClusterer;
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
@@ -13,7 +13,7 @@ import ch.uzh.ifi.seal.monolith2microservices.persistence.ComponentRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.DecompositionRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.ParametersRepository;
 import ch.uzh.ifi.seal.monolith2microservices.services.evaluation.MicroserviceEvaluationService;
-import ch.uzh.ifi.seal.monolith2microservices.services.git.HistoryService;
+import monolith2microservice.logic.decomposition.util.git.HistoryService;
 import ch.uzh.ifi.seal.monolith2microservices.services.reporting.TextFileReport;
 import monolith2microservice.logic.decomposition.engine.impl.cc.ContributorCouplingEngine;
 import monolith2microservice.logic.decomposition.engine.impl.lc.LogicalCouplingEngine;

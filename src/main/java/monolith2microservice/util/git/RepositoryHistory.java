@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.git;
+package monolith2microservice.util.git;
 
 import java.util.ArrayList;
 import java.util.List;

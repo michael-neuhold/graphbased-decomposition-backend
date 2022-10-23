@@ -1,6 +1,6 @@
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.SemanticCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.graph.MinimumSpanningTree;
+import monolith2microservice.logic.decomposition.graph.MinimumSpanningTree;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.WeightedEdge;
 import org.jgrapht.alg.KruskalMinimumSpanningTree;
 import org.jgrapht.graph.DefaultWeightedEdge;

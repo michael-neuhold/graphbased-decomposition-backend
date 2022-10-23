@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.git;
+package monolith2microservice.logic.decomposition.util.git;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.eclipse.jgit.diff.DiffEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.uzh.ifi.seal.monolith2microservices.git.GitClient;
+import monolith2microservice.util.git.GitClient;
 import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;

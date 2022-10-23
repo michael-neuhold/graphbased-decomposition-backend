@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.git;
+package monolith2microservice.util.git;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import ch.uzh.ifi.seal.monolith2microservices.services.git.FilterService;
+import monolith2microservice.logic.decomposition.util.git.FilterService;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.ObjectReader;

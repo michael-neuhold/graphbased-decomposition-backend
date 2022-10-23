@@ -1,9 +1,10 @@
 import ch.uzh.ifi.seal.monolith2microservices.utils.comparators.WeightedEdgeComparator;
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
 import ch.uzh.ifi.seal.monolith2microservices.models.couplings.SemanticCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.WeightedEdge;
 import ch.uzh.ifi.seal.monolith2microservices.graph.*;
+import monolith2microservice.logic.decomposition.graph.ConnectedComponents;
+import monolith2microservice.logic.decomposition.graph.MinimumSpanningTree;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,7 +65,7 @@ public class GraphTest {
         Set<WeightedEdge> edges =  MinimumSpanningTree.of(couplings);
         List<WeightedEdge> edgeList = edges.stream().collect(Collectors.toList());
 
-        assertEquals(1,ConnectedComponents.numberOfComponents(edgeList));
+        assertEquals(1, ConnectedComponents.numberOfComponents(edgeList));
 
         Collections.sort(edgeList,new WeightedEdgeComparator());
         Collections.reverse(edgeList);

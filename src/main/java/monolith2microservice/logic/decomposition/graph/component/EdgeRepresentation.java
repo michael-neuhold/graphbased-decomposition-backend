@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.graph.component;
+package monolith2microservice.logic.decomposition.graph.component;
 
 /**
  * Created by gmazlami on 12/20/16.

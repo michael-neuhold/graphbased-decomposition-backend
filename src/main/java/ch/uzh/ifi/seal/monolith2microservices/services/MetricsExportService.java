@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.monolith2microservices.services;
 
-import ch.uzh.ifi.seal.monolith2microservices.git.GitClient;
+import monolith2microservice.util.git.GitClient;
 import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
 import ch.uzh.ifi.seal.monolith2microservices.models.evaluation.EvaluationMetrics;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
