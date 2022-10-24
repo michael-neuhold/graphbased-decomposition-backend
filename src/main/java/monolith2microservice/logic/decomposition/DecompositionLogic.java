@@ -1,8 +1,7 @@
 package monolith2microservice.logic.decomposition;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
-import monolith2microservice.shared.dto.DecompositionDto;
+import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.models.graph.Decomposition;
 
 public interface DecompositionLogic {
 

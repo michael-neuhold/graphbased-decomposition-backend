@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import monolith2microservice.util.git.GitClient;
-import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.Configs;
+import monolith2microservice.shared.models.git.ChangeEvent;
+import monolith2microservice.shared.models.git.GitRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.RepositoryRepository;
 
 @Service

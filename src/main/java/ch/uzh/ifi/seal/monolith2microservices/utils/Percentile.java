@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.ContributorCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.LogicalCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.SemanticCoupling;
+import monolith2microservice.shared.models.couplings.ContributorCoupling;
+import monolith2microservice.shared.models.couplings.LogicalCoupling;
+import monolith2microservice.shared.models.couplings.SemanticCoupling;
 
 public class Percentile {
 

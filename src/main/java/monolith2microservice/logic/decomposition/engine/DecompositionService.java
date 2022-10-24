@@ -1,13 +1,13 @@
 package monolith2microservice.logic.decomposition.engine;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
+import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.logic.decomposition.graph.LinearGraphCombination;
 import monolith2microservice.logic.decomposition.graph.MSTGraphClusterer;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
+import monolith2microservice.shared.models.couplings.BaseCoupling;
+import monolith2microservice.shared.models.git.ChangeEvent;
+import monolith2microservice.shared.models.git.GitRepository;
+import monolith2microservice.shared.models.graph.Component;
+import monolith2microservice.shared.models.graph.Decomposition;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.ClassNodeRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.ComponentRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.DecompositionRepository;

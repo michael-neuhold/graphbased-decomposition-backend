@@ -1,11 +1,11 @@
 package monolith2microservice.logic.decomposition.engine.impl.sc;
 
-import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
-import ch.uzh.ifi.seal.monolith2microservices.models.ClassContent;
-import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.SemanticCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.Configs;
+import monolith2microservice.shared.models.ClassContent;
+import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.models.couplings.SemanticCoupling;
+import monolith2microservice.shared.models.git.ChangeEvent;
+import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing.ClassContentVisitor;
 import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
 import ch.uzh.ifi.seal.monolith2microservices.utils.ClassContentFilter;

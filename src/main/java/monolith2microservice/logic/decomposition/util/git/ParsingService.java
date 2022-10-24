@@ -10,9 +10,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import monolith2microservice.util.git.ClassVisitor;
-import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.Class;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.Configs;
+import monolith2microservice.shared.models.git.Class;
+import monolith2microservice.shared.models.git.GitRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.ClassRepository;
 
 @Service

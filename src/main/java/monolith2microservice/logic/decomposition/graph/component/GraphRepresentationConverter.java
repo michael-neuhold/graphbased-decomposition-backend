@@ -1,7 +1,7 @@
 package monolith2microservice.logic.decomposition.graph.component;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
+import monolith2microservice.shared.models.graph.ClassNode;
+import monolith2microservice.shared.models.graph.Component;
 import ch.uzh.ifi.seal.monolith2microservices.utils.HexColorGenerator;
 
 import java.util.*;

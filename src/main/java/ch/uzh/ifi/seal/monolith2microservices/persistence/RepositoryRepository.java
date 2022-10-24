@@ -2,7 +2,7 @@ package ch.uzh.ifi.seal.monolith2microservices.persistence;
 
 import org.springframework.data.repository.CrudRepository;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.shared.models.git.GitRepository;
 
 import java.util.List;
 

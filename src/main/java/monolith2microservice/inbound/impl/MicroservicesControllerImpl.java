@@ -2,11 +2,9 @@ package monolith2microservice.inbound.impl;
 
 import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
 import monolith2microservice.shared.dto.DecompositionDto;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
+import monolith2microservice.shared.models.graph.Decomposition;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.DecompositionRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.RepositoryRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +17,6 @@ import java.util.stream.Collectors;
 
 @RestController
 public class MicroservicesControllerImpl {
-
-    private Logger logger = LoggerFactory.getLogger(MicroservicesControllerImpl.class);
 
     @Autowired
     DecompositionRepository decompositionRepository;

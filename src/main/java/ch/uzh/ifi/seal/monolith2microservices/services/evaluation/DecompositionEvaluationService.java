@@ -1,10 +1,10 @@
 package ch.uzh.ifi.seal.monolith2microservices.services.evaluation;
 
-import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
-import ch.uzh.ifi.seal.monolith2microservices.models.evaluation.EvaluationMetrics;
-import ch.uzh.ifi.seal.monolith2microservices.models.evaluation.MicroserviceMetrics;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
+import monolith2microservice.Configs;
+import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
+import monolith2microservice.shared.models.evaluation.MicroserviceMetrics;
+import monolith2microservice.shared.models.graph.Component;
+import monolith2microservice.shared.models.graph.Decomposition;
 import monolith2microservice.logic.decomposition.util.git.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

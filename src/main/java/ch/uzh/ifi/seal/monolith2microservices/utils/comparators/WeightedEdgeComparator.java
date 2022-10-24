@@ -1,7 +1,7 @@
 package ch.uzh.ifi.seal.monolith2microservices.utils.comparators;
 
 
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.WeightedEdge;
+import monolith2microservice.shared.models.graph.WeightedEdge;
 
 import java.util.Comparator;
 

@@ -1,9 +1,9 @@
 package monolith2microservice.logic.decomposition.engine.impl.lc;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.LogicalCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.models.couplings.LogicalCoupling;
+import monolith2microservice.shared.models.git.ChangeEvent;
+import monolith2microservice.shared.models.git.GitRepository;
 import ch.uzh.ifi.seal.monolith2microservices.utils.Hash;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;

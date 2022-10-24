@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.monolith2microservices.utils.comparators;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;
+import monolith2microservice.shared.models.graph.ClassNode;
 
 import java.util.Comparator;
 

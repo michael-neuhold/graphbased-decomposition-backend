@@ -1,7 +1,7 @@
 package monolith2microservice.shared.dto;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.models.git.GitRepository;
 
 /**
  * Created by gmazlami on 1/17/17.

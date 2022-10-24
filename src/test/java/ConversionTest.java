@@ -1,5 +1,5 @@
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
+import monolith2microservice.shared.models.graph.ClassNode;
+import monolith2microservice.shared.models.graph.Component;
 import org.junit.Before;
 
 import java.util.HashSet;

@@ -1,6 +1,6 @@
-package ch.uzh.ifi.seal.monolith2microservices.models.evaluation;
+package monolith2microservice.shared.models.evaluation;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
+import monolith2microservice.shared.models.graph.Component;
 
 import javax.persistence.*;
 import java.util.Set;

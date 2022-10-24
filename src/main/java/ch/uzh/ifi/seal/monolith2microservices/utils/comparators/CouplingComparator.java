@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.monolith2microservices.utils.comparators;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
+import monolith2microservice.shared.models.couplings.BaseCoupling;
 
 import java.util.Comparator;
 

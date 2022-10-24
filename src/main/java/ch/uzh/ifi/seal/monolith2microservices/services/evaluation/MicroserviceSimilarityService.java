@@ -1,8 +1,8 @@
 package ch.uzh.ifi.seal.monolith2microservices.services.evaluation;
 
-import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
+import monolith2microservice.Configs;
+import monolith2microservice.shared.models.git.GitRepository;
+import monolith2microservice.shared.models.graph.Component;
 import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
 import ch.uzh.ifi.seal.monolith2microservices.utils.ClassContentFilter;
 import ch.uzh.ifi.seal.monolith2microservices.utils.FilterInterface;

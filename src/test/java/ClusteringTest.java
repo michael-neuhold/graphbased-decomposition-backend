@@ -1,7 +1,7 @@
 import monolith2microservice.logic.decomposition.graph.MSTGraphClusterer;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
+import monolith2microservice.shared.models.couplings.BaseCoupling;
+import monolith2microservice.shared.models.graph.ClassNode;
+import monolith2microservice.shared.models.graph.Component;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

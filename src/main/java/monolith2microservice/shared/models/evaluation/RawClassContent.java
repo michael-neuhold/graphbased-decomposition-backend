@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.models.evaluation;
+package monolith2microservice.shared.models.evaluation;
 
 /**
  * Created by gmazlami on 1/12/17.

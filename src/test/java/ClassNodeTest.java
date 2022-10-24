@@ -1,4 +1,4 @@
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;
+import monolith2microservice.shared.models.graph.ClassNode;
 import ch.uzh.ifi.seal.monolith2microservices.utils.comparators.ClassNodeComparator;
 import org.junit.Before;
 import org.junit.Test;

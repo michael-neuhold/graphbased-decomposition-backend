@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.monolith2microservices.persistence;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
+import monolith2microservice.shared.models.DecompositionParameters;
 import org.springframework.data.repository.CrudRepository;
 
 /**

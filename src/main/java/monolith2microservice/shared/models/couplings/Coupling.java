@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.models.couplings;
+package monolith2microservice.shared.models.couplings;
 
 /**
  * Created by gmazlami on 12/15/16.

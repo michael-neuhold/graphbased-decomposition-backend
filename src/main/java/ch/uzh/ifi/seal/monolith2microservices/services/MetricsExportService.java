@@ -1,10 +1,10 @@
 package ch.uzh.ifi.seal.monolith2microservices.services;
 
 import monolith2microservice.util.git.GitClient;
-import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
-import ch.uzh.ifi.seal.monolith2microservices.models.evaluation.EvaluationMetrics;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
+import monolith2microservice.Configs;
+import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
+import monolith2microservice.shared.models.git.GitRepository;
+import monolith2microservice.shared.models.graph.Decomposition;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.DecompositionMetricsRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.DecompositionRepository;
 import org.eclipse.jgit.revwalk.RevCommit;

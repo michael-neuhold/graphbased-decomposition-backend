@@ -1,10 +1,10 @@
 import monolith2microservice.logic.decomposition.graph.LinearGraphCombination;
 import monolith2microservice.logic.decomposition.graph.MSTGraphClusterer;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.ContributorCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.LogicalCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.SemanticCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
+import monolith2microservice.shared.models.couplings.BaseCoupling;
+import monolith2microservice.shared.models.couplings.ContributorCoupling;
+import monolith2microservice.shared.models.couplings.LogicalCoupling;
+import monolith2microservice.shared.models.couplings.SemanticCoupling;
+import monolith2microservice.shared.models.graph.Component;
 import org.junit.Test;
 
 import java.util.ArrayList;

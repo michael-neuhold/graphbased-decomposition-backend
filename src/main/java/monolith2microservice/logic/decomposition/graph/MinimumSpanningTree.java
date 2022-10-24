@@ -1,7 +1,7 @@
 package monolith2microservice.logic.decomposition.graph;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.BaseCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.WeightedEdge;
+import monolith2microservice.shared.models.couplings.BaseCoupling;
+import monolith2microservice.shared.models.graph.WeightedEdge;
 import org.jgrapht.alg.KruskalMinimumSpanningTree;
 import org.jgrapht.graph.SimpleWeightedGraph;
 

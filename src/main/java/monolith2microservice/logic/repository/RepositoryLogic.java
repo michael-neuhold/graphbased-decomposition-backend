@@ -1,6 +1,6 @@
 package monolith2microservice.logic.repository;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.dto.RepositoryDto;
 
 import java.util.List;

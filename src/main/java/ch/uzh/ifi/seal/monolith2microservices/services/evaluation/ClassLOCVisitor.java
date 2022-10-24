@@ -1,7 +1,7 @@
 package ch.uzh.ifi.seal.monolith2microservices.services.evaluation;
 
-import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.Configs;
+import monolith2microservice.shared.models.git.GitRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;

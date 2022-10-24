@@ -1,10 +1,10 @@
 package monolith2microservice.logic.decomposition.engine.impl.cc;
 
 
-import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.ContributorCoupling;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.models.couplings.ContributorCoupling;
+import monolith2microservice.shared.models.git.ChangeEvent;
+import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.logic.decomposition.engine.CouplingEngine;
 import org.springframework.stereotype.Component;
 

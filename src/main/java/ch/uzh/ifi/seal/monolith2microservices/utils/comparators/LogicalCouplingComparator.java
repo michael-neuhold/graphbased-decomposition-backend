@@ -2,7 +2,7 @@ package ch.uzh.ifi.seal.monolith2microservices.utils.comparators;
 
 import java.util.Comparator;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.couplings.LogicalCoupling;
+import monolith2microservice.shared.models.couplings.LogicalCoupling;
 
 public class LogicalCouplingComparator implements Comparator<LogicalCoupling> {
 

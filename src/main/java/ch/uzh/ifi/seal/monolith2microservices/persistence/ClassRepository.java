@@ -3,7 +3,7 @@ package ch.uzh.ifi.seal.monolith2microservices.persistence;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.git.Class;
+import monolith2microservice.shared.models.git.Class;
 
 public interface ClassRepository extends CrudRepository<Class, Long> {
 

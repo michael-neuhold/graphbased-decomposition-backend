@@ -1,10 +1,10 @@
 package monolith2microservice.logic.decomposition.graph;
 
 
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.NodeWeightPair;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.WeightedEdge;
+import monolith2microservice.shared.models.graph.ClassNode;
+import monolith2microservice.shared.models.graph.Component;
+import monolith2microservice.shared.models.graph.NodeWeightPair;
+import monolith2microservice.shared.models.graph.WeightedEdge;
 
 import java.util.ArrayList;
 import java.util.HashMap;

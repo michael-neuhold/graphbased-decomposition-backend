@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.main;
+package monolith2microservice;
 
 import java.util.concurrent.Executor;
 
@@ -14,9 +14,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan({"ch.uzh.ifi.seal.monolith2microservices.controllers","ch.uzh.ifi.seal.monolith2microservices.main", "ch.uzh.ifi.seal.monolith2microservices.services",  "ch.uzh.ifi.seal.monolith2microservices.git", "monolith2microservice"})
+@ComponentScan({"ch.uzh.ifi.seal.monolith2microservices.services", "monolith2microservice"})
 @EnableJpaRepositories(basePackages = "ch.uzh.ifi.seal.monolith2microservices.persistence")
-@EntityScan(basePackages = {"ch.uzh.ifi.seal.monolith2microservices.models"})
+@EntityScan(basePackages = {"monolith2microservice.shared.models"})
 @EnableAsync
 public class Main extends AsyncConfigurerSupport{
 

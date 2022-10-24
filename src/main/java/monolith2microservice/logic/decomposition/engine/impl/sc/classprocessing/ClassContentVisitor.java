@@ -1,8 +1,8 @@
 package monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing;
 
-import ch.uzh.ifi.seal.monolith2microservices.main.Configs;
-import ch.uzh.ifi.seal.monolith2microservices.models.ClassContent;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.Configs;
+import monolith2microservice.shared.models.ClassContent;
+import monolith2microservice.shared.models.git.GitRepository;
 import ch.uzh.ifi.seal.monolith2microservices.utils.FilterInterface;
 
 import java.io.BufferedReader;

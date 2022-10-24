@@ -1,8 +1,8 @@
-package ch.uzh.ifi.seal.monolith2microservices.models.graph;
+package monolith2microservice.shared.models.graph;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.ChangeEvent;
-import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
+import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.models.git.ChangeEvent;
+import monolith2microservice.shared.models.git.GitRepository;
 
 import javax.persistence.*;
 import java.util.List;

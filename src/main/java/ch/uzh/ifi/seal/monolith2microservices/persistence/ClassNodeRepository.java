@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.monolith2microservices.persistence;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.ClassNode;
+import monolith2microservice.shared.models.graph.ClassNode;
 import org.springframework.data.repository.CrudRepository;
 
 /**

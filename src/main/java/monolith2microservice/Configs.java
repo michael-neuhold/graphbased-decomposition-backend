@@ -1,12 +1,8 @@
-package ch.uzh.ifi.seal.monolith2microservices.main;
+package monolith2microservice;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
-@Component
-@EnableAutoConfiguration
 @Configuration
 public class Configs {
 	
@@ -14,6 +10,5 @@ public class Configs {
 	public String localRepositoryDirectory;
 
 	public final String DEV_NULL = "/dev/null";
-	
 
 }

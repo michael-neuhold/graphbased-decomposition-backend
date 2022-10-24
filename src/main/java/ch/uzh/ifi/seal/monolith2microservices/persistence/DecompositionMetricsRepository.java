@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.monolith2microservices.persistence;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.evaluation.EvaluationMetrics;
+import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

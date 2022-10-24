@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.models;
+package monolith2microservice.shared.models;
 
 import java.util.List;
 

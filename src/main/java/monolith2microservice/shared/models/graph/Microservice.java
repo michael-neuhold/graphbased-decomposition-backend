@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.models.graph;
+package monolith2microservice.shared.models.graph;
 
 import java.util.ArrayList;
 import java.util.Iterator;

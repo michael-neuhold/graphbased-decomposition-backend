@@ -1,9 +1,9 @@
 package monolith2microservice.logic.evaluation;
 
-import ch.uzh.ifi.seal.monolith2microservices.models.evaluation.EvaluationMetrics;
-import ch.uzh.ifi.seal.monolith2microservices.models.evaluation.MicroserviceMetrics;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
-import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
+import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
+import monolith2microservice.shared.models.evaluation.MicroserviceMetrics;
+import monolith2microservice.shared.models.graph.Component;
+import monolith2microservice.shared.models.graph.Decomposition;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.DecompositionMetricsRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.MicroserviceMetricsRepository;
 import ch.uzh.ifi.seal.monolith2microservices.services.evaluation.DecompositionEvaluationService;
