@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.services;
+package monolith2microservice.logic.evaluation;
 
 import monolith2microservice.util.git.GitClient;
 import monolith2microservice.Configs;

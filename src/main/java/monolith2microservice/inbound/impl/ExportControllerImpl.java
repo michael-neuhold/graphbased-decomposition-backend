@@ -1,7 +1,7 @@
 package monolith2microservice.inbound.impl;
 
-import ch.uzh.ifi.seal.monolith2microservices.services.MetricsExportService;
-import ch.uzh.ifi.seal.monolith2microservices.services.reporting.TextFileReport;
+import monolith2microservice.logic.evaluation.MetricsExportService;
+import monolith2microservice.logic.evaluation.reporting.TextFileReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

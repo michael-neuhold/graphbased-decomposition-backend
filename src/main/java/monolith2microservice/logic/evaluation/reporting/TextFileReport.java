@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.reporting;
+package monolith2microservice.logic.evaluation.reporting;
 
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.ClassNode;

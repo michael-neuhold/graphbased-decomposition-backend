@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.evaluation;
+package monolith2microservice.logic.evaluation.evaluation;
 
 import org.springframework.stereotype.Service;
 

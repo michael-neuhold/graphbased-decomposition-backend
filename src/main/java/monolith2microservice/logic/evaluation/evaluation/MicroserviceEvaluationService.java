@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.evaluation;
+package monolith2microservice.logic.evaluation.evaluation;
 
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.evaluation.MicroserviceMetrics;
