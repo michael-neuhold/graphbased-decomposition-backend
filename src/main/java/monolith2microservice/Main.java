@@ -15,7 +15,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan({"ch.uzh.ifi.seal.monolith2microservices.services", "monolith2microservice"})
-@EnableJpaRepositories(basePackages = "ch.uzh.ifi.seal.monolith2microservices.persistence")
+@EnableJpaRepositories(basePackages = "monolith2microservice.outbound")
 @EntityScan(basePackages = {"monolith2microservice.shared.models"})
 @EnableAsync
 public class Main extends AsyncConfigurerSupport{

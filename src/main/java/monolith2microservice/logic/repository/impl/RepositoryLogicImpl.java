@@ -1,7 +1,7 @@
 package monolith2microservice.logic.repository.impl;
 
 import monolith2microservice.shared.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.persistence.RepositoryRepository;
+import monolith2microservice.outbound.RepositoryRepository;
 import monolith2microservice.logic.decomposition.util.git.GitCloneService;
 import monolith2microservice.logic.repository.RepositoryLogic;
 import monolith2microservice.shared.dto.RepositoryDto;

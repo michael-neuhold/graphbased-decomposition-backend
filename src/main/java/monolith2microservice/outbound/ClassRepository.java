@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.persistence;
+package monolith2microservice.outbound;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -13,7 +13,7 @@ import monolith2microservice.util.git.ClassVisitor;
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.git.Class;
 import monolith2microservice.shared.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.persistence.ClassRepository;
+import monolith2microservice.outbound.ClassRepository;
 
 @Service
 public class ParsingService {

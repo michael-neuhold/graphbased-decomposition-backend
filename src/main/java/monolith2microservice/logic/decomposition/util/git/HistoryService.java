@@ -11,7 +11,7 @@ import monolith2microservice.util.git.GitClient;
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.shared.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.persistence.RepositoryRepository;
+import monolith2microservice.outbound.RepositoryRepository;
 
 @Service
 public class HistoryService {
