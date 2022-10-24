@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.services.evaluation;
+package monolith2microservice.logic.evaluation;
 
 import ch.uzh.ifi.seal.monolith2microservices.models.evaluation.EvaluationMetrics;
 import ch.uzh.ifi.seal.monolith2microservices.models.evaluation.MicroserviceMetrics;
@@ -6,6 +6,8 @@ import ch.uzh.ifi.seal.monolith2microservices.models.graph.Component;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.DecompositionMetricsRepository;
 import ch.uzh.ifi.seal.monolith2microservices.persistence.MicroserviceMetricsRepository;
+import ch.uzh.ifi.seal.monolith2microservices.services.evaluation.DecompositionEvaluationService;
+import ch.uzh.ifi.seal.monolith2microservices.services.evaluation.MicroserviceEvaluationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

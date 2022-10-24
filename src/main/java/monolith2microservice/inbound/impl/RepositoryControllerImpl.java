@@ -1,17 +1,13 @@
 package monolith2microservice.inbound.impl;
 
+import monolith2microservice.logic.decomposition.DecompositionLogic;
 import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
 import ch.uzh.ifi.seal.monolith2microservices.models.DecompositionParameters;
 import ch.uzh.ifi.seal.monolith2microservices.models.graph.Decomposition;
-import monolith2microservice.logic.decomposition.engine.DecompositionService;
-import ch.uzh.ifi.seal.monolith2microservices.services.evaluation.EvaluationService;
 import monolith2microservice.logic.repository.RepositoryLogic;
 import monolith2microservice.shared.dto.RepositoryDto;
 import ch.uzh.ifi.seal.monolith2microservices.models.git.GitRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,16 +19,11 @@ import java.util.stream.Collectors;
 @RequestMapping("repositories")
 public class RepositoryControllerImpl {
 
-	private final Logger logger = LoggerFactory.getLogger(RepositoryControllerImpl.class);
-
-	@Autowired
-	private DecompositionService decompositionService;
-
-	@Autowired
-	private EvaluationService evaluationService;
-
 	@Autowired
 	private RepositoryLogic repositoryLogic;
+
+	@Autowired
+	private DecompositionLogic decompositionLogic;
 
 	@CrossOrigin
     @RequestMapping(method=RequestMethod.POST)
@@ -61,21 +52,16 @@ public class RepositoryControllerImpl {
 	@CrossOrigin
 	@RequestMapping(value="{repoId}/decomposition", method=RequestMethod.POST)
 	public ResponseEntity<Set<GraphRepresentation>> decomposition(@PathVariable Long repoId, @RequestBody DecompositionParameters decompositionDTO) {
-		logger.info(decompositionDTO.toString());
 
-		//find repository to be decomposed
-		GitRepository repo = repositoryLogic.findById(repoId);
-
-		//perform decomposition
-		Decomposition decomposition = decompositionService.decompose(repo,decompositionDTO);
+		Decomposition decomposition = decompositionLogic.decompose(repoId, decompositionDTO);
 
 		// convert to graph representation for frontend
-		Set<GraphRepresentation> graph = decomposition.getServices().stream().map(GraphRepresentation::from).collect(Collectors.toSet());
+		Set<GraphRepresentation> graph =
+				decomposition.getServices().stream()
+						.map(GraphRepresentation::from)
+						.collect(Collectors.toSet());
 
-		// Compute evaluation metrics
-		evaluationService.performEvaluation(decomposition);
-
-		return new ResponseEntity<>(graph, HttpStatus.OK);
+		return ResponseEntity.ok(graph);
 	}
     
 }
