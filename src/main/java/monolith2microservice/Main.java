@@ -12,12 +12,12 @@ import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+@EnableAsync
+@ComponentScan
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan("monolith2microservice")
-@EnableJpaRepositories(basePackages = "monolith2microservice.outbound")
 @EntityScan(basePackages = "monolith2microservice.shared.models")
-@EnableAsync
+@EnableJpaRepositories(basePackages = "monolith2microservice.outbound")
 public class Main extends AsyncConfigurerSupport{
 
 	public static void main(String[] args) {

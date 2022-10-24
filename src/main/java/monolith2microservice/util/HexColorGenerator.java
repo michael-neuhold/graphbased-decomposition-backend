@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.utils;
+package monolith2microservice.util;
 
 /**
  * Created by gmazlami on 12/21/16.

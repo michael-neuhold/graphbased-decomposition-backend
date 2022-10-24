@@ -3,7 +3,7 @@ package monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.ClassContent;
 import monolith2microservice.shared.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.utils.FilterInterface;
+import monolith2microservice.util.FilterInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;

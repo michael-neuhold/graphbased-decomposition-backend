@@ -8,7 +8,7 @@ import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing.ClassContentVisitor;
 import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
-import ch.uzh.ifi.seal.monolith2microservices.utils.ClassContentFilter;
+import monolith2microservice.util.ClassContentFilter;
 import monolith2microservice.logic.decomposition.engine.CouplingEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

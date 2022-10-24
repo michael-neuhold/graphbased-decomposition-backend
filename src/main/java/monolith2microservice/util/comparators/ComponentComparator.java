@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.monolith2microservices.utils.comparators;
+package monolith2microservice.util.comparators;
 
 import monolith2microservice.shared.models.graph.Component;
 

@@ -4,7 +4,7 @@ import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.couplings.LogicalCoupling;
 import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.shared.models.git.GitRepository;
-import ch.uzh.ifi.seal.monolith2microservices.utils.Hash;
+import monolith2microservice.util.Hash;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import monolith2microservice.logic.decomposition.engine.CouplingEngine;

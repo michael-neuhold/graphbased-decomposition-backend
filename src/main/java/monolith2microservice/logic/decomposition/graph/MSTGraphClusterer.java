@@ -2,9 +2,9 @@ package monolith2microservice.logic.decomposition.graph;
 
 import monolith2microservice.shared.models.couplings.BaseCoupling;
 import monolith2microservice.shared.models.graph.ClassNode;
-import ch.uzh.ifi.seal.monolith2microservices.utils.comparators.ClassNodeComparator;
-import ch.uzh.ifi.seal.monolith2microservices.utils.comparators.ComponentComparator;
-import ch.uzh.ifi.seal.monolith2microservices.utils.comparators.WeightedEdgeComparator;
+import monolith2microservice.util.comparators.ClassNodeComparator;
+import monolith2microservice.util.comparators.ComponentComparator;
+import monolith2microservice.util.comparators.WeightedEdgeComparator;
 import monolith2microservice.shared.models.graph.Component;
 import monolith2microservice.shared.models.graph.WeightedEdge;
 
