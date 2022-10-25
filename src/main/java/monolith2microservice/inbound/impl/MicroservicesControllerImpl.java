@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("microservice/suggestions")
 public class MicroservicesControllerImpl {
 
     @Autowired
@@ -26,7 +27,7 @@ public class MicroservicesControllerImpl {
 
 
     @CrossOrigin
-    @RequestMapping(value="/microservices/{decompositionId}", method= RequestMethod.GET)
+    @RequestMapping(value="{decompositionId}", method= RequestMethod.GET)
     public ResponseEntity<Set<GraphRepresentation>> getMicroservice(@PathVariable long decompositionId) throws Exception{
         Decomposition decomposition = decompositionRepository.findById(decompositionId);
         Set<GraphRepresentation> graph = decomposition.getServices().stream().map(GraphRepresentation::from).collect(Collectors.toSet());
@@ -35,7 +36,7 @@ public class MicroservicesControllerImpl {
 
 
     @CrossOrigin
-    @RequestMapping(value = "/microservices", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<DecompositionDto>> getMicroservices() throws Exception{
         List<Decomposition> decompositions = decompositionRepository.findAll();
 
