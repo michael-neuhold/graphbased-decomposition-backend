@@ -1,5 +1,6 @@
 package monolith2microservice.logic.decomposition.impl;
 
+import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
 import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.Decomposition;
@@ -11,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class DecompositionLogicImpl implements DecompositionLogic {
