@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Genc on 15.01.2017.
  */
-public interface DecompositionMetricsRepository extends CrudRepository<EvaluationMetrics,Long> {
+public interface EvaluationMetricsRepository extends CrudRepository<EvaluationMetrics,Long> {
 
     EvaluationMetrics findByDecompositionId(long decompositionId);
 

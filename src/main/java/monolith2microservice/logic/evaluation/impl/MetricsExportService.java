@@ -1,11 +1,12 @@
-package monolith2microservice.logic.evaluation;
+package monolith2microservice.logic.evaluation.impl;
 
+import monolith2microservice.shared.dto.QualityMetricDto;
 import monolith2microservice.util.git.GitClient;
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.Decomposition;
-import monolith2microservice.outbound.DecompositionMetricsRepository;
+import monolith2microservice.outbound.EvaluationMetricsRepository;
 import monolith2microservice.outbound.DecompositionRepository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,25 +27,10 @@ public class MetricsExportService {
     private DecompositionRepository decompositionRepository;
 
     @Autowired
-    private DecompositionMetricsRepository decompositionMetricsRepository;
+    private EvaluationMetricsRepository evaluationMetricsRepository;
 
     @Autowired
     private Configs configs;
-
-
-    public String exportQualityMetrics() throws Exception {
-        StringBuilder sb = new StringBuilder();
-
-        List<EvaluationMetrics> metrics = decompositionMetricsRepository.findAll();
-
-        for(EvaluationMetrics metric: metrics){
-            Decomposition decomposition = decompositionRepository.findById(metric.getDecomposition().getId());
-            sb.append(createQualityMetricsRow(metric,decomposition,','));
-            sb.append(newLine);
-        }
-
-        return sb.toString();
-    }
 
     public String exportLogicalCouplingPerformanceMetrics() throws Exception {
         List<Decomposition> decompositions = decompositionRepository.findAll().stream().filter(decomposition -> {
@@ -64,7 +50,7 @@ public class MetricsExportService {
                     decomposition.getParameters().isSemanticCoupling());}).collect(Collectors.toList());
 
         for(Decomposition decomposition: decompositions){
-            EvaluationMetrics metrics = decompositionMetricsRepository.findByDecompositionId(decomposition.getId());
+            EvaluationMetrics metrics = evaluationMetricsRepository.findByDecompositionId(decomposition.getId());
             String row = createSemanticCouplingPerformanceRow(decomposition, metrics, ',');
 
             sb.append(row);
@@ -82,32 +68,10 @@ public class MetricsExportService {
         return createPerformanceTable(decompositions);
     }
 
-    private String createQualityMetricsRow(EvaluationMetrics metrics, Decomposition decomposition, char separator){
-        StringBuilder sb = new StringBuilder();
-        sb.append(decomposition.getRepository().getName());
-        sb.append(separator);
-        sb.append(decomposition.getParameters().isLogicalCoupling() ? 'x':'o');
-        sb.append(separator);
-        sb.append(decomposition.getParameters().isContributorCoupling() ? 'x':'o');
-        sb.append(separator);
-        sb.append(decomposition.getParameters().isSemanticCoupling() ? 'x':'o');
-        sb.append(separator);
-        sb.append(metrics.getAverageClassNumber());
-        sb.append(separator);
-        sb.append(metrics.getAverageLoc());
-        sb.append(separator);
-        sb.append(metrics.getContributorOverlapping());
-        sb.append(separator);
-        sb.append(metrics.getContributorsPerMicroservice());
-        sb.append(separator);
-        sb.append(metrics.getSimilarity());
-        return sb.toString();
-    }
-
     private String createPerformanceTable(List<Decomposition> decompositions) throws Exception{
         StringBuilder sb = new StringBuilder();
         for(Decomposition decomposition : decompositions){
-            EvaluationMetrics metrics = decompositionMetricsRepository.findByDecompositionId(decomposition.getId());
+            EvaluationMetrics metrics = evaluationMetricsRepository.findByDecompositionId(decomposition.getId());
             int historyLength = computeHistoryLengthInDays(decomposition.getRepository());
             int commitCount = computeCommitCount(decomposition.getRepository());
 

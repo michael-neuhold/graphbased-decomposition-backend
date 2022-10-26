@@ -4,7 +4,7 @@ import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
 import monolith2microservice.shared.models.evaluation.MicroserviceMetrics;
 import monolith2microservice.shared.models.graph.Component;
 import monolith2microservice.shared.models.graph.Decomposition;
-import monolith2microservice.outbound.DecompositionMetricsRepository;
+import monolith2microservice.outbound.EvaluationMetricsRepository;
 import monolith2microservice.outbound.MicroserviceMetricsRepository;
 import monolith2microservice.logic.evaluation.evaluation.DecompositionEvaluationService;
 import monolith2microservice.logic.evaluation.evaluation.MicroserviceEvaluationService;
@@ -36,7 +36,7 @@ public class EvaluationService {
     MicroserviceMetricsRepository microserviceMetricsRepository;
 
     @Autowired
-    DecompositionMetricsRepository decompositionMetricsRepository;
+    EvaluationMetricsRepository evaluationMetricsRepository;
 
 
     @Async
@@ -46,7 +46,7 @@ public class EvaluationService {
             microserviceMetricsRepository.save(microserviceMetrics);
 
             EvaluationMetrics metrics = decompositionEvaluationService.computeMetrics(decomposition, microserviceMetrics);
-            decompositionMetricsRepository.save(metrics);
+            evaluationMetricsRepository.save(metrics);
         }catch (IOException ioe){
             logger.error(ioe.getMessage());
         }
