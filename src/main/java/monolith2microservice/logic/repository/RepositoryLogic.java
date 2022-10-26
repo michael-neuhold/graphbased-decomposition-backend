@@ -9,6 +9,6 @@ public interface RepositoryLogic {
 
     List<GitRepository> findAll();
     GitRepository findById(Long repositoryId);
-    GitRepository add(RepositoryDto repositoryDto) throws Exception;
+    GitRepository add(RepositoryDto repositoryDto);
 
 }

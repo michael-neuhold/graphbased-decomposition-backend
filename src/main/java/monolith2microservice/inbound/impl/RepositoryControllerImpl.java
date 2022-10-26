@@ -5,7 +5,6 @@ import monolith2microservice.logic.repository.RepositoryLogic;
 import monolith2microservice.shared.dto.RepositoryDto;
 import monolith2microservice.shared.models.git.GitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +22,11 @@ public class RepositoryControllerImpl implements RepositoryController {
 	@CrossOrigin
     @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<GitRepository> addRepository(@RequestBody RepositoryDto repositoryDto) {
-		GitRepository storedRepository = null;
-		try {
-			storedRepository = repositoryLogic.add(repositoryDto);
-		} catch (Exception exception) {
-			// TODO
+		GitRepository storedRepository =  repositoryLogic.add(repositoryDto);
+		if (storedRepository == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
+
 		return ResponseEntity.ok(storedRepository);
     }
 

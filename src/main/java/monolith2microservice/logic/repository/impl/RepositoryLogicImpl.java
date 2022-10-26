@@ -36,15 +36,17 @@ public class RepositoryLogicImpl implements RepositoryLogic {
     }
 
     @Override
-    public GitRepository add(RepositoryDto repositoryDto) throws Exception {
+    public GitRepository add(RepositoryDto repositoryDto) {
         logger.info("add");
+
         GitRepository r = new GitRepository(repositoryDto.getUri(), repositoryDto.getName());
-        GitRepository savedRepository = repository.save(r);
+        try {
+            gitCloneService.processRepository(r);
+        } catch (Exception exception) {
+            return null;
+        }
 
-        // clone repository
-        gitCloneService.processRepository(r);
-
-        return savedRepository;
+        return repository.save(r);
     }
 
 }
