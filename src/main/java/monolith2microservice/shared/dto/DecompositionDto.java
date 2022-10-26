@@ -1,11 +1,22 @@
 package monolith2microservice.shared.dto;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import monolith2microservice.logic.decomposition.DecompositionLogic;
 import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.git.GitRepository;
+import monolith2microservice.shared.models.graph.Decomposition;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by gmazlami on 1/17/17.
  */
+@Getter
+@Setter
+@Builder
 public class DecompositionDto {
 
     private GitRepository repo;
@@ -14,27 +25,18 @@ public class DecompositionDto {
 
     private DecompositionParameters parameters;
 
-    public DecompositionParameters getParameters(){
-        return this.parameters;
+    public static DecompositionDto of(Decomposition decomposition) {
+        return DecompositionDto.builder()
+                .decompositionId(decomposition.getId())
+                .repo(decomposition.getRepository())
+                .parameters(decomposition.getParameters())
+                .build();
     }
 
-    public GitRepository getRepo(){
-        return this.repo;
+    public static List<DecompositionDto> of(List<Decomposition> decompositions) {
+        return decompositions.stream()
+                .map(DecompositionDto::of)
+                .collect(Collectors.toList());
     }
 
-    public long getDecompositionId(){
-        return this.decompositionId;
-    }
-
-    public void setParameters(DecompositionParameters parameters){
-        this.parameters = parameters;
-    }
-
-    public void setRepo(GitRepository repo){
-        this.repo = repo;
-    }
-
-    public void setDecompositionId(long id){
-        this.decompositionId = id;
-    }
 }

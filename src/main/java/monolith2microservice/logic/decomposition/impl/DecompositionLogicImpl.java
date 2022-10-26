@@ -1,6 +1,7 @@
 package monolith2microservice.logic.decomposition.impl;
 
 import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
+import monolith2microservice.outbound.DecompositionRepository;
 import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.Decomposition;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,9 @@ public class DecompositionLogicImpl implements DecompositionLogic {
 
     @Autowired
     private RepositoryLogic repositoryLogic;
+
+    @Autowired
+    private DecompositionRepository decompositionRepository;
 
     @Autowired
     private EvaluationService evaluationService;
@@ -43,6 +48,16 @@ public class DecompositionLogicImpl implements DecompositionLogic {
 
         //perform decomposition
         return decomposition;
+    }
+
+    @Override
+    public Decomposition findById(long decompositionId) {
+        return decompositionRepository.findById(decompositionId);
+    }
+
+    @Override
+    public List<Decomposition> findAll() {
+        return decompositionRepository.findAll();
     }
 
 }
