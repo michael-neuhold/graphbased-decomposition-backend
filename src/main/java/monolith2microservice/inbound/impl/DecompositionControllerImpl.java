@@ -7,6 +7,7 @@ import monolith2microservice.shared.dto.DecompositionDto;
 import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.graph.Decomposition;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,11 @@ public class DecompositionControllerImpl implements monolith2microservice.inboun
     @CrossOrigin
     @RequestMapping(value="{decompositionId}", method= RequestMethod.GET)
     public ResponseEntity<Decomposition> getDecompositionById(@PathVariable Long decompositionId) {
-        return ResponseEntity.ok(decompositionLogic.findById(decompositionId));
+        Decomposition decomposition = decompositionLogic.findById(decompositionId);
+        if (decomposition == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(decomposition);
     }
 
     @Override
@@ -40,6 +45,9 @@ public class DecompositionControllerImpl implements monolith2microservice.inboun
     @RequestMapping(value="{decompositionId}/graph", method= RequestMethod.GET)
     public ResponseEntity<Set<GraphRepresentation>> getDecompositionByIdAsGraph(@PathVariable Long decompositionId) {
         Decomposition decomposition = decompositionLogic.findById(decompositionId);
+        if (decomposition == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
         return ResponseEntity.ok(DecompositionLogic.getGraphRepresentation(decomposition));
     }
 
@@ -47,9 +55,13 @@ public class DecompositionControllerImpl implements monolith2microservice.inboun
     @CrossOrigin
     @RequestMapping(value="decompose/{repoId}", method=RequestMethod.POST)
     public ResponseEntity<Set<GraphRepresentation>> decomposeRepositoryById(@PathVariable Long repoId, @RequestBody DecompositionParameters decompositionDTO) {
+        Decomposition decomposition = decompositionLogic.decompose(repoId, decompositionDTO);
+        if (decomposition == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
 
         Set<GraphRepresentation> graph =
-                DecompositionLogic.getGraphRepresentation(decompositionLogic.decompose(repoId, decompositionDTO));
+                DecompositionLogic.getGraphRepresentation(decomposition);
 
         return ResponseEntity.ok(graph);
     }
@@ -58,9 +70,13 @@ public class DecompositionControllerImpl implements monolith2microservice.inboun
     @CrossOrigin
     @RequestMapping(value="decompose/{repoId}/graphviz", method=RequestMethod.POST)
     public ResponseEntity<String> decomposeRepositoryByIdAsGraphviz(@PathVariable Long repoId, @RequestBody DecompositionParameters decompositionDTO) {
+        Decomposition decomposition = decompositionLogic.decompose(repoId, decompositionDTO);
+        if (decomposition == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
 
         Set<GraphRepresentation> graph =
-                DecompositionLogic.getGraphRepresentation(decompositionLogic.decompose(repoId, decompositionDTO));
+                DecompositionLogic.getGraphRepresentation(decomposition);
 
         return ResponseEntity.ok().body(GraphvizTransformer.create().transform(graph));
     }
