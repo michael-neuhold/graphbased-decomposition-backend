@@ -44,7 +44,7 @@ public class DecompositionLogicImpl implements DecompositionLogic {
         Decomposition decomposition = decompositionService.decompose(repo,decompositionDTO);
 
         // Compute evaluation metrics
-        evaluationService.performEvaluation(decomposition);
+        //evaluationService.performEvaluation(decomposition);
 
         //perform decomposition
         return decomposition;
