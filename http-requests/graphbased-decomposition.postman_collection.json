@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "d7b77bb6-3f33-49bd-9d1a-c318bcabc163",
+		"name": "graphbased-decomposition",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13880071"
+	},
+	"item": [
+		{
+			"name": "decompositions",
+			"item": [
+				{
+					"name": "getAllDecompositions",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getDecompositionById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getDecompositionByIdAsGraph",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "decomposeRepositoryById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"logicalCoupling\": false,\n    \"semanticCoupling\": true,\n    \"contributorCoupling\": false,\n    \"numServices\": 2,\n    \"intervalSeconds\": 3600,\n    \"sizeThreshold\": 15\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}{{decompositions}}/decompose/15466",
+							"host": [
+								"{{base}}{{decompositions}}"
+							],
+							"path": [
+								"decompose",
+								"15466"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "decomposeRepositoryByIdAsGraphviz",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"logicalCoupling\": false,\n    \"semanticCoupling\": true,\n    \"contributorCoupling\": false,\n    \"numServices\": 2,\n    \"intervalSeconds\": 3600,\n    \"sizeThreshold\": 15\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/{{decompositions}}/{{decompose}}14969/graphviz",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"{{decompositions}}",
+								"{{decompose}}14969",
+								"graphviz"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "repositories",
+			"item": [
+				{
+					"name": "getAllRepositories",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getRepositoryById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "addRepository",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"uri\": \"https://github.com/michael-neuhold/cs-deploy\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/{{repositories}}",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"{{repositories}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "decompositions",
+			"value": "decompositions",
+			"type": "string"
+		},
+		{
+			"key": "repositories",
+			"value": "repositories",
+			"type": "string"
+		}
+	]
+}
