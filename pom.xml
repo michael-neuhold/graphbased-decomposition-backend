@@ -83,10 +83,8 @@
 		</dependency>-->
 		<dependency>
 			<groupId>org.jgrapht</groupId>
-			<artifactId>jgrapht</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/jgrapht-core-1.0.0.jar</systemPath>
+			<artifactId>jgrapht-core</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
