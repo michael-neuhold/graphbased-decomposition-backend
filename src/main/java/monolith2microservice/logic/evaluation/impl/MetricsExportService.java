@@ -32,14 +32,7 @@ public class MetricsExportService {
     @Autowired
     private Configs configs;
 
-    public String exportLogicalCouplingPerformanceMetrics() throws Exception {
-        List<Decomposition> decompositions = decompositionRepository.findAll().stream().filter(decomposition -> {
-                    return (decomposition.getParameters().isLogicalCoupling() &&
-                    !decomposition.getParameters().isContributorCoupling() &&
-                    !decomposition.getParameters().isSemanticCoupling());}).collect(Collectors.toList());
 
-        return createPerformanceTable(decompositions);
-    }
 
     public String exportSemanticCouplingPerformanceMetrics() throws Exception {
         StringBuilder sb = new StringBuilder();
@@ -59,31 +52,6 @@ public class MetricsExportService {
         return sb.toString();
     }
 
-    public String exportContributorCouplingPerformanceMetrics() throws Exception {
-        List<Decomposition> decompositions = decompositionRepository.findAll().stream().filter(decomposition -> {
-            return (!decomposition.getParameters().isLogicalCoupling() &&
-                    decomposition.getParameters().isContributorCoupling() &&
-                    !decomposition.getParameters().isSemanticCoupling());}).collect(Collectors.toList());
-
-        return createPerformanceTable(decompositions);
-    }
-
-    private String createPerformanceTable(List<Decomposition> decompositions) throws Exception{
-        StringBuilder sb = new StringBuilder();
-        for(Decomposition decomposition : decompositions){
-            EvaluationMetrics metrics = evaluationMetricsRepository.findByDecompositionId(decomposition.getId());
-            int historyLength = computeHistoryLengthInDays(decomposition.getRepository());
-            int commitCount = computeCommitCount(decomposition.getRepository());
-
-            String row = createLogicalCouplingPerformanceRow(decomposition, metrics, historyLength, commitCount, ',');
-
-            sb.append(row);
-            sb.append(newLine);
-        }
-        return sb.toString();
-    }
-
-
     private String createSemanticCouplingPerformanceRow(Decomposition decomposition, EvaluationMetrics metrics, char separator){
         StringBuilder sb = new StringBuilder();
         sb.append(decomposition.getRepository().getName());
@@ -91,32 +59,5 @@ public class MetricsExportService {
         sb.append(metrics.getExecutionTimeMillisStrategy());
         return sb.toString();
     }
-
-    private String createLogicalCouplingPerformanceRow(Decomposition decomposition, EvaluationMetrics metrics, int historyLength, int commitCount, char separator){
-        StringBuilder sb = new StringBuilder();
-        sb.append(decomposition.getRepository().getName());
-        sb.append(separator);
-        sb.append(commitCount);
-        sb.append(separator);
-        sb.append(historyLength);
-        sb.append(separator);
-        sb.append(metrics.getExecutionTimeMillisStrategy());
-        return sb.toString();
-    }
-
-    private int computeHistoryLengthInDays(GitRepository repo) throws Exception{
-        GitClient gitClient = new GitClient(repo, configs);
-        List<RevCommit> log = gitClient.getCommitLog();
-        int startTime = log.get(log.size()-1).getCommitTime();
-        int endTime = log.get(0).getCommitTime();
-        int historyLengthSeconds = endTime - startTime;
-        return historyLengthSeconds / (60*60*24);
-    }
-
-    private int computeCommitCount(GitRepository repo) throws Exception{
-        GitClient gitClient = new GitClient(repo, configs);
-        return gitClient.getCommitLog().size();
-    }
-
 
 }

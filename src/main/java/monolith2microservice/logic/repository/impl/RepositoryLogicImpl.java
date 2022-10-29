@@ -39,14 +39,14 @@ public class RepositoryLogicImpl implements RepositoryLogic {
     public GitRepository add(RepositoryDto repositoryDto) {
         logger.info("add");
 
-        GitRepository r = new GitRepository(repositoryDto.getUri(), repositoryDto.getName());
+        GitRepository r = repository.save(new GitRepository(repositoryDto.getUri(), repositoryDto.getName()));
         try {
             gitCloneService.processRepository(r);
         } catch (Exception exception) {
             return null;
         }
 
-        return repository.save(r);
+        return r;
     }
 
 }
