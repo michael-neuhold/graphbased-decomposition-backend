@@ -3,7 +3,7 @@ package monolith2microservice.shared.models.couplings;
 /**
  * Created by Genc on 08.12.2016.
  */
-public class BaseCoupling implements Coupling{
+public class BaseCoupling implements Coupling {
 
     protected String firstFileName;
 
