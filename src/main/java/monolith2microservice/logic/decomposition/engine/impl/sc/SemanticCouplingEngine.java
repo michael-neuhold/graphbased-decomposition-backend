@@ -1,11 +1,9 @@
 package monolith2microservice.logic.decomposition.engine.impl.sc;
 
 import monolith2microservice.Configs;
+import monolith2microservice.logic.decomposition.engine.impl.CouplingInput;
 import monolith2microservice.shared.models.ClassContent;
-import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.couplings.SemanticCoupling;
-import monolith2microservice.shared.models.git.ChangeEvent;
-import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing.ClassContentVisitor;
 import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
 import monolith2microservice.util.ClassContentFilter;
@@ -26,15 +24,15 @@ public class SemanticCouplingEngine implements CouplingEngine<SemanticCoupling> 
     private Configs config;
 
     @Override
-    public List<SemanticCoupling> compute(GitRepository gitRepository, List<ChangeEvent> history, DecompositionParameters decompositionParameters) {
+    public List<SemanticCoupling> compute(CouplingInput couplingInput) {
         List<SemanticCoupling> couplings = new ArrayList<>();
 
         //Read class files (content) from repo
-        String localRepoPath = config.localRepositoryDirectory + "/" + gitRepository.getName() + "_" + gitRepository.getId();
+        String localRepoPath = config.localRepositoryDirectory + "/" + couplingInput.getGitRepository().getName() + "_" + couplingInput.getGitRepository().getId();
 
         Path repoDirectory = Paths.get(localRepoPath);
 
-        ClassContentVisitor visitor = new ClassContentVisitor(gitRepository,config, new ClassContentFilter());
+        ClassContentVisitor visitor = new ClassContentVisitor(couplingInput.getGitRepository(),config, new ClassContentFilter());
 
         try {
             Files.walkFileTree(repoDirectory, visitor);

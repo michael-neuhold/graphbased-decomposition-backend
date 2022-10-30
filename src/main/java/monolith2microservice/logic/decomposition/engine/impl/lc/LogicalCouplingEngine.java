@@ -1,9 +1,8 @@
 package monolith2microservice.logic.decomposition.engine.impl.lc;
 
-import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.logic.decomposition.engine.impl.CouplingInput;
 import monolith2microservice.shared.models.couplings.LogicalCoupling;
 import monolith2microservice.shared.models.git.ChangeEvent;
-import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.util.Hash;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -23,17 +22,17 @@ public class LogicalCouplingEngine implements CouplingEngine<LogicalCoupling> {
     private int currentChangeEventCounter;
 
     @Override
-    public List<LogicalCoupling> compute(GitRepository gitRepository, List<ChangeEvent> history, DecompositionParameters decompositionParameters) {
+    public List<LogicalCoupling> compute(CouplingInput couplingInput) {
         resultMap = new HashMap<>();
 
         //compute first timestamp in history
-        int t_start = extractEarliestTimestamp(history);
-        int t_end = extractLatestTimestamp(history);
-        Collections.reverse(history);
+        int t_start = extractEarliestTimestamp(couplingInput.getHistory());
+        int t_end = extractLatestTimestamp(couplingInput.getHistory());
+        Collections.reverse(couplingInput.getHistory());
 
-        for(int t_current = t_start; t_current < t_end; t_current+= decompositionParameters.getIntervalSeconds()){
+        for(int t_current = t_start; t_current < t_end; t_current+= couplingInput.getDecompositionParameters().getIntervalSeconds()){
             //Extract changeEvents that happened in this current time interval [t_current, t_current + intervalInSeconds]
-            List<ChangeEvent> changeEvents = extractChangeEvents(history, t_current, t_current + decompositionParameters.getIntervalSeconds());
+            List<ChangeEvent> changeEvents = extractChangeEvents(couplingInput.getHistory(), t_current, t_current + couplingInput.getDecompositionParameters().getIntervalSeconds());
 
             if(changeEvents.isEmpty()){
                 continue;
@@ -51,7 +50,7 @@ public class LogicalCouplingEngine implements CouplingEngine<LogicalCoupling> {
                 //only consider subsets in the power set that have pair of 2 classes coupled together
                 if (files.length == 2 ){
                     List<String> fileList = Arrays.asList(files);
-                    LogicalCoupling coupling = generateLogicalCoupling(fileList, t_current, t_current + decompositionParameters.getIntervalSeconds());
+                    LogicalCoupling coupling = generateLogicalCoupling(fileList, t_current, t_current + couplingInput.getDecompositionParameters().getIntervalSeconds());
                     resultMap.put(coupling.getHash(), coupling);
                 }
             }

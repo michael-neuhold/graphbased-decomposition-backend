@@ -1,5 +1,6 @@
 package monolith2microservice.logic.decomposition.graph;
 
+import monolith2microservice.logic.decomposition.engine.impl.CouplingInput;
 import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.couplings.*;
 import monolith2microservice.shared.models.git.ChangeEvent;
@@ -42,18 +43,33 @@ public class LinearGraphCombination {
         return new LinearGraphCombination(gitRepository, history, decompositionParameters);
     }
 
-    public LinearGraphCombination withLogicalCoupling(boolean include, CouplingEngine<LogicalCoupling> couplingEngine){
-        this.logicalCouplings = include ? couplingEngine.compute(gitRepository, history, decompositionParameters) : null;
+    public LinearGraphCombination withLogicalCoupling(boolean include, CouplingEngine<LogicalCoupling> couplingEngine) {
+        CouplingInput couplingInput = CouplingInput.builder()
+                .decompositionParameters(decompositionParameters)
+                .history(history)
+                .gitRepository(gitRepository)
+                .build();
+        this.logicalCouplings = include ? couplingEngine.compute(couplingInput) : null;
         return this;
     }
 
-    public LinearGraphCombination withSemanticCoupling(boolean include, CouplingEngine<SemanticCoupling> couplingEngine){
-        this.semanticCouplings = include ? couplingEngine.compute(gitRepository, history, decompositionParameters) : null;
+    public LinearGraphCombination withSemanticCoupling(boolean include, CouplingEngine<SemanticCoupling> couplingEngine) {
+        CouplingInput couplingInput = CouplingInput.builder()
+                .decompositionParameters(decompositionParameters)
+                .history(history)
+                .gitRepository(gitRepository)
+                .build();
+        this.semanticCouplings = include ? couplingEngine.compute(couplingInput) : null;
         return this;
     }
 
-    public LinearGraphCombination withContributorCoupling(boolean include, CouplingEngine<ContributorCoupling> couplingEngine){
-        this.contributorCouplings = include ? couplingEngine.compute(gitRepository, history, decompositionParameters) : null;
+    public LinearGraphCombination withContributorCoupling(boolean include, CouplingEngine<ContributorCoupling> couplingEngine) {
+        CouplingInput couplingInput = CouplingInput.builder()
+                .decompositionParameters(decompositionParameters)
+                .history(history)
+                .gitRepository(gitRepository)
+                .build();
+        this.contributorCouplings = include ? couplingEngine.compute(couplingInput) : null;
         return this;
     }
 

@@ -1,6 +1,7 @@
 package monolith2microservice.logic.decomposition.engine.impl.cc;
 
 
+import monolith2microservice.logic.decomposition.engine.impl.CouplingInput;
 import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.couplings.ContributorCoupling;
 import monolith2microservice.shared.models.git.ChangeEvent;
@@ -17,8 +18,8 @@ import java.util.Map;
 public class ContributorCouplingEngine implements CouplingEngine<ContributorCoupling> {
 
     @Override
-    public List<ContributorCoupling> compute(GitRepository gitRepository, List<ChangeEvent> history, DecompositionParameters decompositionParameters) {
-        Map<String, List<String>> fileAuthorMap = getFileAuthorMap(history);
+    public List<ContributorCoupling> compute(CouplingInput couplingInput) {
+        Map<String, List<String>> fileAuthorMap = getFileAuthorMap(couplingInput.getHistory());
         List<String> fileNames = new ArrayList<>(fileAuthorMap.keySet());
 
         List<ContributorCoupling> couplings = new ArrayList<>();
