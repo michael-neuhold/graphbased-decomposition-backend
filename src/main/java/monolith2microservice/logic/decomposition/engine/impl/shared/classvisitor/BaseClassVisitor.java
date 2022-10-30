@@ -1,4 +1,4 @@
-package monolith2microservice.logic.decomposition.engine.impl.shared;
+package monolith2microservice.logic.decomposition.engine.impl.shared.classvisitor;
 
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.git.GitRepository;

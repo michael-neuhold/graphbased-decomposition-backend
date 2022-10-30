@@ -6,7 +6,7 @@ import monolith2microservice.logic.decomposition.engine.DecompositionService;
 import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
 import monolith2microservice.logic.decomposition.engine.impl.dc.classvisitor.DependencyCouplingClassVisitor;
 import monolith2microservice.logic.decomposition.engine.impl.dc.classvisitor.DependencyCouplingClassVisitorResult;
-import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
+import monolith2microservice.logic.decomposition.engine.impl.shared.tfidf.TfIdfWrapper;
 import monolith2microservice.logic.decomposition.util.PathBuilder;
 import monolith2microservice.shared.models.couplings.DependencyCoupling;
 import org.slf4j.Logger;

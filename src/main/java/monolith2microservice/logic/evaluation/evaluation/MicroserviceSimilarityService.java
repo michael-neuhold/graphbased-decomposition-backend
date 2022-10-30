@@ -3,7 +3,7 @@ package monolith2microservice.logic.evaluation.evaluation;
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.Component;
-import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
+import monolith2microservice.logic.decomposition.engine.impl.shared.tfidf.TfIdfWrapper;
 import monolith2microservice.util.ClassContentFilter;
 import monolith2microservice.util.FilterInterface;
 import org.springframework.beans.factory.annotation.Autowired;

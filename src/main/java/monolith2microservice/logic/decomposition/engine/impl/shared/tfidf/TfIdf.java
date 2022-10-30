@@ -1,4 +1,4 @@
-package monolith2microservice.logic.decomposition.engine.impl.sc.tfidf;
+package monolith2microservice.logic.decomposition.engine.impl.shared.tfidf;
 
 
 import java.util.*;

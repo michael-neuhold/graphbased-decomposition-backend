@@ -1,8 +1,8 @@
 package monolith2microservice.logic.decomposition.engine.impl.dc.classvisitor;
 
 import monolith2microservice.Configs;
-import monolith2microservice.logic.decomposition.engine.impl.shared.BaseClassVisitor;
-import monolith2microservice.logic.decomposition.engine.impl.shared.ClassVisitor;
+import monolith2microservice.logic.decomposition.engine.impl.shared.classvisitor.BaseClassVisitor;
+import monolith2microservice.logic.decomposition.engine.impl.shared.classvisitor.ClassVisitor;
 import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.StopWords;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.util.FilterInterface;

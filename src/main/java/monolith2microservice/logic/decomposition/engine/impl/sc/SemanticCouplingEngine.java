@@ -5,7 +5,7 @@ import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInpu
 import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.SemanticCouplingClassVisitorResult;
 import monolith2microservice.shared.models.couplings.SemanticCoupling;
 import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.SemanticCouplingClassVisitor;
-import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
+import monolith2microservice.logic.decomposition.engine.impl.shared.tfidf.TfIdfWrapper;
 import monolith2microservice.util.ClassContentFilter;
 import monolith2microservice.logic.decomposition.engine.CouplingEngine;
 import org.springframework.beans.factory.annotation.Autowired;
