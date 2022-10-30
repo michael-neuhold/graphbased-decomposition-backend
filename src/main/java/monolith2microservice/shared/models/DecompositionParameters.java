@@ -31,6 +31,8 @@ public class DecompositionParameters {
 
     private boolean contributorCoupling;
 
+    private boolean dependencyCoupling;
+
     private int numServices;
 
     private int intervalSeconds;

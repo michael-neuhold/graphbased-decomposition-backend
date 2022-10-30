@@ -1,9 +1,9 @@
 package monolith2microservice.logic.decomposition.engine;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import monolith2microservice.logic.decomposition.engine.impl.dc.DependencyCouplingEngine;
 import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.logic.decomposition.graph.LinearGraphCombination;
 import monolith2microservice.logic.decomposition.graph.MSTGraphClusterer;
@@ -26,14 +26,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service
 public class DecompositionService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DecompositionService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DecompositionService.class);
 
     @Autowired
     ContributorCouplingEngine contributorCouplingEngine;
@@ -43,6 +42,9 @@ public class DecompositionService {
 
     @Autowired
     LogicalCouplingEngine logicalCouplingEngine;
+
+    @Autowired
+    DependencyCouplingEngine dependencyCouplingEngine;
 
     @Autowired
     ClassNodeRepository classNodeRepository;
@@ -77,14 +79,15 @@ public class DecompositionService {
 
             List<ChangeEvent> history = computeHistory(repository);
 
-            logger.info("DECOMPOSITION-------------------------");
-            logger.info(String.format(
-                    "STRATEGIES: \n\tLogical Coupling: %s\n\tSemantic Coupling: %s\n\tContributor Coupling: %s\n",
+            LOGGER.info("DECOMPOSITION-------------------------");
+            LOGGER.info(String.format(
+                    "STRATEGIES: \n\tLogical Coupling: %s\n\tSemantic Coupling: %s\n\tContributor Coupling: %s\n\tDependency Coupling: %s\n",
                     parameters.isLogicalCoupling(),
                     parameters.isSemanticCoupling(),
-                    parameters.isContributorCoupling())
+                    parameters.isContributorCoupling(),
+                    parameters.isDependencyCoupling())
             );
-            logger.info(String.format(
+            LOGGER.info(String.format(
                     "PARAMETERS: \n\tHistory Interval Size (s): %s\n\tTarget Number of Services: %s\n",
                     parameters.getIntervalSeconds(),
                     parameters.getNumServices())
@@ -96,12 +99,12 @@ public class DecompositionService {
             ResultWithExecutionTime<Set<Component>> calculatedComponentsWithExecutionTime =
                     calculateComponents(couplingsWithExecutionTime.result, parameters);
 
-            logger.info("Saving decomposition to database.");
+            LOGGER.info("Saving decomposition to database.");
 
             calculatedComponentsWithExecutionTime.result.forEach(c -> {
                 classNodeRepository.save(c.getNodes());
                 componentRepository.save(c);
-                logger.info(c.toString());
+                LOGGER.info(c.toString());
             });
 
             parametersRepository.save(parameters);
@@ -118,12 +121,12 @@ public class DecompositionService {
 
             decompositionRepository.save(decomposition);
 
-            logger.info("Saved all decomposition info and components to database!");
+            LOGGER.info("Saved all decomposition info and components to database!");
 
             return decomposition;
 
         } catch (Exception exception) {
-            logger.error(exception.getMessage());
+            LOGGER.error(exception.getMessage());
             throw new RuntimeException(exception);
         }
     }
@@ -133,7 +136,7 @@ public class DecompositionService {
 
         long strategyStartTimestamp = System.currentTimeMillis();
         List<BaseCoupling> couplings =
-                LinearGraphCombination.create(repository, history, parameters)
+                LinearGraphCombination.createWith(repository, history, parameters)
                         .withLogicalCoupling(
                                 parameters.isLogicalCoupling(),
                                 logicalCouplingEngine)
@@ -143,6 +146,9 @@ public class DecompositionService {
                         .withSemanticCoupling(
                                 parameters.isSemanticCoupling(),
                                 semanticCouplingEngine)
+                        .withDependencyCoupling(
+                                parameters.isDependencyCoupling(),
+                                dependencyCouplingEngine)
                         .generate();
         long strategyExecutionTimeMillis = System.currentTimeMillis() - strategyStartTimestamp;
 

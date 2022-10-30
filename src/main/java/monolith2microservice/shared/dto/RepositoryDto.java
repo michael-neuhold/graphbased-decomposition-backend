@@ -24,7 +24,5 @@ public class RepositoryDto {
 	public String toString() {
 		return "RepositoryDTO [uri=" + uri + ", name=" + getName() + "]";
 	}
-	
-	
-	
+
 }

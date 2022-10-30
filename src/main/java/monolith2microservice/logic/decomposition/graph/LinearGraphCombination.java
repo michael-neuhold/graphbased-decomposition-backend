@@ -9,22 +9,18 @@ import monolith2microservice.logic.decomposition.engine.CouplingEngine;
 
 import java.util.*;
 
-/**
- * Created by gmazlami on 12/15/16.
- */
 public class LinearGraphCombination {
 
-    private GitRepository gitRepository;
-
-    private DecompositionParameters decompositionParameters;
-
-    private List<ChangeEvent> history;
-
-    public LinearGraphCombination(GitRepository gitRepository, List<ChangeEvent> history, DecompositionParameters decompositionParameters) {
-        this.gitRepository = gitRepository;
-        this.history = history;
-        this.decompositionParameters = decompositionParameters;
+    public LinearGraphCombination(GitRepository gitRepository, List<ChangeEvent> history,
+                                  DecompositionParameters decompositionParameters) {
+        this.couplingInput = CouplingInput.builder()
+                .decompositionParameters(decompositionParameters)
+                .history(history)
+                .gitRepository(gitRepository)
+                .build();
     }
+
+    private final CouplingInput couplingInput;
 
     private List<LogicalCoupling> logicalCouplings;
 
@@ -32,120 +28,127 @@ public class LinearGraphCombination {
 
     private  List<ContributorCoupling> contributorCouplings;
 
+    private List<DependencyCoupling> dependencyCouplings;
+
     private int logicalCouplingFactor = 1;
 
     private int semanticCouplingFactor = 1;
 
     private int contributorCouplingFactor = 1;
 
+    private int dependencyCouplingFactor = 1;
 
-    public static LinearGraphCombination create(GitRepository gitRepository, List<ChangeEvent> history, DecompositionParameters decompositionParameters) {
+
+    public static LinearGraphCombination createWith(GitRepository gitRepository, List<ChangeEvent> history,
+                                                    DecompositionParameters decompositionParameters) {
         return new LinearGraphCombination(gitRepository, history, decompositionParameters);
     }
 
     public LinearGraphCombination withLogicalCoupling(boolean include, CouplingEngine<LogicalCoupling> couplingEngine) {
-        CouplingInput couplingInput = CouplingInput.builder()
-                .decompositionParameters(decompositionParameters)
-                .history(history)
-                .gitRepository(gitRepository)
-                .build();
         this.logicalCouplings = include ? couplingEngine.compute(couplingInput) : null;
         return this;
     }
 
     public LinearGraphCombination withSemanticCoupling(boolean include, CouplingEngine<SemanticCoupling> couplingEngine) {
-        CouplingInput couplingInput = CouplingInput.builder()
-                .decompositionParameters(decompositionParameters)
-                .history(history)
-                .gitRepository(gitRepository)
-                .build();
         this.semanticCouplings = include ? couplingEngine.compute(couplingInput) : null;
         return this;
     }
 
     public LinearGraphCombination withContributorCoupling(boolean include, CouplingEngine<ContributorCoupling> couplingEngine) {
-        CouplingInput couplingInput = CouplingInput.builder()
-                .decompositionParameters(decompositionParameters)
-                .history(history)
-                .gitRepository(gitRepository)
-                .build();
         this.contributorCouplings = include ? couplingEngine.compute(couplingInput) : null;
         return this;
     }
 
-    public LinearGraphCombination withLogicalFactor(int factor){
+    public LinearGraphCombination withDependencyCoupling(boolean include, CouplingEngine<DependencyCoupling> couplingEngine) {
+        this.dependencyCouplings = include ? couplingEngine.compute(couplingInput) : null;
+        return this;
+    }
+
+    public LinearGraphCombination withLogicalFactor(int factor) {
         this.logicalCouplingFactor = factor;
         return this;
     }
 
-    public LinearGraphCombination withSemanticFactor(int factor){
+    public LinearGraphCombination withSemanticFactor(int factor) {
         this.semanticCouplingFactor = factor;
         return this;
     }
 
-    public LinearGraphCombination withContributorFactor(int factor){
+    public LinearGraphCombination withContributorFactor(int factor) {
         this.contributorCouplingFactor = factor;
         return this;
     }
 
-    public List<BaseCoupling> generate(){
-        List<CouplingTriple> triples = mapCouplingsOnSameEdge();
+    public LinearGraphCombination withDependencyFactor(int factor) {
+        this.dependencyCouplingFactor = factor;
+        return this;
+    }
+
+    public List<BaseCoupling> generate() {
+        List<CouplingQuartett> quartetts = mapCouplingsOnSameEdge();
         List<BaseCoupling> couplings = new ArrayList<>();
-        triples.forEach( t -> {
-            double logicalWeight = t.getLogicalCoupling() == null ? 0 : this.logicalCouplingFactor * t.getLogicalCoupling().getScore();
-            double semanticWeight = t.getSemanticCoupling() == null ? 0 : this.semanticCouplingFactor * t.getSemanticCoupling().getScore();
-            double contributorWeight = t.getContributorCoupling() == null ? 0 : this.contributorCouplingFactor* t.getContributorCoupling().getScore();
-            double combinedWeight = logicalWeight + semanticWeight + contributorWeight;
-            BaseCoupling coupling = new BaseCoupling(t.getFirstFile(), t.getSecondFile(),combinedWeight);
+        quartetts.forEach( quartett -> {
+            double logicalWeight = quartett.getLogicalCoupling() == null ? 0 : this.logicalCouplingFactor * quartett.getLogicalCoupling().getScore();
+            double semanticWeight = quartett.getSemanticCoupling() == null ? 0 : this.semanticCouplingFactor * quartett.getSemanticCoupling().getScore();
+            double contributorWeight = quartett.getContributorCoupling() == null ? 0 : this.contributorCouplingFactor * quartett.getContributorCoupling().getScore();
+            double dependencyWeight = quartett.getDependencyCoupling() == null ? 0 : this.dependencyCouplingFactor * quartett.getDependencyCoupling().getScore();
+            double combinedWeight = logicalWeight + semanticWeight + contributorWeight + dependencyWeight;
+            BaseCoupling coupling = new BaseCoupling(quartett.getFirstFile(), quartett.getSecondFile(), combinedWeight);
             couplings.add(coupling);
         });
         return couplings;
     }
 
+    private List<CouplingQuartett> mapCouplingsOnSameEdge() {
+        Map<String, CouplingQuartett> couplingMap = new HashMap<>();
 
-
-    private List<CouplingTriple> mapCouplingsOnSameEdge(){
-        Map<String, CouplingTriple> couplingMap = new HashMap<>();
-
-        if(this.logicalCouplings != null){
-            this.logicalCouplings.forEach(l -> {
-                CouplingTriple triple = new CouplingTriple();
-                triple.setLogicalCoupling(l);
-                triple.setFirstFile(l.getFirstFileName());
-                triple.setSecondFile(l.getSecondFileName());
-                couplingMap.put(generateKeyFromFileNames(l.getFirstFileName(), l.getSecondFileName()), triple);
+        if (this.logicalCouplings != null) {
+            this.logicalCouplings.forEach(logicalCoupling -> {
+                String key = generateKeyFromFileNames(logicalCoupling.getFirstFileName(), logicalCoupling.getSecondFileName());
+                CouplingQuartett quartett = new CouplingQuartett(logicalCoupling);
+                couplingMap.put(
+                        key,
+                        quartett
+                );
             });
         }
 
-        if(this.semanticCouplings != null){
-            this.semanticCouplings.forEach(s -> {
-                String key = generateKeyFromFileNames(s.getFirstFileName(), s.getSecondFileName());
-                CouplingTriple triple = couplingMap.get(key);
-                if(triple == null){
-                    triple = new CouplingTriple();
-                    triple.setSemanticCoupling(s);
-                    triple.setFirstFile(s.getFirstFileName());
-                    triple.setSecondFile(s.getSecondFileName());
-                }else{
-                    triple.setSemanticCoupling(s);
+        if (this.semanticCouplings != null) {
+            this.semanticCouplings.forEach(semanticCoupling -> {
+                String key = generateKeyFromFileNames(semanticCoupling.getFirstFileName(), semanticCoupling.getSecondFileName());
+                CouplingQuartett quartett = couplingMap.get(key);
+                if (quartett == null) {
+                    quartett = new CouplingQuartett(semanticCoupling);
+                } else {
+                    quartett.setSemanticCoupling(semanticCoupling);
                 }
-                couplingMap.put(key, triple);
+                couplingMap.put(key, quartett);
             });
         }
 
-        if(this.contributorCouplings != null){
-            this.contributorCouplings.forEach(c -> {
-                String key = generateKeyFromFileNames(c.getFirstFileName(), c.getSecondFileName());
-                CouplingTriple triple = couplingMap.get(key);
-                if(triple == null){
-                    triple = new CouplingTriple();
-                    triple.setContributorCoupling(c);
-                    triple.setFirstFile(c.getFirstFileName());
-                    triple.setSecondFile(c.getSecondFileName());
-                }else{
-                    triple.setContributorCoupling(c);
+        if (this.contributorCouplings != null) {
+            this.contributorCouplings.forEach(contributorCoupling -> {
+                String key = generateKeyFromFileNames(contributorCoupling.getFirstFileName(), contributorCoupling.getSecondFileName());
+                CouplingQuartett quartett = couplingMap.get(key);
+                if (quartett == null) {
+                    quartett = new CouplingQuartett(contributorCoupling);
+                } else {
+                    quartett.setContributorCoupling(contributorCoupling);
                 }
-                couplingMap.put(key, triple);
+                couplingMap.put(key, quartett);
+            });
+        }
+
+        if (this.dependencyCouplings != null) {
+            this.dependencyCouplings.forEach(dependencyCoupling -> {
+                String key = generateKeyFromFileNames(dependencyCoupling.getFirstFileName(), dependencyCoupling.getSecondFileName());
+                CouplingQuartett quartett = couplingMap.get(key);
+                if (quartett == null) {
+                    quartett = new CouplingQuartett(dependencyCoupling);
+                } else {
+                    quartett.setDependencyCoupling(dependencyCoupling);
+                }
+                couplingMap.put(key, quartett);
             });
         }
 
