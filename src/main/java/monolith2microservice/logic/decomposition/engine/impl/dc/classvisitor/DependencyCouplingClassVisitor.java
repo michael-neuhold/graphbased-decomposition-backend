@@ -16,16 +16,17 @@ import java.util.List;
 
 public class DependencyCouplingClassVisitor extends BaseClassVisitor implements ClassVisitor<List<DependencyCouplingClassVisitorResult>> {
 
-    private FilterInterface filterInterface;
+    private final FilterInterface filterInterface;
 
-    private DependencyCouplingClassVisitor(GitRepository gitRepository, Configs configs) {
+    private DependencyCouplingClassVisitor(GitRepository gitRepository, Configs configs, FilterInterface filterInterface) {
         super(gitRepository, configs);
+        this.filterInterface = filterInterface;
     }
 
     private final List<DependencyCouplingClassVisitorResult> results = new ArrayList<>();
 
-    public static DependencyCouplingClassVisitor createWith(GitRepository gitRepository, Configs configs) {
-        return new DependencyCouplingClassVisitor(gitRepository, configs);
+    public static DependencyCouplingClassVisitor createWith(GitRepository gitRepository, Configs configs, FilterInterface filterInterface) {
+        return new DependencyCouplingClassVisitor(gitRepository, configs, filterInterface);
     }
 
     @Override

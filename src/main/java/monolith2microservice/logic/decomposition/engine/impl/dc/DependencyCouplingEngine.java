@@ -9,6 +9,7 @@ import monolith2microservice.logic.decomposition.engine.impl.dc.classvisitor.Dep
 import monolith2microservice.logic.decomposition.engine.impl.shared.tfidf.TfIdfWrapper;
 import monolith2microservice.logic.decomposition.util.PathBuilder;
 import monolith2microservice.shared.models.couplings.DependencyCoupling;
+import monolith2microservice.util.ClassContentFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,14 @@ public class DependencyCouplingEngine implements CouplingEngine<DependencyCoupli
         LOGGER.info(String.format("BEGIN |-> compute dependency coupling for %s",couplingInput.getGitRepository().getName()));
         List<DependencyCoupling> couplings = new ArrayList<>();
 
-        // Read class files (content) from repo
         Path repositoryDirectory = PathBuilder.buildLocalRepoPath(
                 config.localRepositoryDirectory,
                 couplingInput.getGitRepository().getName(),
                 couplingInput.getGitRepository().getId()
         );
 
-        DependencyCouplingClassVisitor visitor = DependencyCouplingClassVisitor.createWith(couplingInput.getGitRepository(), config);
+        DependencyCouplingClassVisitor visitor =
+                DependencyCouplingClassVisitor.createWith(couplingInput.getGitRepository(), config, new ClassContentFilter());
 
         try {
             Files.walkFileTree(repositoryDirectory, visitor);
@@ -52,14 +53,18 @@ public class DependencyCouplingEngine implements CouplingEngine<DependencyCoupli
         for(DependencyCouplingClassVisitorResult current: classes) {
             for(DependencyCouplingClassVisitorResult other: classes) {
                 if (!current.getFilePath().equals(other.getFilePath())) {
-                    DependencyCoupling coupling = new DependencyCoupling(current.getFilePath(),other.getFilePath(), TfIdfWrapper.computeSimilarity(current.getTokenizedDependecies(), other.getTokenizedDependecies()));
-                    couplings.add(coupling);
+                    couplings.add(
+                            new DependencyCoupling(
+                                    current.getFilePath(),other.getFilePath(),
+                                    TfIdfWrapper.computeSimilarity(current.getTokenizedDependecies(), other.getTokenizedDependecies())
+                            )
+                    );
                 }
             }
         }
 
         LOGGER.info(String.format("END |-> compute dependency coupling for %s", couplingInput.getGitRepository().getName()));
-        return null;
+        return couplings;
     }
 
 }

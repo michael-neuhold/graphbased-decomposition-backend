@@ -19,9 +19,13 @@ public class SemanticCouplingClassVisitor extends BaseClassVisitor implements Cl
 
     private final FilterInterface filterInterface;
 
-    public SemanticCouplingClassVisitor(GitRepository repo, Configs config, FilterInterface filterInterface) {
+    private SemanticCouplingClassVisitor(GitRepository repo, Configs config, FilterInterface filterInterface) {
         super(repo, config);
         this.filterInterface = filterInterface;
+    }
+
+    public static SemanticCouplingClassVisitor createWith(GitRepository gitRepository, Configs configs, FilterInterface filterInterface) {
+        return new SemanticCouplingClassVisitor(gitRepository, configs, filterInterface);
     }
 
     @Override
