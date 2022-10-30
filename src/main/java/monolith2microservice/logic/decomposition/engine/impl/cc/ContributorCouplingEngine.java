@@ -1,11 +1,9 @@
 package monolith2microservice.logic.decomposition.engine.impl.cc;
 
 
-import monolith2microservice.logic.decomposition.engine.impl.CouplingInput;
-import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
 import monolith2microservice.shared.models.couplings.ContributorCoupling;
 import monolith2microservice.shared.models.git.ChangeEvent;
-import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.logic.decomposition.engine.CouplingEngine;
 import org.springframework.stereotype.Component;
 

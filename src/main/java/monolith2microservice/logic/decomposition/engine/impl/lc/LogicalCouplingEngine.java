@@ -1,6 +1,6 @@
 package monolith2microservice.logic.decomposition.engine.impl.lc;
 
-import monolith2microservice.logic.decomposition.engine.impl.CouplingInput;
+import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
 import monolith2microservice.shared.models.couplings.LogicalCoupling;
 import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.util.Hash;

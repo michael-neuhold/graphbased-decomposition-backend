@@ -1,4 +1,4 @@
-package monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing;
+package monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package monolith2microservice.util;
 
-import monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing.StopWords;
+import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.StopWords;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;

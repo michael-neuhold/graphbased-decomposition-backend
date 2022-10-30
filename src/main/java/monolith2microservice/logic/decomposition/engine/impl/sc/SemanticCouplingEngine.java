@@ -1,10 +1,10 @@
 package monolith2microservice.logic.decomposition.engine.impl.sc;
 
 import monolith2microservice.Configs;
-import monolith2microservice.logic.decomposition.engine.impl.CouplingInput;
-import monolith2microservice.shared.models.ClassContent;
+import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
+import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.SemanticCouplingClassVisitorResult;
 import monolith2microservice.shared.models.couplings.SemanticCoupling;
-import monolith2microservice.logic.decomposition.engine.impl.sc.classprocessing.ClassContentVisitor;
+import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.SemanticCouplingClassVisitor;
 import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
 import monolith2microservice.util.ClassContentFilter;
 import monolith2microservice.logic.decomposition.engine.CouplingEngine;
@@ -32,7 +32,7 @@ public class SemanticCouplingEngine implements CouplingEngine<SemanticCoupling> 
 
         Path repoDirectory = Paths.get(localRepoPath);
 
-        ClassContentVisitor visitor = new ClassContentVisitor(couplingInput.getGitRepository(),config, new ClassContentFilter());
+        SemanticCouplingClassVisitor visitor = new SemanticCouplingClassVisitor(couplingInput.getGitRepository(),config, new ClassContentFilter());
 
         try {
             Files.walkFileTree(repoDirectory, visitor);
@@ -40,10 +40,10 @@ public class SemanticCouplingEngine implements CouplingEngine<SemanticCoupling> 
             throw new RuntimeException();
         }
 
-        List<ClassContent> classes = visitor.getClasses();
+        List<SemanticCouplingClassVisitorResult> classes = visitor.getResult();
 
-        for(ClassContent current: classes){
-            for(ClassContent other: classes){
+        for(SemanticCouplingClassVisitorResult current: classes){
+            for(SemanticCouplingClassVisitorResult other: classes){
                 if (!current.getFilePath().equals(other.getFilePath())) {
                     SemanticCoupling coupling = new SemanticCoupling(current.getFilePath(),other.getFilePath(), TfIdfWrapper.computeSimilarity(current.getTokenizedContent(), other.getTokenizedContent()));
                     couplings.add(coupling);

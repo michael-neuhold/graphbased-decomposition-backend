@@ -1,6 +1,6 @@
 package monolith2microservice.logic.decomposition.graph;
 
-import monolith2microservice.logic.decomposition.engine.impl.CouplingInput;
+import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
 import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.couplings.*;
 import monolith2microservice.shared.models.git.ChangeEvent;

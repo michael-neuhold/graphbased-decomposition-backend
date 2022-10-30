@@ -3,7 +3,7 @@ package monolith2microservice.logic.decomposition.engine.impl.dc;
 import monolith2microservice.Configs;
 import monolith2microservice.logic.decomposition.engine.CouplingEngine;
 import monolith2microservice.logic.decomposition.engine.DecompositionService;
-import monolith2microservice.logic.decomposition.engine.impl.CouplingInput;
+import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
 import monolith2microservice.logic.decomposition.engine.impl.dc.classvisitor.DependencyCouplingClassVisitor;
 import monolith2microservice.logic.decomposition.engine.impl.dc.classvisitor.DependencyCouplingClassVisitorResult;
 import monolith2microservice.logic.decomposition.engine.impl.sc.tfidf.TfIdfWrapper;
@@ -39,7 +39,7 @@ public class DependencyCouplingEngine implements CouplingEngine<DependencyCoupli
                 couplingInput.getGitRepository().getId()
         );
 
-        DependencyCouplingClassVisitor visitor = DependencyCouplingClassVisitor.create();
+        DependencyCouplingClassVisitor visitor = DependencyCouplingClassVisitor.createWith(couplingInput.getGitRepository(), config);
 
         try {
             Files.walkFileTree(repositoryDirectory, visitor);

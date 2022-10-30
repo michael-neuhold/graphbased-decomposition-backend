@@ -1,4 +1,4 @@
-package monolith2microservice.logic.decomposition.engine.impl;
+package monolith2microservice.logic.decomposition.engine.impl.shared;
 
 import lombok.Builder;
 import lombok.Getter;
