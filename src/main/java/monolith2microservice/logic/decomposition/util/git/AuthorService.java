@@ -9,9 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by gmazlami on 1/12/17.
- */
 @Service
 public class AuthorService {
 

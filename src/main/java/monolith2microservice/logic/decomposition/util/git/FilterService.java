@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-/**
- * Created by gmazlami on 11/28/16.
- */
 public class FilterService {
 
     private final String[] BLACKLIST = {"Gemfile", "Gemfile.lock", "routes.rb", "*.xml", "*.jar","settings.py", "urls.py", "__init__.py", "requirements.txt", "*.po","*.gitignore", "*.json"};
