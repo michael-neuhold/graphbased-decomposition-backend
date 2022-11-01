@@ -9,10 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 
-/**
- * Created by gmazlami on 12/8/16.
- */
-@SuppressWarnings("unchecked")
 public final class MinimumSpanningTree {
 
 
@@ -21,32 +17,26 @@ public final class MinimumSpanningTree {
     }
 
     public static Set<WeightedEdge> of(List<? extends BaseCoupling> couplings){
-        return computeMST(couplings);
-    }
-
-    private static Set<WeightedEdge> computeMST(List<? extends BaseCoupling> couplings){
-        KruskalMinimumSpanningTree<String, WeightedEdge> mst = new KruskalMinimumSpanningTree<>(createGraph(couplings));
+        KruskalMinimumSpanningTree<String, WeightedEdge> mst = new KruskalMinimumSpanningTree<>(createWeightedGraph(couplings));
         return mst.getMinimumSpanningTreeEdgeSet();
     }
 
-    private static SimpleWeightedGraph createGraph(List<? extends BaseCoupling> couplings){
-        SimpleWeightedGraph<String, WeightedEdge> graph = new SimpleWeightedGraph<>(WeightedEdge.class);
+    private static SimpleWeightedGraph<String, WeightedEdge> createWeightedGraph(List<? extends BaseCoupling> couplings){
+        SimpleWeightedGraph<String, WeightedEdge> weightedGraph = new SimpleWeightedGraph<>(WeightedEdge.class);
 
         couplings.forEach(coupling -> {
-            graph.addVertex(coupling.getFirstFileName());
-            graph.addVertex(coupling.getSecondFileName());
+            weightedGraph.addVertex(coupling.getFirstFileName());
+            weightedGraph.addVertex(coupling.getSecondFileName());
 
             WeightedEdge currentEdge = new WeightedEdge();
             currentEdge.setScore(1/coupling.getScore());
-            graph.addEdge(coupling.getFirstFileName(), coupling.getSecondFileName(),currentEdge);
+            weightedGraph.addEdge(coupling.getFirstFileName(), coupling.getSecondFileName(),currentEdge);
 
             //Add the score inversed (1/score) so that high score means close distance between vertices
-            graph.setEdgeWeight(currentEdge, (1/coupling.getScore()));
+            weightedGraph.setEdgeWeight(currentEdge, (1 / coupling.getScore()));
         });
 
-        return graph;
+        return weightedGraph;
     }
-
-
 
 }

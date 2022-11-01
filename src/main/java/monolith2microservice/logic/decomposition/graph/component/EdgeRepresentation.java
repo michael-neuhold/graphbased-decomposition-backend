@@ -9,9 +9,20 @@ public class EdgeRepresentation {
 
     private long to;
 
-    public EdgeRepresentation(long from, long to){
+    private double weight;
+
+    public EdgeRepresentation(long from, long to, double weight){
         this.from = from;
         this.to = to;
+        this.weight = weight;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public long getFrom() {

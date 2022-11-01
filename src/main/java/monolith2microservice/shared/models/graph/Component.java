@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class Component {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     @OneToMany(cascade={CascadeType.REMOVE})
@@ -25,8 +26,7 @@ public class Component {
     @Transient
     private boolean visited;
 
-    public Component(){
-        id = new Random().nextLong() % System.currentTimeMillis();
+    public Component() {
         nodes = new ArrayList<>();
         visited = false;
     }

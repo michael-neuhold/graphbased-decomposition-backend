@@ -23,10 +23,10 @@ public class GraphVisualizationDto {
         List<GraphVisualizationNodeDto> graphVisualizationNodeDtos = new LinkedList<>();
         graphRepresentations.forEach(graphRepresentation -> {
             graphRepresentation.getEdges().forEach(edge -> {
-                graphVisualizationLinkDtos.add(GraphVisualizationLinkDto.builder().source(edge.getFrom()).target(edge.getTo()).value(1).build());
+                graphVisualizationLinkDtos.add(GraphVisualizationLinkDto.builder().source(edge.getFrom()).target(edge.getTo()).value(edge.getWeight()).build());
             });
             graphRepresentation.getNodes().forEach(node -> {
-                graphVisualizationNodeDtos.add(GraphVisualizationNodeDto.builder().id(node.getId()).group(graphRepresentation.getComponentId()).build());
+                graphVisualizationNodeDtos.add(GraphVisualizationNodeDto.builder().id(node.getId()).group(graphRepresentation.getComponentId()).label(node.getLabel()).build());
             });
         });
         return GraphVisualizationDto.builder().links(graphVisualizationLinkDtos).nodes(graphVisualizationNodeDtos).build();

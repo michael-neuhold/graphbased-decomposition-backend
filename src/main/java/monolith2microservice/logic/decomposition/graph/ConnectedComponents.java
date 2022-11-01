@@ -77,7 +77,7 @@ public final class ConnectedComponents {
 
         }
 
-        return nodeMap.values().stream().collect(Collectors.toList());
+        return new ArrayList<>(nodeMap.values());
     }
 
     private static List<Component> performDfs(List<ClassNode> nodes){

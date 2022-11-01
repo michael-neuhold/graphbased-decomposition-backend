@@ -24,10 +24,9 @@ public class GraphRepresentationConverter {
             n.getNeighbors().forEach(neighborPair -> {
                 String key = getSortedIdString(n.getId(), neighborPair.getNodeId());
                 if(nodeMap.get(key)==null){
-                    edges.add(new EdgeRepresentation(idMap.get(n.getId()), idMap.get(neighborPair.getNodeId())));
+                    edges.add(new EdgeRepresentation(idMap.get(n.getId()), idMap.get(neighborPair.getNodeId()), neighborPair.getWeight()));
                     nodeMap.put(key,key);
                 }
-
             });
         }
         return edges;

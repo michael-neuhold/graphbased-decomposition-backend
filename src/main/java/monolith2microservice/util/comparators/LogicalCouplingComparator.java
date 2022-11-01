@@ -8,7 +8,7 @@ public class LogicalCouplingComparator implements Comparator<LogicalCoupling> {
 
 	@Override
 	public int compare(LogicalCoupling o1, LogicalCoupling o2) {
-		return new Double(o1.getScore()).compareTo(new Double(o2.getScore()));
+		return Double.compare(o1.getScore(), o2.getScore());
 	}
 
 }

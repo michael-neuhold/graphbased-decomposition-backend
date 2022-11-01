@@ -13,6 +13,6 @@ public class GraphVisualizationLinkDto {
 
     private long target;
 
-    private long value;
+    private double value;
 
 }

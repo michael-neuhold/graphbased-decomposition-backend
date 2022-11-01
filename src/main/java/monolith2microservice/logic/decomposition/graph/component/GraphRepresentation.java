@@ -52,6 +52,6 @@ public class GraphRepresentation {
     public static GraphRepresentation from(Component component){
         Set<NodeRepresentation> nodes = GraphRepresentationConverter.convertNodes(component);
         Set<EdgeRepresentation> edges = GraphRepresentationConverter.convertEdges(component, nodes);
-        return new GraphRepresentation(nodes,edges, componentCounter++);
+        return new GraphRepresentation(nodes, edges, componentCounter++);
     }
 }

@@ -11,6 +11,6 @@ public class CouplingComparator implements Comparator<BaseCoupling>{
 
     @Override
     public int compare(BaseCoupling o1, BaseCoupling o2) {
-        return new Double(o1.getScore()).compareTo(o2.getScore());
+        return Double.compare(o1.getScore(), o2.getScore());
     }
 }

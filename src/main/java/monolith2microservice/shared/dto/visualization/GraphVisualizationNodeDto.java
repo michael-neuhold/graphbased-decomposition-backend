@@ -13,4 +13,6 @@ public class GraphVisualizationNodeDto {
 
     private long group;
 
+    private String label;
+
 }
