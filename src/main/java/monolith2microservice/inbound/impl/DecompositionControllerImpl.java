@@ -4,6 +4,7 @@ import monolith2microservice.logic.decomposition.DecompositionLogic;
 import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
 import monolith2microservice.logic.decomposition.graph.transformer.GraphvizTransformer;
 import monolith2microservice.shared.dto.DecompositionDto;
+import monolith2microservice.shared.dto.visualization.GraphVisualizationDto;
 import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.graph.Decomposition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,21 @@ public class DecompositionControllerImpl implements monolith2microservice.inboun
                 DecompositionLogic.getGraphRepresentation(decomposition);
 
         return ResponseEntity.ok().body(GraphvizTransformer.create().transform(graph));
+    }
+
+    @Override
+    @CrossOrigin
+    @RequestMapping(value="decompose/{repositoryId}/visualization", method = RequestMethod.POST)
+    public ResponseEntity<GraphVisualizationDto> decomposeRepositoryByIdAsGraphVisualization(@PathVariable Long repositoryId, @RequestBody DecompositionParameters decompositionParameters) {
+        Decomposition decomposition = decompositionLogic.decompose(repositoryId, decompositionParameters);
+        if (decomposition == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        Set<GraphRepresentation> graph =
+                DecompositionLogic.getGraphRepresentation(decomposition);
+
+        return ResponseEntity.ok().body(GraphVisualizationDto.of(graph));
     }
 
 }
