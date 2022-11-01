@@ -40,7 +40,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"logicalCoupling\": false,\n    \"semanticCoupling\": true,\n    \"contributorCoupling\": false,\n    \"numServices\": 2,\n    \"intervalSeconds\": 3600,\n    \"sizeThreshold\": 15\n}",
+							"raw": "{\n    \"logicalCoupling\": false,\n    \"semanticCoupling\": true,\n    \"contributorCoupling\": false,\n    \"dependencyCoupling\": false,\n    \"numServices\": 2,\n    \"intervalSeconds\": 3600,\n    \"sizeThreshold\": 15\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -48,13 +48,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base}}{{decompositions}}/decompose/15466",
+							"raw": "{{base}}/{{decompositions}}/decompose/1689",
 							"host": [
-								"{{base}}{{decompositions}}"
+								"{{base}}"
 							],
 							"path": [
+								"{{decompositions}}",
 								"decompose",
-								"15466"
+								"1689"
 							]
 						}
 					},
@@ -67,7 +68,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"logicalCoupling\": false,\n    \"semanticCoupling\": true,\n    \"contributorCoupling\": false,\n    \"numServices\": 2,\n    \"intervalSeconds\": 3600,\n    \"sizeThreshold\": 15\n}",
+							"raw": "{\n    \"logicalCoupling\": false,\n    \"semanticCoupling\": true,\n    \"contributorCoupling\": false,\n    \"dependencyCoupling\": false,\n    \"numServices\": 2,\n    \"intervalSeconds\": 3600,\n    \"sizeThreshold\": 15\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -75,14 +76,74 @@
 							}
 						},
 						"url": {
-							"raw": "{{base}}/{{decompositions}}/{{decompose}}14969/graphviz",
+							"raw": "{{base}}/{{decompositions}}/decompose/14969/graphviz",
 							"host": [
 								"{{base}}"
 							],
 							"path": [
 								"{{decompositions}}",
-								"{{decompose}}14969",
+								"decompose",
+								"14969",
 								"graphviz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "decomposeRepositoryByIdAsGraphVisualization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"logicalCoupling\": false,\n    \"semanticCoupling\": false,\n    \"contributorCoupling\": false,\n    \"dependencyCoupling\": true,\n    \"numberOfServices\": 2,\n    \"intervalSeconds\": 3600,\n    \"classClusterThreshold\": 15\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/{{decompositions}}/decompose/49511/visualization",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"{{decompositions}}",
+								"decompose",
+								"49511",
+								"visualization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "monolithCouplingByIdAsGraphVisualization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"logicalCoupling\": false,\n    \"semanticCoupling\": true,\n    \"contributorCoupling\": false,\n    \"dependencyCoupling\": false,\n    \"intervalSeconds\": 3600\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/{{decompositions}}/monolith/49511/coupling/visualization",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"{{decompositions}}",
+								"monolith",
+								"49511",
+								"coupling",
+								"visualization"
 							]
 						}
 					},
@@ -116,7 +177,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"uri\": \"https://github.com/michael-neuhold/cs-deploy\"\n}",
+							"raw": "{\n    \"uri\": \"https://github.com/colinbut/monolith-enterprise-application\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -130,6 +191,47 @@
 							],
 							"path": [
 								"{{repositories}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "evaluations",
+			"item": [
+				{
+					"name": "performance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/{{evaluation}}/performance",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"{{evaluation}}",
+								"performance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "quality",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/{{evaluation}}/quality",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"{{evaluation}}",
+								"quality"
 							]
 						}
 					},
@@ -172,6 +274,11 @@
 		{
 			"key": "repositories",
 			"value": "repositories",
+			"type": "string"
+		},
+		{
+			"key": "evaluations",
+			"value": "evaluations",
 			"type": "string"
 		}
 	]
