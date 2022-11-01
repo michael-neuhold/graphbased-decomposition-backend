@@ -1,4 +1,4 @@
-package monolith2microservice.shared.dto;
+package monolith2microservice.shared.dto.evaluation;
 
 import lombok.Builder;
 import lombok.Getter;

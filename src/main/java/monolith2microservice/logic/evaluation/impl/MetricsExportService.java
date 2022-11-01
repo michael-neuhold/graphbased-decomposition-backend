@@ -1,14 +1,10 @@
 package monolith2microservice.logic.evaluation.impl;
 
-import monolith2microservice.shared.dto.QualityMetricDto;
-import monolith2microservice.util.git.GitClient;
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
-import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.Decomposition;
 import monolith2microservice.outbound.EvaluationMetricsRepository;
 import monolith2microservice.outbound.DecompositionRepository;
-import org.eclipse.jgit.revwalk.RevCommit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

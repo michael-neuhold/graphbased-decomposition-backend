@@ -2,7 +2,7 @@ package monolith2microservice.util.comparators;
 
 import java.util.Comparator;
 
-import monolith2microservice.shared.models.couplings.LogicalCoupling;
+import monolith2microservice.shared.models.couplings.impl.LogicalCoupling;
 
 public class LogicalCouplingComparator implements Comparator<LogicalCoupling> {
 

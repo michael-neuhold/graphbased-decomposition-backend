@@ -1,7 +1,7 @@
 package monolith2microservice.logic.decomposition.engine.impl.lc;
 
 import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
-import monolith2microservice.shared.models.couplings.LogicalCoupling;
+import monolith2microservice.shared.models.couplings.impl.LogicalCoupling;
 import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.util.Hash;
 import com.google.common.collect.ImmutableSet;
@@ -106,7 +106,7 @@ public class LogicalCouplingEngine implements CouplingEngine<LogicalCoupling> {
             return existingCoupling;
         }else{
             // if the coupling is a new one (new file combination that changed together), we have to create it
-            LogicalCoupling newCoupling = new LogicalCoupling(fileList.get(0),fileList.get(1),1);
+            LogicalCoupling newCoupling = LogicalCoupling.of(fileList.get(0),fileList.get(1),1);
             newCoupling.setHash(hash);
             newCoupling.setStartTimestamp(t_start);
             newCoupling.setEndTimestamp(t_end);

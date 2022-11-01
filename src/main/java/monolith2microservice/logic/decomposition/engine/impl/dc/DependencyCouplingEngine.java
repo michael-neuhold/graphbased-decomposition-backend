@@ -8,7 +8,7 @@ import monolith2microservice.logic.decomposition.engine.impl.dc.classvisitor.Dep
 import monolith2microservice.logic.decomposition.engine.impl.dc.classvisitor.DependencyCouplingClassVisitorResult;
 import monolith2microservice.logic.decomposition.engine.impl.shared.tfidf.TfIdfWrapper;
 import monolith2microservice.logic.decomposition.util.PathBuilder;
-import monolith2microservice.shared.models.couplings.DependencyCoupling;
+import monolith2microservice.shared.models.couplings.impl.DependencyCoupling;
 import monolith2microservice.util.ClassContentFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class DependencyCouplingEngine implements CouplingEngine<DependencyCoupli
             for(DependencyCouplingClassVisitorResult other: classes) {
                 if (!current.getFilePath().equals(other.getFilePath())) {
                     couplings.add(
-                            new DependencyCoupling(
+                            DependencyCoupling.of(
                                     current.getFilePath(),other.getFilePath(),
                                     TfIdfWrapper.computeSimilarity(current.getTokenizedDependecies(), other.getTokenizedDependecies())
                             )

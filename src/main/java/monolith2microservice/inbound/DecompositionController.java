@@ -1,9 +1,10 @@
 package monolith2microservice.inbound;
 
 import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
+import monolith2microservice.shared.dto.parameter.DecompositionCouplingParametersDto;
 import monolith2microservice.shared.dto.DecompositionDto;
+import monolith2microservice.shared.dto.parameter.MonolithCouplingParametersDto;
 import monolith2microservice.shared.dto.visualization.GraphVisualizationDto;
-import monolith2microservice.shared.models.DecompositionParameters;
 import monolith2microservice.shared.models.graph.Decomposition;
 import org.springframework.http.ResponseEntity;
 
@@ -17,10 +18,12 @@ public interface DecompositionController {
 
     ResponseEntity<Set<GraphRepresentation>> getDecompositionByIdAsGraph(Long decompositionId);
 
-    ResponseEntity<Set<GraphRepresentation>> decomposeRepositoryById(Long repoId, DecompositionParameters decompositionDTO);
+    ResponseEntity<Set<GraphRepresentation>> decomposeRepositoryById(Long repoId, DecompositionCouplingParametersDto decompositionDTO);
 
-    ResponseEntity<String> decomposeRepositoryByIdAsGraphviz(Long repoId, DecompositionParameters decompositionDTO);
+    ResponseEntity<String> decomposeRepositoryByIdAsGraphviz(Long repoId, DecompositionCouplingParametersDto decompositionDTO);
 
-    ResponseEntity<GraphVisualizationDto> decomposeRepositoryByIdAsGraphVisualization(Long repositoryId, DecompositionParameters decompositionParameters);
+    ResponseEntity<GraphVisualizationDto> decomposeRepositoryByIdAsGraphVisualization(Long repositoryId, DecompositionCouplingParametersDto decompositionParameters);
+
+    ResponseEntity<GraphVisualizationDto> monolithicCouplingVisualization(Long repositoryId, MonolithCouplingParametersDto monolithCouplingParametersDto);
 
 }

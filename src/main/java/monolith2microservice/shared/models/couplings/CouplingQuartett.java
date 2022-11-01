@@ -2,8 +2,11 @@ package monolith2microservice.shared.models.couplings;
 
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import monolith2microservice.shared.models.couplings.impl.ContributorCoupling;
+import monolith2microservice.shared.models.couplings.impl.DependencyCoupling;
+import monolith2microservice.shared.models.couplings.impl.LogicalCoupling;
+import monolith2microservice.shared.models.couplings.impl.SemanticCoupling;
 
 @Getter
 @Setter

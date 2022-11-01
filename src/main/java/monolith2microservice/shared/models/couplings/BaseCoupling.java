@@ -1,8 +1,10 @@
 package monolith2microservice.shared.models.couplings;
 
-/**
- * Created by Genc on 08.12.2016.
- */
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class BaseCoupling implements Coupling {
 
     protected String firstFileName;
@@ -15,39 +17,6 @@ public class BaseCoupling implements Coupling {
         this.firstFileName = firstFileName;
         this.secondFileName = secondFileName;
         this.score = score;
-    }
-
-    public String getFirstFileName(){
-        return this.firstFileName;
-    }
-
-    public String getSecondFileName(){
-        return this.secondFileName;
-    }
-
-    public double getScore(){
-        return this.score;
-    }
-
-    public void setFirstFileName(String fileName){
-        this.firstFileName = fileName;
-    }
-
-    public void setSecondFileName(String secondName){
-        this.secondFileName = secondName;
-    }
-
-    public void setScore(double score){
-        this.score = score;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseCoupling{" +
-                "firstFileName='" + firstFileName + '\'' +
-                ", secondFileName='" + secondFileName + '\'' +
-                ", score=" + score +
-                '}';
     }
 
     @Override

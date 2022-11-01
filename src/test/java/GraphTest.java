@@ -1,6 +1,6 @@
 import monolith2microservice.util.comparators.WeightedEdgeComparator;
 import monolith2microservice.shared.models.couplings.BaseCoupling;
-import monolith2microservice.shared.models.couplings.SemanticCoupling;
+import monolith2microservice.shared.models.couplings.impl.SemanticCoupling;
 import monolith2microservice.shared.models.graph.WeightedEdge;
 import monolith2microservice.logic.decomposition.graph.ConnectedComponents;
 import monolith2microservice.logic.decomposition.graph.MinimumSpanningTree;
@@ -26,26 +26,26 @@ public class GraphTest {
     @Before
     public void setUpCouplings(){
         couplings = new ArrayList<>();
-        couplings.add(new SemanticCoupling("a","d",7d));
-        couplings.add(new SemanticCoupling("d","b",8d));
-        couplings.add(new SemanticCoupling("b","g",2d));
-        couplings.add(new SemanticCoupling("a","b",2d));
-        couplings.add(new SemanticCoupling("d","g",4d));
-        couplings.add(new SemanticCoupling("b","e",3d));
-        couplings.add(new SemanticCoupling("e","c",8d));
-        couplings.add(new SemanticCoupling("c","h",7d));
-        couplings.add(new SemanticCoupling("e","g",5d));
-        couplings.add(new SemanticCoupling("h","g",4d));
-        couplings.add(new SemanticCoupling("g","f",5d));
-        couplings.add(new SemanticCoupling("g","j",2d));
-        couplings.add(new SemanticCoupling("f","i",7d));
-        couplings.add(new SemanticCoupling("j","i",3d));
-        couplings.add(new SemanticCoupling("h","k",2d));
-        couplings.add(new SemanticCoupling("k","j",9d));
-        couplings.add(new SemanticCoupling("j","n",8d));
-        couplings.add(new SemanticCoupling("j","m",1d));
-        couplings.add(new SemanticCoupling("j","l",4d));
-        couplings.add(new SemanticCoupling("l","m",2d));
+        couplings.add(SemanticCoupling.of("a","d",7d));
+        couplings.add(SemanticCoupling.of("d","b",8d));
+        couplings.add(SemanticCoupling.of("b","g",2d));
+        couplings.add(SemanticCoupling.of("a","b",2d));
+        couplings.add(SemanticCoupling.of("d","g",4d));
+        couplings.add(SemanticCoupling.of("b","e",3d));
+        couplings.add(SemanticCoupling.of("e","c",8d));
+        couplings.add(SemanticCoupling.of("c","h",7d));
+        couplings.add(SemanticCoupling.of("e","g",5d));
+        couplings.add(SemanticCoupling.of("h","g",4d));
+        couplings.add(SemanticCoupling.of("g","f",5d));
+        couplings.add(SemanticCoupling.of("g","j",2d));
+        couplings.add(SemanticCoupling.of("f","i",7d));
+        couplings.add(SemanticCoupling.of("j","i",3d));
+        couplings.add(SemanticCoupling.of("h","k",2d));
+        couplings.add(SemanticCoupling.of("k","j",9d));
+        couplings.add(SemanticCoupling.of("j","n",8d));
+        couplings.add(SemanticCoupling.of("j","m",1d));
+        couplings.add(SemanticCoupling.of("j","l",4d));
+        couplings.add(SemanticCoupling.of("l","m",2d));
     }
 
     @Test

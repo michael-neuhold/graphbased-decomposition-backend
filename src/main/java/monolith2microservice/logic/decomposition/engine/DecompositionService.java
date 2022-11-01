@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import monolith2microservice.logic.decomposition.engine.impl.dc.DependencyCouplingEngine;
-import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.models.DecompositionCouplingParameters;
 import monolith2microservice.logic.decomposition.graph.LinearGraphCombination;
 import monolith2microservice.logic.decomposition.graph.MSTGraphClusterer;
 import monolith2microservice.shared.models.couplings.BaseCoupling;
@@ -73,7 +73,7 @@ public class DecompositionService {
         private long executionTime;
     }
 
-    public Decomposition decompose(GitRepository repository, DecompositionParameters parameters) {
+    public Decomposition decompose(GitRepository repository, DecompositionCouplingParameters parameters) {
 
         try {
 
@@ -132,7 +132,7 @@ public class DecompositionService {
     }
 
     private ResultWithExecutionTime<List<BaseCoupling>> calculateCouplings(GitRepository repository, List<ChangeEvent> history,
-                                                                           DecompositionParameters parameters) {
+                                                                           DecompositionCouplingParameters parameters) {
 
         long strategyStartTimestamp = System.currentTimeMillis();
         List<BaseCoupling> couplings =
@@ -156,7 +156,7 @@ public class DecompositionService {
     }
 
     private ResultWithExecutionTime<Set<Component>> calculateComponents(List<BaseCoupling> couplings,
-                                                                        DecompositionParameters parameters) {
+                                                                        DecompositionCouplingParameters parameters) {
 
         long clusteringStartTimestamp = System.currentTimeMillis();
         Set<Component> components = MSTGraphClusterer.clusterWithSplit(couplings, parameters.getSizeThreshold(), parameters.getNumServices());

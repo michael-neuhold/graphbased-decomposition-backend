@@ -2,7 +2,7 @@ package monolith2microservice.logic.decomposition.engine.impl.cc;
 
 
 import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
-import monolith2microservice.shared.models.couplings.ContributorCoupling;
+import monolith2microservice.shared.models.couplings.impl.ContributorCoupling;
 import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.logic.decomposition.engine.CouplingEngine;
 import org.springframework.stereotype.Component;
@@ -31,7 +31,7 @@ public class ContributorCouplingEngine implements CouplingEngine<ContributorCoup
                 List<String> secondFileAuthors = fileAuthorMap.get(secondFileName);
                 int similarity = computeAuthorSimilarity(currentFileAuthors, secondFileAuthors);
 
-                ContributorCoupling coupling = new ContributorCoupling(currentFileName, secondFileName, similarity);
+                ContributorCoupling coupling = ContributorCoupling.of(currentFileName, secondFileName, similarity);
                 coupling.setFirstFileAuthors(currentFileAuthors);
                 coupling.setSecondFileAuthors(secondFileAuthors);
                 couplings.add(coupling);

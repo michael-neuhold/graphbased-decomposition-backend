@@ -1,14 +1,11 @@
 package monolith2microservice.inbound.impl;
 
+import monolith2microservice.inbound.EvaluationController;
 import monolith2microservice.logic.evaluation.PerformanceMetricLogic;
 import monolith2microservice.logic.evaluation.QualityMetricLogic;
-import monolith2microservice.logic.evaluation.impl.MetricsExportService;
-import monolith2microservice.logic.evaluation.impl.QualityMetricLogicImpl;
-import monolith2microservice.logic.evaluation.reporting.TextFileReport;
-import monolith2microservice.shared.dto.PerformanceMetricsDto;
-import monolith2microservice.shared.dto.QualityMetricDto;
+import monolith2microservice.shared.dto.evaluation.PerformanceMetricsDto;
+import monolith2microservice.shared.dto.evaluation.QualityMetricDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("evaluations")
-public class EvaluationControllerImpl {
+public class EvaluationControllerImpl implements EvaluationController {
 
     @Autowired
     PerformanceMetricLogic performanceMetricLogic;
@@ -33,8 +30,8 @@ public class EvaluationControllerImpl {
         return ResponseEntity.ok(PerformanceMetricsDto.of(
                 performanceMetricLogic.getLogicalCouplingPerformanceMetric(),
                 performanceMetricLogic.getContributorCouplingPerformanceMetric(),
-                // TODO: fix semantic coupling performance metrics
-                performanceMetricLogic.getSemanticCouplingPerformanceMetric()
+                performanceMetricLogic.getSemanticCouplingPerformanceMetric(),
+                performanceMetricLogic.getDependencyCouplingPerformanceMetric()
         ));
     }
 

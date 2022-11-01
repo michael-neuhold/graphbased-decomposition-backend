@@ -1,8 +1,8 @@
 package monolith2microservice.logic.decomposition.impl;
 
-import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
 import monolith2microservice.outbound.DecompositionRepository;
-import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.dto.parameter.MonolithCouplingParametersDto;
+import monolith2microservice.shared.models.DecompositionCouplingParameters;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.Decomposition;
 import monolith2microservice.logic.decomposition.engine.DecompositionService;
@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class DecompositionLogicImpl implements DecompositionLogic {
@@ -36,18 +34,32 @@ public class DecompositionLogicImpl implements DecompositionLogic {
     private final Logger logger = LoggerFactory.getLogger(DecompositionLogicImpl.class);
 
     @Override
-    public Decomposition decompose(long repositoryId, DecompositionParameters decompositionDTO) {
+    public Decomposition decompose(long repositoryId, DecompositionCouplingParameters decompositionDTO) {
 
         //find repository to be decomposed
         GitRepository repo = repositoryLogic.findById(repositoryId);
 
-        Decomposition decomposition = decompositionService.decompose(repo,decompositionDTO);
+        Decomposition decomposition = decompositionService.decompose(repo, decompositionDTO);
 
         // Compute evaluation metrics
         evaluationService.performEvaluation(decomposition);
 
         //perform decomposition
         return decomposition;
+    }
+
+    @Override
+    public Decomposition monolith(long id, MonolithCouplingParametersDto monolithCouplingParametersDto) {
+
+        GitRepository gitRepository = repositoryLogic.findById(id);
+        Decomposition decomposition = decompositionService.decompose(gitRepository, monolithCouplingParametersDto.toDecompositionParameters());
+
+        // Compute evaluation metrics
+        evaluationService.performEvaluation(decomposition);
+
+        //perform decomposition
+        return decomposition;
+
     }
 
     @Override

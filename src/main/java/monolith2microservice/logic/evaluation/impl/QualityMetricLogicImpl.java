@@ -3,7 +3,7 @@ package monolith2microservice.logic.evaluation.impl;
 import monolith2microservice.logic.evaluation.QualityMetricLogic;
 import monolith2microservice.outbound.DecompositionRepository;
 import monolith2microservice.outbound.EvaluationMetricsRepository;
-import monolith2microservice.shared.dto.QualityMetricDto;
+import monolith2microservice.shared.dto.evaluation.QualityMetricDto;
 import monolith2microservice.shared.models.graph.Decomposition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,9 +1,13 @@
 package monolith2microservice.shared.dto;
 
 import com.google.common.collect.Iterables;
+import lombok.Builder;
+import lombok.Setter;
 
 import java.util.Arrays;
 
+@Setter
+@Builder
 public class RepositoryDto {
 
 	private String uri;
@@ -11,18 +15,9 @@ public class RepositoryDto {
 	public String getUri(){
 		return this.uri;
 	}
-	
-	public void setUri(String uri){
-		this.uri = uri;
-	}
-	
+
 	public String getName(){
 		return Iterables.getLast(Arrays.asList(this.uri.split("/"))).split("\\.git")[0];
-	}
-
-	@Override
-	public String toString() {
-		return "RepositoryDTO [uri=" + uri + ", name=" + getName() + "]";
 	}
 
 }

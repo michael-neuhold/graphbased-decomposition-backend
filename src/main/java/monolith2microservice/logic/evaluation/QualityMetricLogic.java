@@ -1,6 +1,6 @@
 package monolith2microservice.logic.evaluation;
 
-import monolith2microservice.shared.dto.QualityMetricDto;
+import monolith2microservice.shared.dto.evaluation.QualityMetricDto;
 
 import java.util.List;
 

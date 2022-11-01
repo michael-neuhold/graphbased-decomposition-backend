@@ -1,7 +1,7 @@
 package monolith2microservice.shared.models.graph;
 
 import lombok.*;
-import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.models.DecompositionCouplingParameters;
 import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.shared.models.git.GitRepository;
 
@@ -32,7 +32,7 @@ public class Decomposition {
     private GitRepository repository;
 
     @OneToOne(cascade={CascadeType.REMOVE})
-    private DecompositionParameters parameters;
+    private DecompositionCouplingParameters parameters;
 
     @Transient
     private long clusteringTime;

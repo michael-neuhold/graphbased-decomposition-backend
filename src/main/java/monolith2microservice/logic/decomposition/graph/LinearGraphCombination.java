@@ -1,8 +1,12 @@
 package monolith2microservice.logic.decomposition.graph;
 
 import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
-import monolith2microservice.shared.models.DecompositionParameters;
+import monolith2microservice.shared.models.DecompositionCouplingParameters;
 import monolith2microservice.shared.models.couplings.*;
+import monolith2microservice.shared.models.couplings.impl.ContributorCoupling;
+import monolith2microservice.shared.models.couplings.impl.DependencyCoupling;
+import monolith2microservice.shared.models.couplings.impl.LogicalCoupling;
+import monolith2microservice.shared.models.couplings.impl.SemanticCoupling;
 import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.logic.decomposition.engine.CouplingEngine;
@@ -12,7 +16,7 @@ import java.util.*;
 public class LinearGraphCombination {
 
     public LinearGraphCombination(GitRepository gitRepository, List<ChangeEvent> history,
-                                  DecompositionParameters decompositionParameters) {
+                                  DecompositionCouplingParameters decompositionParameters) {
         this.couplingInput = CouplingInput.builder()
                 .decompositionParameters(decompositionParameters)
                 .history(history)
@@ -40,7 +44,7 @@ public class LinearGraphCombination {
 
 
     public static LinearGraphCombination createWith(GitRepository gitRepository, List<ChangeEvent> history,
-                                                    DecompositionParameters decompositionParameters) {
+                                                    DecompositionCouplingParameters decompositionParameters) {
         return new LinearGraphCombination(gitRepository, history, decompositionParameters);
     }
 

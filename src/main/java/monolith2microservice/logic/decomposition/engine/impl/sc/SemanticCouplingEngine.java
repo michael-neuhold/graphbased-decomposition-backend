@@ -4,7 +4,7 @@ import monolith2microservice.Configs;
 import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
 import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.SemanticCouplingClassVisitorResult;
 import monolith2microservice.logic.decomposition.util.PathBuilder;
-import monolith2microservice.shared.models.couplings.SemanticCoupling;
+import monolith2microservice.shared.models.couplings.impl.SemanticCoupling;
 import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.SemanticCouplingClassVisitor;
 import monolith2microservice.logic.decomposition.engine.impl.shared.tfidf.TfIdfWrapper;
 import monolith2microservice.util.ClassContentFilter;
@@ -48,7 +48,7 @@ public class SemanticCouplingEngine implements CouplingEngine<SemanticCoupling> 
             for (SemanticCouplingClassVisitorResult other: classes) {
                 if (!current.getFilePath().equals(other.getFilePath())) {
                     couplings.add(
-                            new SemanticCoupling(
+                            SemanticCoupling.of(
                                     current.getFilePath(),other.getFilePath(),
                                     TfIdfWrapper.computeSimilarity(current.getTokenizedContent(), other.getTokenizedContent())
                             )

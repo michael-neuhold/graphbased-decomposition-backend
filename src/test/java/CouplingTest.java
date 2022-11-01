@@ -1,9 +1,8 @@
-import monolith2microservice.logic.decomposition.graph.LinearGraphCombination;
 import monolith2microservice.logic.decomposition.graph.MSTGraphClusterer;
 import monolith2microservice.shared.models.couplings.BaseCoupling;
-import monolith2microservice.shared.models.couplings.ContributorCoupling;
-import monolith2microservice.shared.models.couplings.LogicalCoupling;
-import monolith2microservice.shared.models.couplings.SemanticCoupling;
+import monolith2microservice.shared.models.couplings.impl.ContributorCoupling;
+import monolith2microservice.shared.models.couplings.impl.LogicalCoupling;
+import monolith2microservice.shared.models.couplings.impl.SemanticCoupling;
 import monolith2microservice.shared.models.graph.Component;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -81,48 +80,48 @@ public class CouplingTest {
 
     private List<LogicalCoupling> generateExtendedLogicalCouplings(){
         List<LogicalCoupling> couplings = new ArrayList<>();
-        couplings.add(new LogicalCoupling("A","B",5.0));
-        couplings.add(new LogicalCoupling("A","C",3.0));
-        couplings.add(new LogicalCoupling("C","D",2.0));
-        couplings.add(new LogicalCoupling("B","D",7.0));
-        couplings.add(new LogicalCoupling("C","E",1.0));
-        couplings.add(new LogicalCoupling("E","H",7.0));
-        couplings.add(new LogicalCoupling("H","I",8.0));
-        couplings.add(new LogicalCoupling("D","G",2.0));
-        couplings.add(new LogicalCoupling("G","L",8.0));
-        couplings.add(new LogicalCoupling("L","M",7.0));
-        couplings.add(new LogicalCoupling("M","G",6.0));
-        couplings.add(new LogicalCoupling("B","F",2.0));
-        couplings.add(new LogicalCoupling("F","J",9.0));
-        couplings.add(new LogicalCoupling("J","K",7.0));
-        couplings.add(new LogicalCoupling("K","F",5.0));
+        couplings.add(LogicalCoupling.of("A","C",3.0));
+        couplings.add(LogicalCoupling.of("A","B",5.0));
+        couplings.add(LogicalCoupling.of("C","D",2.0));
+        couplings.add(LogicalCoupling.of("B","D",7.0));
+        couplings.add(LogicalCoupling.of("C","E",1.0));
+        couplings.add(LogicalCoupling.of("E","H",7.0));
+        couplings.add(LogicalCoupling.of("H","I",8.0));
+        couplings.add(LogicalCoupling.of("D","G",2.0));
+        couplings.add(LogicalCoupling.of("G","L",8.0));
+        couplings.add(LogicalCoupling.of("L","M",7.0));
+        couplings.add(LogicalCoupling.of("M","G",6.0));
+        couplings.add(LogicalCoupling.of("B","F",2.0));
+        couplings.add(LogicalCoupling.of("F","J",9.0));
+        couplings.add(LogicalCoupling.of("J","K",7.0));
+        couplings.add(LogicalCoupling.of("K","F",5.0));
         return couplings;
     }
 
     private List<ContributorCoupling> generateGenericContributorCouplings(){
         List<ContributorCoupling> contributorCouplings = new ArrayList<>();
-        contributorCouplings.add(new ContributorCoupling("A","B", 2.0));
-        contributorCouplings.add(new ContributorCoupling("A","C", 4.0));
-        contributorCouplings.add(new ContributorCoupling("A","E", 3.0));
+        contributorCouplings.add(ContributorCoupling.of("A","B", 2.0));
+        contributorCouplings.add(ContributorCoupling.of("A","E", 3.0));
+        contributorCouplings.add(ContributorCoupling.of("A","C", 4.0));
         return contributorCouplings;
     }
 
     private List<SemanticCoupling> generateGenericSemanticCouplings(){
         List<SemanticCoupling> semanticCouplings = new ArrayList<>();
-        semanticCouplings.add(new SemanticCoupling("A","B",6.0));
-        semanticCouplings.add(new SemanticCoupling("B","C",1.0));
-        semanticCouplings.add(new SemanticCoupling("C","D",3.0));
-        semanticCouplings.add(new SemanticCoupling("D","E",7.0));
+        semanticCouplings.add(SemanticCoupling.of("A","B",6.0));
+        semanticCouplings.add(SemanticCoupling.of("B","C",1.0));
+        semanticCouplings.add(SemanticCoupling.of("C","D",3.0));
+        semanticCouplings.add(SemanticCoupling.of("D","E",7.0));
         return semanticCouplings;
 
     }
 
     private List<LogicalCoupling> generateGenericLogicalCouplings(){
         List<LogicalCoupling> logicalCouplings = new ArrayList<>();
-        logicalCouplings.add(new LogicalCoupling("A","B",5.0));
-        logicalCouplings.add(new LogicalCoupling("A","C",3.0));
-        logicalCouplings.add(new LogicalCoupling("C","D",2.0));
-        logicalCouplings.add(new LogicalCoupling("B","D",7.0));
+        logicalCouplings.add(LogicalCoupling.of("A","B",5.0));
+        logicalCouplings.add(LogicalCoupling.of("A","C",3.0));
+        logicalCouplings.add(LogicalCoupling.of("C","D",2.0));
+        logicalCouplings.add(LogicalCoupling.of("B","D",7.0));
         return logicalCouplings;
     }
 

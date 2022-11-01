@@ -4,7 +4,7 @@ import monolith2microservice.Configs;
 import monolith2microservice.logic.evaluation.PerformanceMetricLogic;
 import monolith2microservice.outbound.DecompositionRepository;
 import monolith2microservice.outbound.EvaluationMetricsRepository;
-import monolith2microservice.shared.dto.CouplingPerformanceMetricsDto;
+import monolith2microservice.shared.dto.evaluation.CouplingPerformanceMetricsDto;
 import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.Decomposition;
@@ -38,7 +38,8 @@ public class PerformanceMetricLogicImpl implements PerformanceMetricLogic {
                         .filter(decomposition ->
                                 decomposition.getParameters().isLogicalCoupling() &&
                                 !decomposition.getParameters().isSemanticCoupling() &&
-                                !decomposition.getParameters().isContributorCoupling())
+                                !decomposition.getParameters().isContributorCoupling() &&
+                                !decomposition.getParameters().isDependencyCoupling())
                         .collect(Collectors.toList());
 
         return decompositionsWithLogicalCoupling.stream()
@@ -56,7 +57,8 @@ public class PerformanceMetricLogicImpl implements PerformanceMetricLogic {
                         .filter(decomposition ->
                                 !decomposition.getParameters().isLogicalCoupling() &&
                                 !decomposition.getParameters().isSemanticCoupling() &&
-                                decomposition.getParameters().isContributorCoupling())
+                                decomposition.getParameters().isContributorCoupling() &&
+                                !decomposition.getParameters().isDependencyCoupling())
                         .collect(Collectors.toList());
 
         return decompositionsWithContributorCoupling.stream()
@@ -74,7 +76,27 @@ public class PerformanceMetricLogicImpl implements PerformanceMetricLogic {
                         .filter(decomposition ->
                                 !decomposition.getParameters().isLogicalCoupling() &&
                                 decomposition.getParameters().isSemanticCoupling() &&
-                                !decomposition.getParameters().isContributorCoupling())
+                                !decomposition.getParameters().isContributorCoupling() &&
+                                !decomposition.getParameters().isDependencyCoupling())
+                        .collect(Collectors.toList());
+
+        return decompositionsWithSemanticCoupling.stream()
+                .map(this::mapDecompositionToPerformanceMetricsSemantic)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CouplingPerformanceMetricsDto> getDependencyCouplingPerformanceMetric() {
+
+        List<Decomposition> decompositions = decompositionRepository.findAll();
+
+        List<Decomposition> decompositionsWithSemanticCoupling =
+                decompositions.stream()
+                        .filter(decomposition ->
+                                !decomposition.getParameters().isLogicalCoupling() &&
+                                !decomposition.getParameters().isSemanticCoupling() &&
+                                !decomposition.getParameters().isContributorCoupling() &&
+                                decomposition.getParameters().isDependencyCoupling())
                         .collect(Collectors.toList());
 
         return decompositionsWithSemanticCoupling.stream()

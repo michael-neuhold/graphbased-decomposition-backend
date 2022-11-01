@@ -1,5 +1,5 @@
 import monolith2microservice.shared.models.couplings.BaseCoupling;
-import monolith2microservice.shared.models.couplings.SemanticCoupling;
+import monolith2microservice.shared.models.couplings.impl.SemanticCoupling;
 import monolith2microservice.logic.decomposition.graph.MinimumSpanningTree;
 import monolith2microservice.shared.models.graph.WeightedEdge;
 import org.jgrapht.alg.KruskalMinimumSpanningTree;
@@ -73,14 +73,14 @@ public class MST {
     @Test
     public void testWeightedEdgeMST(){
         List<BaseCoupling> couplingList = new ArrayList<>();
-        couplingList.add(new SemanticCoupling("a", "b", 2.0));
-        couplingList.add(new SemanticCoupling("b", "c", 5.0));
-        couplingList.add(new SemanticCoupling("a", "c", 6.0));
-        couplingList.add(new SemanticCoupling("c", "d", 3.0));
-        couplingList.add(new SemanticCoupling("d", "e", 9.0));
-        couplingList.add(new SemanticCoupling("c", "e", 13.0));
-        couplingList.add(new SemanticCoupling("e", "f", 2.0));
-        couplingList.add(new SemanticCoupling("b", "e", 5.0));
+        couplingList.add(SemanticCoupling.of("a", "b", 2.0));
+        couplingList.add(SemanticCoupling.of("b", "c", 5.0));
+        couplingList.add(SemanticCoupling.of("a", "c", 6.0));
+        couplingList.add(SemanticCoupling.of("c", "d", 3.0));
+        couplingList.add(SemanticCoupling.of("d", "e", 9.0));
+        couplingList.add(SemanticCoupling.of("c", "e", 13.0));
+        couplingList.add(SemanticCoupling.of("e", "f", 2.0));
+        couplingList.add(SemanticCoupling.of("b", "e", 5.0));
         Set<WeightedEdge> edges = MinimumSpanningTree.of(couplingList);
         assertEquals(1,1);
     }
