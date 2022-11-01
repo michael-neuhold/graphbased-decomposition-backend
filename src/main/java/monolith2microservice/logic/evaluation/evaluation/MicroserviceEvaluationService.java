@@ -40,7 +40,7 @@ public class MicroserviceEvaluationService {
         Map<String,Set<String>> fileAuthorMap = generateAuthorMap(history);
 
         metrics.setContributors(computeAuthorSet(microservice,fileAuthorMap));
-        metrics.setSizeLoc(computeSizeInLoc(microservice, repo));
+        metrics.setLOC(computeSizeInLoc(microservice, repo));
         return metrics;
     }
 

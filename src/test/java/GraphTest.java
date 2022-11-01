@@ -1,4 +1,4 @@
-import monolith2microservice.util.comparators.WeightedEdgeComparator;
+import monolith2microservice.util.comparators.impl.WeightedEdgeComparator;
 import monolith2microservice.shared.models.couplings.BaseCoupling;
 import monolith2microservice.shared.models.couplings.impl.SemanticCoupling;
 import monolith2microservice.shared.models.graph.WeightedEdge;

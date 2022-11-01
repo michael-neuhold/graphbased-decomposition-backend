@@ -1,16 +1,22 @@
 package monolith2microservice.shared.models.evaluation;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import monolith2microservice.shared.models.graph.Component;
 
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by gmazlami on 1/15/17.
- */
-
 @Entity
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MicroserviceMetrics {
+
+    public MicroserviceMetrics(Component microservice){
+        this.microservice = microservice;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,26 +29,6 @@ public class MicroserviceMetrics {
 
     @OneToOne(cascade={CascadeType.REMOVE})
     private Component microservice;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public MicroserviceMetrics(Component microservice){
-        this.microservice = microservice;
-    }
-
-    public void setContributors(Set<String> contributors){
-        this.contributors = contributors;
-    }
-
-    public void setSizeLoc(int size){
-        this.LOC = size;
-    }
 
     public Set<String> getContributors(){
         return this.contributors;

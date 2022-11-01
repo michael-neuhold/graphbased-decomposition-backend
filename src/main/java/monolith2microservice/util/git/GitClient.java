@@ -23,11 +23,11 @@ import monolith2microservice.shared.models.git.GitRepository;
 
 public class GitClient {
 
-	private Configs config;
+	private final Configs config;
 	
-	private GitRepository repo;
+	private final GitRepository repo;
 	
-	public GitClient(GitRepository repo, Configs config){
+	public GitClient(GitRepository repo, Configs config) {
 		this.repo = repo;
 		this.config = config;
 	}

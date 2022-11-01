@@ -1,4 +1,4 @@
-package monolith2microservice.util.comparators;
+package monolith2microservice.util.comparators.impl;
 
 import java.util.Comparator;
 

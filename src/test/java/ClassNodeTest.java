@@ -1,5 +1,5 @@
 import monolith2microservice.shared.models.graph.ClassNode;
-import monolith2microservice.util.comparators.ClassNodeComparator;
+import monolith2microservice.util.comparators.impl.ClassNodeComparator;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -4,6 +4,10 @@ import monolith2microservice.shared.models.couplings.BaseCoupling;
 import monolith2microservice.shared.models.graph.ClassNode;
 import monolith2microservice.shared.models.graph.Component;
 import monolith2microservice.shared.models.graph.WeightedEdge;
+import monolith2microservice.util.comparators.impl.ClassNodeComparator;
+import monolith2microservice.util.comparators.impl.ComponentComparator;
+import monolith2microservice.util.comparators.impl.CouplingComparator;
+import monolith2microservice.util.comparators.impl.WeightedEdgeComparator;
 
 import java.util.Comparator;
 

@@ -1,4 +1,4 @@
-package monolith2microservice.util.comparators;
+package monolith2microservice.util.comparators.impl;
 
 import monolith2microservice.shared.models.graph.Component;
 
