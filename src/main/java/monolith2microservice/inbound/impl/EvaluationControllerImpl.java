@@ -5,6 +5,8 @@ import monolith2microservice.logic.evaluation.PerformanceMetricLogic;
 import monolith2microservice.logic.evaluation.QualityMetricLogic;
 import monolith2microservice.shared.dto.evaluation.PerformanceMetricsDto;
 import monolith2microservice.shared.dto.evaluation.QualityMetricDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +20,8 @@ import java.util.List;
 @RequestMapping("evaluations")
 public class EvaluationControllerImpl implements EvaluationController {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(EvaluationControllerImpl.class);
+
     @Autowired
     PerformanceMetricLogic performanceMetricLogic;
 
@@ -27,6 +31,7 @@ public class EvaluationControllerImpl implements EvaluationController {
     @CrossOrigin
     @RequestMapping(value="/performance", method= RequestMethod.GET)
     public ResponseEntity<PerformanceMetricsDto> exportPerformanceMetrics() {
+        LOGGER.info("|-> exportPerformanceMetrics");
         return ResponseEntity.ok(PerformanceMetricsDto.of(
                 performanceMetricLogic.getLogicalCouplingPerformanceMetric(),
                 performanceMetricLogic.getContributorCouplingPerformanceMetric(),
@@ -38,6 +43,7 @@ public class EvaluationControllerImpl implements EvaluationController {
     @CrossOrigin
     @RequestMapping(value="/quality", method= RequestMethod.GET)
     public ResponseEntity<List<QualityMetricDto>> exportQualityMetrics() {
+        LOGGER.info("|-> exportQualityMetrics");
         return ResponseEntity.ok(qualityMetricLogic.findAll());
     }
 

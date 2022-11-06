@@ -11,10 +11,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableAsync
 @ComponentScan
 @Configuration
+@EnableSwagger2
 @EnableAutoConfiguration
 @EntityScan(basePackages = "monolith2microservice.shared.models")
 @EnableJpaRepositories(basePackages = "monolith2microservice.outbound")
