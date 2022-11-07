@@ -32,6 +32,7 @@ public class DecompositionCouplingParametersDto {
                 .dependencyCoupling(dependencyCoupling)
                 .contributorCoupling(contributorCoupling)
                 .dependencyCoupling(dependencyCoupling)
+                .logicalCoupling(logicalCoupling)
                 .numServices(numberOfServices)
                 .build();
     }

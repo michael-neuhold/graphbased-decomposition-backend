@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class RepositoryLogicImpl implements RepositoryLogic {
 
-    private final Logger logger = LoggerFactory.getLogger(RepositoryLogicImpl.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(RepositoryLogicImpl.class);
 
     @Autowired
     private RepositoryRepository repository;
@@ -25,24 +25,25 @@ public class RepositoryLogicImpl implements RepositoryLogic {
 
     @Override
     public List<GitRepository> findAll() {
-        logger.info("findAll");
+        LOGGER.info("findAll");
         return repository.findAll();
     }
 
     @Override
     public GitRepository findById(Long repositoryId) {
-        logger.info("findById");
+        LOGGER.info("findById");
         return repository.findById(repositoryId);
     }
 
     @Override
     public GitRepository add(RepositoryDto repositoryDto) {
-        logger.info("add");
+        LOGGER.info("add");
 
         GitRepository r = repository.save(new GitRepository(repositoryDto.getUri(), repositoryDto.getName()));
         try {
             gitCloneService.processRepository(r);
         } catch (Exception exception) {
+            repository.delete(r);
             return null;
         }
 
