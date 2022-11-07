@@ -44,6 +44,7 @@ public class RepositoryLogicImpl implements RepositoryLogic {
             gitCloneService.processRepository(r);
         } catch (Exception exception) {
             repository.delete(r);
+            // TODO: delete folder
             return null;
         }
 
