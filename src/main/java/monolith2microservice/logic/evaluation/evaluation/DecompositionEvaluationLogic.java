@@ -5,7 +5,6 @@ import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
 import monolith2microservice.shared.models.evaluation.MicroserviceMetrics;
 import monolith2microservice.shared.models.graph.Component;
 import monolith2microservice.shared.models.graph.Decomposition;
-import monolith2microservice.logic.decomposition.util.git.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +19,6 @@ public class DecompositionEvaluationLogic {
 
     @Autowired
     private Configs config;
-
-    @Autowired
-    AuthorService authorService;
 
     @Autowired
     MicroserviceSimilarityEvaluator similarityService;

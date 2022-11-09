@@ -6,7 +6,6 @@ import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.ClassNode;
 import monolith2microservice.shared.models.graph.Component;
-import monolith2microservice.logic.decomposition.util.git.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +22,7 @@ public class MicroserviceEvaluationLogic {
     private static final Logger LOGGER = LoggerFactory.getLogger(MicroserviceEvaluationLogic.class);
 
     @Autowired
-    private AuthorService authorService;
-
-    @Autowired
     private Configs config;
-
-
 
     public MicroserviceMetrics from(Component microservice, GitRepository repo, List<ChangeEvent> history) {
         MicroserviceMetrics metrics = new MicroserviceMetrics(microservice);

@@ -32,7 +32,6 @@ public class EvaluationLogic {
     @Autowired
     EvaluationMetricsRepository evaluationMetricsRepository;
 
-
     @Async
     public void evaluate(Decomposition decomposition) {
 

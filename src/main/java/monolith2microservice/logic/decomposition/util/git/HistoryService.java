@@ -15,105 +15,106 @@ import monolith2microservice.outbound.RepositoryRepository;
 
 @Service
 public class HistoryService {
-	
-	@Autowired
-	Configs config;
-	
-	@Autowired
-	RepositoryRepository repository;
-	
-	/**
-	 * Returns the history of a repository (@param repo) as a list of changes made at each commit.
-	 * The return format is a list  @link{ChangeEvent}, where each @{ChangeEvent} corresponds to a commit. 
-	 * @param repo
-	 * @return
-	 * @throws Exception
-	 */
-	public List<ChangeEvent> computeChangeEvents(GitRepository repo) throws Exception{
-		GitClient gitClient = new GitClient(repo, config);
-		return gitClient.getChangeEvents();
-	}
+
+    @Autowired
+    Configs config;
+
+    @Autowired
+    RepositoryRepository repository;
+
+    /**
+     * Returns the history of a repository (@param repo) as a list of changes made at each commit.
+     * The return format is a list  @link{ChangeEvent}, where each @{ChangeEvent} corresponds to a commit.
+     *
+     * @param repo
+     * @return
+     * @throws Exception
+     */
+    public List<ChangeEvent> computeChangeEvents(GitRepository repo) throws Exception {
+        GitClient gitClient = new GitClient(repo, config);
+        return gitClient.getChangeEvents();
+    }
 
 
-	public List<ChangeEvent> cleanHistory(List<ChangeEvent> events){
-		List<ChangeEvent> cleanedEvents = setUpChangedFileNames(events);
-		List<ChangeEvent> afterHandleDeleteEvents = handleDeletedFiles(cleanedEvents);
-		List<ChangeEvent> afterHandleRenameEvents = correctRenamedFiles(afterHandleDeleteEvents);
-		return afterHandleRenameEvents;
-	}
+    public List<ChangeEvent> cleanHistory(List<ChangeEvent> events) {
+        List<ChangeEvent> cleanedEvents = setUpChangedFileNames(events);
+        List<ChangeEvent> afterHandleDeleteEvents = handleDeletedFiles(cleanedEvents);
+        List<ChangeEvent> afterHandleRenameEvents = correctRenamedFiles(afterHandleDeleteEvents);
+        return afterHandleRenameEvents;
+    }
 
 
-	private List<ChangeEvent> setUpChangedFileNames(List<ChangeEvent> events){
-		//set up initial filenames of changed files
-		for(ChangeEvent event: events){
-			event.getChangedfiles().stream().map(diffEntry -> diffEntry.getNewPath()).forEach(event::addFileName);
-		}
+    private List<ChangeEvent> setUpChangedFileNames(List<ChangeEvent> events) {
+        //set up initial filenames of changed files
+        for (ChangeEvent event : events) {
+            event.getChangedfiles().stream().map(diffEntry -> diffEntry.getNewPath()).forEach(event::addFileName);
+        }
 
-		return events;
-	}
-
-
-	private List<ChangeEvent> handleDeletedFiles(List<ChangeEvent> events){
-		List<String> deletedFileNames = new ArrayList<>();
-
-		for(ChangeEvent event: events){
-			for(DiffEntry entry: event.getChangedfiles()){
-				if(entry.getNewPath().equals(config.DEV_NULL) && !entry.getOldPath().equals(entry.getNewPath())){ //file was deleted
-					deletedFileNames.add(entry.getOldPath());
-				}
-			}
-
-		}
-
-		deletedFileNames.forEach(fileName -> {
-			for(ChangeEvent event: events){
-				for(DiffEntry entry : event.getChangedfiles()){
-					if(entry.getOldPath().equals(fileName)){
-						event.removeFileName(fileName);
-					}
-					if(entry.getNewPath().equals(fileName)){
-						event.removeFileName(fileName);
-					}
-					if(entry.getNewPath().equals(config.DEV_NULL)){
-						event.removeFileName(config.DEV_NULL);
-					}
-				}
-			}
-
-		});
-		return events;
-	}
+        return events;
+    }
 
 
-	private List<ChangeEvent> correctRenamedFiles(List<ChangeEvent> events) {
-		int counter = 0;
-		for(ChangeEvent event: events){
-			for (String fileName: event.getChangedFileNames()){
-				String lastName = findLastName(fileName,events,counter);
-				if (lastName != fileName){
-					event.renameChangedFileName(fileName,lastName);
-				}
-				if(fileName.equals(config.DEV_NULL)){ // file was deleted
+    private List<ChangeEvent> handleDeletedFiles(List<ChangeEvent> events) {
+        List<String> deletedFileNames = new ArrayList<>();
 
-				}
-			}
-			counter++;
-		}
-		return events;
-	}
+        for (ChangeEvent event : events) {
+            for (DiffEntry entry : event.getChangedfiles()) {
+                if (entry.getNewPath().equals(config.DEV_NULL) && !entry.getOldPath().equals(entry.getNewPath())) { //file was deleted
+                    deletedFileNames.add(entry.getOldPath());
+                }
+            }
 
-	private String findLastName(String originalName, List<ChangeEvent> events, int startingIndex){
-		String newName = originalName;
-		for(int i = startingIndex; i < events.size(); i++){
-			ChangeEvent event = events.get(i);
+        }
 
-			for(DiffEntry entry: event.getChangedfiles()){
-				if(entry.getOldPath().equals(originalName) && !entry.getNewPath().equals(entry.getOldPath())){
-					newName = entry.getNewPath();
-				}
-			}
-		}
-		return newName;
-	}
-	
+        deletedFileNames.forEach(fileName -> {
+            for (ChangeEvent event : events) {
+                for (DiffEntry entry : event.getChangedfiles()) {
+                    if (entry.getOldPath().equals(fileName)) {
+                        event.removeFileName(fileName);
+                    }
+                    if (entry.getNewPath().equals(fileName)) {
+                        event.removeFileName(fileName);
+                    }
+                    if (entry.getNewPath().equals(config.DEV_NULL)) {
+                        event.removeFileName(config.DEV_NULL);
+                    }
+                }
+            }
+
+        });
+        return events;
+    }
+
+
+    private List<ChangeEvent> correctRenamedFiles(List<ChangeEvent> events) {
+        int counter = 0;
+        for (ChangeEvent event : events) {
+            for (String fileName : event.getChangedFileNames()) {
+                String lastName = findLastName(fileName, events, counter);
+                if (lastName != fileName) {
+                    event.renameChangedFileName(fileName, lastName);
+                }
+                if (fileName.equals(config.DEV_NULL)) { // file was deleted
+
+                }
+            }
+            counter++;
+        }
+        return events;
+    }
+
+    private String findLastName(String originalName, List<ChangeEvent> events, int startingIndex) {
+        String newName = originalName;
+        for (int i = startingIndex; i < events.size(); i++) {
+            ChangeEvent event = events.get(i);
+
+            for (DiffEntry entry : event.getChangedfiles()) {
+                if (entry.getOldPath().equals(originalName) && !entry.getNewPath().equals(entry.getOldPath())) {
+                    newName = entry.getNewPath();
+                }
+            }
+        }
+        return newName;
+    }
+
 }
