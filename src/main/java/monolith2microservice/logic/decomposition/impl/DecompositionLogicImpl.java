@@ -7,7 +7,7 @@ import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.Decomposition;
 import monolith2microservice.logic.decomposition.engine.DecompositionService;
 import monolith2microservice.logic.decomposition.DecompositionLogic;
-import monolith2microservice.logic.evaluation.EvaluationService;
+import monolith2microservice.logic.evaluation.EvaluationLogic;
 import monolith2microservice.logic.repository.RepositoryLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class DecompositionLogicImpl implements DecompositionLogic {
     private DecompositionRepository decompositionRepository;
 
     @Autowired
-    private EvaluationService evaluationService;
+    private EvaluationLogic evaluationService;
 
     private final Logger logger = LoggerFactory.getLogger(DecompositionLogicImpl.class);
 
@@ -42,7 +42,7 @@ public class DecompositionLogicImpl implements DecompositionLogic {
         Decomposition decomposition = decompositionService.decompose(repo, decompositionDTO);
 
         // Compute evaluation metrics
-        evaluationService.performEvaluation(decomposition);
+        evaluationService.evaluate(decomposition);
 
         //perform decomposition
         return decomposition;
@@ -55,7 +55,7 @@ public class DecompositionLogicImpl implements DecompositionLogic {
         Decomposition decomposition = decompositionService.decompose(gitRepository, monolithCouplingParametersDto.toDecompositionParameters());
 
         // Compute evaluation metrics
-        evaluationService.performEvaluation(decomposition);
+        evaluationService.evaluate(decomposition);
 
         //perform decomposition
         return decomposition;

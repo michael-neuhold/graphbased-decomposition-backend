@@ -18,6 +18,7 @@ public class QualityMetricDto {
     private boolean isLogicalCoupling;
     private boolean isContributorCoupling;
     private boolean isSemanticCoupling;
+    private boolean isDependencyCoupling;
     private double averageClassCount;
     private double averageLoc;
     private double contributorOverlapping;
@@ -32,6 +33,7 @@ public class QualityMetricDto {
                 .numberOfServices(decomposition.getServices().size())
                 .isLogicalCoupling(decomposition.getParameters().isLogicalCoupling())
                 .isContributorCoupling(decomposition.getParameters().isContributorCoupling())
+                .isDependencyCoupling(decomposition.getParameters().isDependencyCoupling())
                 .isSemanticCoupling(decomposition.getParameters().isSemanticCoupling())
                 .averageClassCount(metric.getAverageClassNumber())
                 .averageLoc(metric.getAverageLoc())

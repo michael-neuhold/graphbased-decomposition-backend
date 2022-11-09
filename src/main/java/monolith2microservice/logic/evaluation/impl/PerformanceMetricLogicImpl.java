@@ -81,7 +81,7 @@ public class PerformanceMetricLogicImpl implements PerformanceMetricLogic {
                         .collect(Collectors.toList());
 
         return decompositionsWithSemanticCoupling.stream()
-                .map(this::mapDecompositionToPerformanceMetricsSemantic)
+                .map(this::mapDecompositionToPerformanceMetrics)
                 .collect(Collectors.toList());
     }
 
@@ -100,7 +100,7 @@ public class PerformanceMetricLogicImpl implements PerformanceMetricLogic {
                         .collect(Collectors.toList());
 
         return decompositionsWithSemanticCoupling.stream()
-                .map(this::mapDecompositionToPerformanceMetricsSemantic)
+                .map(this::mapDecompositionToPerformanceMetrics)
                 .collect(Collectors.toList());
     }
 
@@ -114,15 +114,6 @@ public class PerformanceMetricLogicImpl implements PerformanceMetricLogic {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return CouplingPerformanceMetricsDto.of(decomposition.getRepository().getName(),
-                commitCount, historyLength, metrics.getExecutionTimeMillisStrategy());
-    }
-
-    private CouplingPerformanceMetricsDto mapDecompositionToPerformanceMetricsSemantic(Decomposition decomposition) {
-        EvaluationMetrics metrics = evaluationMetricsRepository.findByDecompositionId(decomposition.getId());
-        int historyLength = 0;
-        int commitCount = 0;
-
         return CouplingPerformanceMetricsDto.of(decomposition.getRepository().getName(),
                 commitCount, historyLength, metrics.getExecutionTimeMillisStrategy());
     }

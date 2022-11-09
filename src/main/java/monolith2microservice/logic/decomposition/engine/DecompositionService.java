@@ -16,7 +16,7 @@ import monolith2microservice.outbound.ClassNodeRepository;
 import monolith2microservice.outbound.ComponentRepository;
 import monolith2microservice.outbound.DecompositionRepository;
 import monolith2microservice.outbound.ParametersRepository;
-import monolith2microservice.logic.evaluation.evaluation.MicroserviceEvaluationService;
+import monolith2microservice.logic.evaluation.evaluation.MicroserviceEvaluationLogic;
 import monolith2microservice.logic.decomposition.util.git.HistoryService;
 import monolith2microservice.logic.decomposition.engine.impl.cc.ContributorCouplingEngine;
 import monolith2microservice.logic.decomposition.engine.impl.lc.LogicalCouplingEngine;
@@ -63,7 +63,7 @@ public class DecompositionService {
 
 
     @Autowired
-    MicroserviceEvaluationService microserviceEvaluationService;
+    MicroserviceEvaluationLogic microserviceEvaluationService;
 
     @Getter
     @Setter

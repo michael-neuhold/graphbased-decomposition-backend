@@ -7,7 +7,6 @@ import monolith2microservice.logic.decomposition.engine.impl.shared.tfidf.TfIdfW
 import monolith2microservice.util.ClassContentFilter;
 import monolith2microservice.util.FilterInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,11 +16,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Genc on 15.01.2017.
- */
-@Service
-public class MicroserviceSimilarityService {
+@org.springframework.stereotype.Component
+public class MicroserviceSimilarityEvaluator {
 
     @Autowired
     Configs configs;
