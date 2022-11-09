@@ -5,11 +5,13 @@ import monolith2microservice.shared.dto.evaluation.QualityMetricDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface EvaluationController {
 
     ResponseEntity<PerformanceMetricsDto> exportPerformanceMetrics();
 
-    ResponseEntity<List<QualityMetricDto>> exportQualityMetrics();
+    ResponseEntity<List<Set<QualityMetricDto>>> exportQualityMetrics();
 
 }

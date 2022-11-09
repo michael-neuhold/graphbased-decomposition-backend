@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("evaluations")
@@ -42,7 +44,7 @@ public class EvaluationControllerImpl implements EvaluationController {
 
     @CrossOrigin
     @RequestMapping(value="/quality", method= RequestMethod.GET)
-    public ResponseEntity<List<QualityMetricDto>> exportQualityMetrics() {
+    public ResponseEntity<List<Set<QualityMetricDto>>> exportQualityMetrics() {
         LOGGER.info("|-> exportQualityMetrics");
         return ResponseEntity.ok(qualityMetricLogic.findAll());
     }

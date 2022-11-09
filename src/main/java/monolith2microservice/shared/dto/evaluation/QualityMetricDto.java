@@ -12,6 +12,9 @@ import monolith2microservice.shared.models.graph.Decomposition;
 public class QualityMetricDto {
 
     private String repositoryName;
+    private Long repositoryId;
+    private Long decompositionId;
+    private int numberOfServices;
     private boolean isLogicalCoupling;
     private boolean isContributorCoupling;
     private boolean isSemanticCoupling;
@@ -24,6 +27,9 @@ public class QualityMetricDto {
     public static QualityMetricDto of(Decomposition decomposition, EvaluationMetrics metric) {
         return QualityMetricDto.builder()
                 .repositoryName(decomposition.getRepository().getName())
+                .repositoryId(decomposition.getRepository().getId())
+                .decompositionId(decomposition.getId())
+                .numberOfServices(decomposition.getServices().size())
                 .isLogicalCoupling(decomposition.getParameters().isLogicalCoupling())
                 .isContributorCoupling(decomposition.getParameters().isContributorCoupling())
                 .isSemanticCoupling(decomposition.getParameters().isSemanticCoupling())

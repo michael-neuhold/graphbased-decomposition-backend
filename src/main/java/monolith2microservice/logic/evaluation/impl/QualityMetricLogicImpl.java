@@ -4,12 +4,15 @@ import monolith2microservice.logic.evaluation.QualityMetricLogic;
 import monolith2microservice.outbound.DecompositionRepository;
 import monolith2microservice.outbound.EvaluationMetricsRepository;
 import monolith2microservice.shared.dto.evaluation.QualityMetricDto;
-import monolith2microservice.shared.models.graph.Decomposition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toSet;
 
 @Component
 public class QualityMetricLogicImpl implements QualityMetricLogic {
@@ -21,11 +24,10 @@ public class QualityMetricLogicImpl implements QualityMetricLogic {
     DecompositionRepository decompositionRepository;
 
     @Override
-    public List<QualityMetricDto> findAll() {
-        return evaluationMetricsRepository.findAll().stream().map(metric -> {
-            Decomposition decomposition = decompositionRepository.findById(metric.getDecomposition().getId());
-            return QualityMetricDto.of(decomposition, metric);
-        }).collect(Collectors.toList());
+    public List<Set<QualityMetricDto>> findAll() {
+        return new ArrayList<>(evaluationMetricsRepository.findAll().stream()
+                .map(metric -> QualityMetricDto.of(decompositionRepository.findById(metric.getDecomposition().getId()), metric))
+                .collect(groupingBy(QualityMetricDto::getRepositoryId, toSet())).values());
     }
 
 }
