@@ -2,26 +2,25 @@ package monolith2microservice.logic.decomposition.graph;
 
 import monolith2microservice.shared.models.couplings.BaseCoupling;
 import monolith2microservice.shared.models.graph.ClassNode;
-import monolith2microservice.util.comparators.ComparatorFactory;
 import monolith2microservice.shared.models.graph.Component;
 import monolith2microservice.shared.models.graph.WeightedEdge;
+import monolith2microservice.util.comparators.ComparatorFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public final class MSTGraphClusterer {
 
-    private MSTGraphClusterer(){
+    private MSTGraphClusterer() {
         //empty on purpose
     }
 
-
-    public static Set<Component> clusterWithSplit(List<? extends  BaseCoupling> couplings, int splitThreshold, int numServices) {
+    public static Set<Component> clusterWithSplit(List<? extends BaseCoupling> couplings, int splitThreshold, int numServices) {
         Set<WeightedEdge> minimumSpanningTree = MinimumSpanningTree.of(couplings);
         List<WeightedEdge> clusters = computeClusters(minimumSpanningTree, numServices);
-        List<Component> components =  ConnectedComponents.connectedComponents(clusters);
+        List<Component> components = ConnectedComponents.connectedComponents(clusters);
 
-        while(components.size() > 0){
+        while (components.size() > 0) {
 
             //Sort components ascending according to size (number of nodes)
             components.sort(ComparatorFactory.componentComarator());
@@ -33,11 +32,11 @@ public final class MSTGraphClusterer {
 
 
             // split largest component if it exceeds size/degree parameter
-            if(largest.getSize() > splitThreshold){
+            if (largest.getSize() > splitThreshold) {
                 components.remove(0);
                 List<Component> split = splitByDegree(largest);
                 components.addAll(split);
-            }else{
+            } else {
                 return new HashSet<>(components);
             }
 
@@ -46,7 +45,7 @@ public final class MSTGraphClusterer {
         return new HashSet<>(components);
     }
 
-    private static List<Component> splitByDegree(Component component){
+    private static List<Component> splitByDegree(Component component) {
         List<ClassNode> nodes = component.getNodes();
         nodes.sort(ComparatorFactory.classNodeComparator());
         Collections.reverse(nodes);
@@ -85,9 +84,9 @@ public final class MSTGraphClusterer {
             numConnectedComponents = ConnectedComponents.numberOfComponents(edgeList);
 
             //stop if we cannot further improve the decomposition anymore and return last acceptable decomposition
-            if(lastNumConnectedComponents > numConnectedComponents){
+            if (lastNumConnectedComponents > numConnectedComponents) {
                 return oldList;
-            }else{
+            } else {
                 lastNumConnectedComponents = numConnectedComponents;
             }
 

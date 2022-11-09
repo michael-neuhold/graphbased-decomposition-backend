@@ -1,12 +1,15 @@
 package monolith2microservice.logic.decomposition.graph.component;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import monolith2microservice.shared.models.graph.Component;
 
 import java.util.Set;
 
-/**
- * Created by gmazlami on 12/20/16.
- */
+@Getter
+@Setter
+@ToString
 public class GraphRepresentation {
 
     private static long componentCounter = 1;
@@ -22,32 +25,6 @@ public class GraphRepresentation {
         this.edges = edges;
         this.componentId = id;
     }
-
-    public Set<NodeRepresentation> getNodes() {
-        return nodes;
-    }
-
-    public void setNodes(Set<NodeRepresentation> nodes) {
-        this.nodes = nodes;
-    }
-
-    public Set<EdgeRepresentation> getEdges() {
-        return edges;
-    }
-
-    public void setEdges(Set<EdgeRepresentation> edges) {
-        this.edges = edges;
-    }
-
-    public void setComponentId(long id){
-        this.componentId = id;
-    }
-
-    public long getComponentId(){
-        return this.componentId;
-    }
-
-
 
     public static GraphRepresentation from(Component component){
         Set<NodeRepresentation> nodes = GraphRepresentationConverter.convertNodes(component);

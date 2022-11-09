@@ -18,6 +18,8 @@ public interface DecompositionController {
 
     ResponseEntity<Set<GraphRepresentation>> getDecompositionByIdAsGraph(Long decompositionId);
 
+    ResponseEntity<GraphVisualizationDto> getDecompositionByIdAsVisualization(Long decompositionId);
+
     ResponseEntity<Set<GraphRepresentation>> decomposeRepositoryById(Long repoId, DecompositionCouplingParametersDto decompositionDTO);
 
     ResponseEntity<String> decomposeRepositoryByIdAsGraphviz(Long repoId, DecompositionCouplingParametersDto decompositionDTO);

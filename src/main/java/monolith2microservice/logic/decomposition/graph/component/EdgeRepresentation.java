@@ -1,8 +1,12 @@
 package monolith2microservice.logic.decomposition.graph.component;
 
-/**
- * Created by gmazlami on 12/20/16.
- */
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class EdgeRepresentation {
 
     private long from;
@@ -15,30 +19,6 @@ public class EdgeRepresentation {
         this.from = from;
         this.to = to;
         this.weight = weight;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public long getFrom() {
-        return from;
-    }
-
-    public void setFrom(long from) {
-        this.from = from;
-    }
-
-    public long getTo() {
-        return to;
-    }
-
-    public void setTo(long to) {
-        this.to = to;
     }
 
     @Override
@@ -60,11 +40,4 @@ public class EdgeRepresentation {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "EdgeRepresentation{" +
-                "from=" + from +
-                ", to=" + to +
-                '}';
-    }
 }

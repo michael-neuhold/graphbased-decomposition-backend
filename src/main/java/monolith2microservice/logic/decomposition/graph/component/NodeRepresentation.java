@@ -1,10 +1,14 @@
 package monolith2microservice.logic.decomposition.graph.component;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.File;
 
-/**
- * Created by gmazlami on 12/20/16.
- */
+@Getter
+@Setter
+@ToString
 public class NodeRepresentation {
 
     private long id;
@@ -24,35 +28,6 @@ public class NodeRepresentation {
     public NodeRepresentation(long id, String fullClassName, String hexColorCode){
         this(id, fullClassName);
         this.color = hexColorCode;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public String getFullClassName(){
-        return this.fullClassName;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-
-    public void setColor(String hexColorCode){
-        this.color = hexColorCode;
-    }
-
-    public String getColor(){
-        return this.color;
     }
 
     private String getClassNameFromFileName(String fileName){

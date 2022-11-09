@@ -6,14 +6,11 @@ import monolith2microservice.util.HexColorGenerator;
 
 import java.util.*;
 
-/**
- * Created by gmazlami on 12/20/16.
- */
 public class GraphRepresentationConverter {
 
     private static long counter = 1;
 
-    private static HexColorGenerator colorGenerator = new HexColorGenerator();
+    private static final HexColorGenerator COLOR_GENERATOR = new HexColorGenerator();
 
     public static Set<EdgeRepresentation> convertEdges(Component component, Set<NodeRepresentation> nodes){
         Map<String,String> nodeMap = new HashMap<>();
@@ -36,7 +33,7 @@ public class GraphRepresentationConverter {
     public static Set<NodeRepresentation> convertNodes(Component component){
         Set<NodeRepresentation> nodes = new HashSet<>();
 
-        String hexColor = colorGenerator.getNextColor();
+        String hexColor = COLOR_GENERATOR.getNextColor();
         for (ClassNode n: component.getNodes()){
             nodes.add(new NodeRepresentation(counter,n.getId(), hexColor));
             counter++;

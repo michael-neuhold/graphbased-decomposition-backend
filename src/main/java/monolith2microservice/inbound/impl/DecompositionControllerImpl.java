@@ -3,7 +3,7 @@ package monolith2microservice.inbound.impl;
 import monolith2microservice.inbound.DecompositionController;
 import monolith2microservice.logic.decomposition.DecompositionLogic;
 import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
-import monolith2microservice.logic.decomposition.graph.transformer.GraphvizTransformer;
+import monolith2microservice.logic.decomposition.graph.transformer.impl.GraphvizTransformer;
 import monolith2microservice.shared.dto.parameter.DecompositionCouplingParametersDto;
 import monolith2microservice.shared.dto.DecompositionDto;
 import monolith2microservice.shared.dto.parameter.MonolithCouplingParametersDto;
@@ -62,6 +62,22 @@ public class DecompositionControllerImpl implements DecompositionController {
         }
 
         return ResponseEntity.ok(DecompositionLogic.getGraphRepresentation(decomposition));
+    }
+
+    @Override
+    @CrossOrigin
+    @RequestMapping(value="{decompositionId}/visualization", method = RequestMethod.GET)
+    public ResponseEntity<GraphVisualizationDto> getDecompositionByIdAsVisualization(@PathVariable Long decompositionId) {
+        LOGGER.info("getDecompositionByIdAsVisualization");
+        Decomposition decomposition = decompositionLogic.findById(decompositionId);
+        if (decomposition == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        Set<GraphRepresentation> graph =
+                DecompositionLogic.getGraphRepresentation(decomposition);
+
+        return ResponseEntity.ok().body(GraphVisualizationDto.of(graph));
     }
 
     @Override

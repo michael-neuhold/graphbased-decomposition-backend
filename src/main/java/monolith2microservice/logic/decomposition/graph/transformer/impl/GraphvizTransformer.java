@@ -1,6 +1,7 @@
-package monolith2microservice.logic.decomposition.graph.transformer;
+package monolith2microservice.logic.decomposition.graph.transformer.impl;
 
 import monolith2microservice.logic.decomposition.graph.component.GraphRepresentation;
+import monolith2microservice.logic.decomposition.graph.transformer.GraphTransformer;
 
 import java.util.Set;
 
