@@ -138,7 +138,7 @@ public class DecompositionControllerImpl implements DecompositionController {
             @PathVariable Long repositoryId,
             @RequestBody MonolithCouplingParametersDto monolithCouplingParametersDto) {
         LOGGER.info("monolithicCouplingVisualization");
-        Decomposition decomposition = decompositionLogic.monolith(repositoryId, monolithCouplingParametersDto);
+        Decomposition decomposition = decompositionLogic.monolithication(repositoryId, monolithCouplingParametersDto);
         if (decomposition == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

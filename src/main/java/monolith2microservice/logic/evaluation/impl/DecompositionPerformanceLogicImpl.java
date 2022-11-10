@@ -1,7 +1,7 @@
 package monolith2microservice.logic.evaluation.impl;
 
 import monolith2microservice.Configs;
-import monolith2microservice.logic.evaluation.PerformanceMetricLogic;
+import monolith2microservice.logic.evaluation.DecompositionPerformanceLogic;
 import monolith2microservice.outbound.DecompositionRepository;
 import monolith2microservice.outbound.EvaluationMetricsRepository;
 import monolith2microservice.shared.dto.evaluation.CouplingPerformanceMetricsDto;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class PerformanceMetricLogicImpl implements PerformanceMetricLogic {
+public class DecompositionPerformanceLogicImpl implements DecompositionPerformanceLogic {
 
     @Autowired
     private Configs configs;

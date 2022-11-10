@@ -1,4 +1,4 @@
-package monolith2microservice.logic.evaluation.evaluation;
+package monolith2microservice.logic.evaluation.impl.evaluators;
 
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
@@ -13,15 +13,15 @@ import java.io.IOException;
 import java.util.*;
 
 @org.springframework.stereotype.Component
-public class DecompositionEvaluationLogic {
+public class DecompositionEvaluator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DecompositionEvaluationLogic.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DecompositionEvaluator.class);
 
     @Autowired
     private Configs config;
 
     @Autowired
-    MicroserviceSimilarityEvaluator similarityService;
+    SerivceSimilarityEvaluator similarityService;
 
 
     public EvaluationMetrics computeMetrics(Decomposition decomposition, List<MicroserviceMetrics> microserviceMetrics) {

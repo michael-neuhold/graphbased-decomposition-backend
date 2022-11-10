@@ -1,5 +1,6 @@
 package monolith2microservice.logic.decomposition.impl;
 
+import monolith2microservice.logic.evaluation.EvaluationLogic;
 import monolith2microservice.outbound.DecompositionRepository;
 import monolith2microservice.shared.dto.parameter.MonolithCouplingParametersDto;
 import monolith2microservice.shared.models.DecompositionCouplingParameters;
@@ -7,7 +8,6 @@ import monolith2microservice.shared.models.git.GitRepository;
 import monolith2microservice.shared.models.graph.Decomposition;
 import monolith2microservice.logic.decomposition.engine.DecompositionService;
 import monolith2microservice.logic.decomposition.DecompositionLogic;
-import monolith2microservice.logic.evaluation.EvaluationLogic;
 import monolith2microservice.logic.repository.RepositoryLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class DecompositionLogicImpl implements DecompositionLogic {
     private DecompositionRepository decompositionRepository;
 
     @Autowired
-    private EvaluationLogic evaluationService;
+    private EvaluationLogic evaluationLogic;
 
     private final Logger logger = LoggerFactory.getLogger(DecompositionLogicImpl.class);
 
@@ -42,20 +42,20 @@ public class DecompositionLogicImpl implements DecompositionLogic {
         Decomposition decomposition = decompositionService.decompose(repo, decompositionDTO);
 
         // Compute evaluation metrics
-        evaluationService.evaluate(decomposition);
+        evaluationLogic.evaluate(decomposition);
 
         //perform decomposition
         return decomposition;
     }
 
     @Override
-    public Decomposition monolith(long id, MonolithCouplingParametersDto monolithCouplingParametersDto) {
+    public Decomposition monolithication(long id, MonolithCouplingParametersDto monolithCouplingParametersDto) {
 
         GitRepository gitRepository = repositoryLogic.findById(id);
         Decomposition decomposition = decompositionService.decompose(gitRepository, monolithCouplingParametersDto.toDecompositionParameters());
 
         // Compute evaluation metrics
-        evaluationService.evaluate(decomposition);
+        evaluationLogic.evaluate(decomposition);
 
         //perform decomposition
         return decomposition;

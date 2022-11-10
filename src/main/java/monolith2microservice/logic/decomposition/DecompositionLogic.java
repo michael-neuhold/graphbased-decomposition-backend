@@ -13,7 +13,7 @@ public interface DecompositionLogic {
 
     Decomposition decompose(long id, DecompositionCouplingParameters decompositionDTO);
 
-    Decomposition monolith(long id, MonolithCouplingParametersDto monolithCouplingParametersDto);
+    Decomposition monolithication(long id, MonolithCouplingParametersDto monolithCouplingParametersDto);
 
     Decomposition findById(long decompositionId);
 

@@ -1,4 +1,4 @@
-package monolith2microservice.logic.evaluation.evaluation;
+package monolith2microservice.logic.evaluation.impl.evaluators;
 
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.evaluation.MicroserviceMetrics;
@@ -17,9 +17,9 @@ import java.nio.file.Paths;
 import java.util.*;
 
 @org.springframework.stereotype.Component
-public class MicroserviceEvaluationLogic {
+public class ServiceEvaluator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MicroserviceEvaluationLogic.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceEvaluator.class);
 
     @Autowired
     private Configs config;
@@ -36,19 +36,19 @@ public class MicroserviceEvaluationLogic {
         return metrics;
     }
 
-    private Map<String,Set<String>> generateAuthorMap(List<ChangeEvent> history){
-        Map<String,Set<String>> fileAuthorMap = new HashMap<>();
+    private Map<String, Set<String>> generateAuthorMap(List<ChangeEvent> history) {
+        Map<String, Set<String>> fileAuthorMap = new HashMap<>();
 
-        for(ChangeEvent event: history){
-            for(String fileName: event.getChangedFileNames()){
-                if(fileAuthorMap.get(fileName)==null){
+        for (ChangeEvent event : history) {
+            for (String fileName : event.getChangedFileNames()) {
+                if (fileAuthorMap.get(fileName) == null) {
                     Set<String> authorSet = new HashSet<>();
                     authorSet.add(event.getAuthorEmailAddress());
-                    fileAuthorMap.put(fileName,authorSet);
-                }else{
+                    fileAuthorMap.put(fileName, authorSet);
+                } else {
                     Set<String> authorSet = fileAuthorMap.get(fileName);
                     authorSet.add(event.getAuthorEmailAddress());
-                    fileAuthorMap.put(fileName,authorSet);
+                    fileAuthorMap.put(fileName, authorSet);
                 }
             }
         }
@@ -56,22 +56,20 @@ public class MicroserviceEvaluationLogic {
         return fileAuthorMap;
     }
 
-
-    private  Set<String> computeAuthorSet(Component microservice, Map<String, Set<String>> authorMap){
+    private Set<String> computeAuthorSet(Component microservice, Map<String, Set<String>> authorMap) {
         Set<String> authorSet = new HashSet<>();
 
-        for(ClassNode node : microservice.getNodes()){
+        for (ClassNode node : microservice.getNodes()) {
             Set<String> authors = authorMap.get(node.getId());
-            if(authors != null){
+            if (authors != null) {
                 authorSet.addAll(authors);
             }
         }
 
-
         return authorSet;
     }
 
-    private int computeSizeInLoc(Component microservice, GitRepository repo) throws IOException{
+    private int computeSizeInLoc(Component microservice, GitRepository repo) throws IOException {
 
         List<String> filePaths = new ArrayList<>();
         microservice.getNodes().forEach(node -> filePaths.add(node.getId()));
@@ -79,9 +77,9 @@ public class MicroserviceEvaluationLogic {
 
         int lineCounter = 0;
 
-        for(String filePath : filePaths){
+        for (String filePath : filePaths) {
             BufferedReader reader = Files.newBufferedReader(Paths.get(pathPrefix + "/" + filePath));
-            while(reader.readLine() != null){
+            while (reader.readLine() != null) {
                 lineCounter++;
             }
         }

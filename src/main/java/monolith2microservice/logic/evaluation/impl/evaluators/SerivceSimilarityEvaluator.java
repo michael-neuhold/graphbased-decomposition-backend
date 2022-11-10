@@ -1,4 +1,4 @@
-package monolith2microservice.logic.evaluation.evaluation;
+package monolith2microservice.logic.evaluation.impl.evaluators;
 
 import monolith2microservice.Configs;
 import monolith2microservice.shared.models.git.GitRepository;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @org.springframework.stereotype.Component
-public class MicroserviceSimilarityEvaluator {
+public class SerivceSimilarityEvaluator {
 
     @Autowired
     Configs configs;
@@ -29,7 +29,6 @@ public class MicroserviceSimilarityEvaluator {
         List<String> secondServiceContent = computeTokenizedServiceContent(repo, secondMicroservice);
         return TfIdfWrapper.computeSimilarity(firstServiceContent, secondServiceContent);
     }
-
 
     private List<String> computeTokenizedServiceContent(GitRepository repo, Component microservice) throws IOException{
         List<String> filePaths = microservice.getFilePaths();

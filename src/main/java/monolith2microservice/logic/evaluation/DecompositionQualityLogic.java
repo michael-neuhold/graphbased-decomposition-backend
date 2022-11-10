@@ -5,8 +5,8 @@ import monolith2microservice.shared.dto.evaluation.QualityMetricDto;
 import java.util.List;
 import java.util.Set;
 
-public interface QualityMetricLogic {
+public interface DecompositionQualityLogic {
 
-    List<Set<QualityMetricDto>> findAll();
+    List<Set<QualityMetricDto>> findMetrics();
 
 }

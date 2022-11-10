@@ -1,8 +1,8 @@
 package monolith2microservice.inbound.impl;
 
 import monolith2microservice.inbound.EvaluationController;
-import monolith2microservice.logic.evaluation.PerformanceMetricLogic;
-import monolith2microservice.logic.evaluation.QualityMetricLogic;
+import monolith2microservice.logic.evaluation.DecompositionPerformanceLogic;
+import monolith2microservice.logic.evaluation.DecompositionQualityLogic;
 import monolith2microservice.shared.dto.evaluation.PerformanceMetricsDto;
 import monolith2microservice.shared.dto.evaluation.QualityMetricDto;
 import org.slf4j.Logger;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -25,20 +24,20 @@ public class EvaluationControllerImpl implements EvaluationController {
     private final Logger LOGGER = LoggerFactory.getLogger(EvaluationControllerImpl.class);
 
     @Autowired
-    PerformanceMetricLogic performanceMetricLogic;
+    DecompositionPerformanceLogic decompositionPerformanceLogic;
 
     @Autowired
-    QualityMetricLogic qualityMetricLogic;
+    DecompositionQualityLogic decompositionQualityLogic;
 
     @CrossOrigin
     @RequestMapping(value="/performance", method= RequestMethod.GET)
     public ResponseEntity<PerformanceMetricsDto> exportPerformanceMetrics() {
         LOGGER.info("|-> exportPerformanceMetrics");
         return ResponseEntity.ok(PerformanceMetricsDto.of(
-                performanceMetricLogic.getLogicalCouplingPerformanceMetric(),
-                performanceMetricLogic.getContributorCouplingPerformanceMetric(),
-                performanceMetricLogic.getSemanticCouplingPerformanceMetric(),
-                performanceMetricLogic.getDependencyCouplingPerformanceMetric()
+                decompositionPerformanceLogic.getLogicalCouplingPerformanceMetric(),
+                decompositionPerformanceLogic.getContributorCouplingPerformanceMetric(),
+                decompositionPerformanceLogic.getSemanticCouplingPerformanceMetric(),
+                decompositionPerformanceLogic.getDependencyCouplingPerformanceMetric()
         ));
     }
 
@@ -46,7 +45,7 @@ public class EvaluationControllerImpl implements EvaluationController {
     @RequestMapping(value="/quality", method= RequestMethod.GET)
     public ResponseEntity<List<Set<QualityMetricDto>>> exportQualityMetrics() {
         LOGGER.info("|-> exportQualityMetrics");
-        return ResponseEntity.ok(qualityMetricLogic.findAll());
+        return ResponseEntity.ok(decompositionQualityLogic.findMetrics());
     }
 
 }
