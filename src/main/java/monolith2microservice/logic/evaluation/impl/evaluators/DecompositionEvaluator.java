@@ -1,6 +1,5 @@
 package monolith2microservice.logic.evaluation.impl.evaluators;
 
-import monolith2microservice.Configs;
 import monolith2microservice.shared.models.evaluation.EvaluationMetrics;
 import monolith2microservice.shared.models.evaluation.MicroserviceMetrics;
 import monolith2microservice.shared.models.graph.Component;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Component
 public class DecompositionEvaluator {
@@ -18,20 +18,16 @@ public class DecompositionEvaluator {
     private static final Logger LOGGER = LoggerFactory.getLogger(DecompositionEvaluator.class);
 
     @Autowired
-    private Configs config;
-
-    @Autowired
     SerivceSimilarityEvaluator similarityService;
-
 
     public EvaluationMetrics computeMetrics(Decomposition decomposition, List<MicroserviceMetrics> microserviceMetrics) {
         EvaluationMetrics metrics = new EvaluationMetrics();
         try {
             metrics.setDecomposition(decomposition);
-            metrics.setContributorsPerMicroservice(computeContributorPerMicroservice(microserviceMetrics));
-            metrics.setContributorOverlapping(computeContributorOverlapping(microserviceMetrics));
-            metrics.setAverageLoc(computeAverageLoc(microserviceMetrics));
-            metrics.setAverageClassNumber(computeMicroserviceSizeClasses(microserviceMetrics));
+            metrics.setContributorsPerMicroservice(computeAvgContributorsPerService(microserviceMetrics));
+            metrics.setContributorOverlapping(computeAvgContributorOverlapping(microserviceMetrics));
+            metrics.setAverageLoc(computeAvgLinesOfCode(microserviceMetrics));
+            metrics.setAverageClassNumber(computeAvgClassesInService(microserviceMetrics));
             metrics.setSimilarity(computeServiceSimilarity(decomposition));
             metrics.setExecutionTimeMillisClustering(decomposition.getClusteringTime());
             metrics.setExecutionTimeMillisStrategy(decomposition.getStrategyTime());
@@ -41,26 +37,37 @@ public class DecompositionEvaluator {
         return metrics;
     }
 
-    private double computeContributorPerMicroservice(List<MicroserviceMetrics> microserviceMetrics) {
-        return microserviceMetrics.stream().map(MicroserviceMetrics::getNumOfContributors).mapToDouble(Double::doubleValue).sum() / microserviceMetrics.size();
+    private double computeAvgContributorsPerService(List<MicroserviceMetrics> microserviceMetrics) {
+        return microserviceMetrics.stream()
+                .map(MicroserviceMetrics::getNumOfContributors)
+                .mapToDouble(Double::doubleValue).average().orElse(0.0);
     }
 
-    private double computeContributorOverlapping(List<MicroserviceMetrics> microserviceMetrics) {
-        List<Double> overlappingContributors = new ArrayList<>();
-        microserviceMetrics.forEach(firstServiceMetric -> {
-            microserviceMetrics.forEach(secondServiceMetric -> {
-                overlappingContributors.add((double) getNumberOfOverlappingContributors(firstServiceMetric.getContributors(), secondServiceMetric.getContributors()));
-            });
-        });
+    private double computeAvgContributorOverlapping(List<MicroserviceMetrics> microserviceMetrics) {
+        List<Double> overlappingContributors = microserviceMetrics.stream()
+                .flatMap(firstServiceMetrics -> microserviceMetrics.stream()
+                        .map(secondServiceMetrics ->
+                                getNumberOfOverlappingContributors(
+                                        firstServiceMetrics.getContributors(),
+                                        secondServiceMetrics.getContributors())))
+                .collect(Collectors.toList());
         return overlappingContributors.stream().mapToDouble(Double::doubleValue).sum() / overlappingContributors.size();
     }
 
-    private double computeAverageLoc(List<MicroserviceMetrics> microserviceMetrics) {
-        return microserviceMetrics.stream().map(metric -> (double) metric.getSizeInLoc()).mapToDouble(Double::doubleValue).sum() / microserviceMetrics.size();
+    private double computeAvgLinesOfCode(List<MicroserviceMetrics> microserviceMetrics) {
+        return microserviceMetrics.stream()
+                .map(metric -> (double) metric.getSizeInLoc())
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .orElse(0.0);
     }
 
-    private double computeMicroserviceSizeClasses(List<MicroserviceMetrics> microserviceMetrics) {
-        return microserviceMetrics.stream().map(metric -> (double) metric.getSizeInClasses()).mapToDouble(Double::doubleValue).sum() / microserviceMetrics.size();
+    private double computeAvgClassesInService(List<MicroserviceMetrics> microserviceMetrics) {
+        return microserviceMetrics.stream()
+                .map(metric -> (double) metric.getSizeInClasses())
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .orElse(0.0);
     }
 
     private double computeServiceSimilarity(Decomposition decomposition) throws IOException {
@@ -79,8 +86,7 @@ public class DecompositionEvaluator {
         }
     }
 
-
-    public int getNumberOfOverlappingContributors(Set<String> firstSet, Set<String> secondSet) {
+    public double getNumberOfOverlappingContributors(Set<String> firstSet, Set<String> secondSet) {
         Set<String> intersection = new HashSet<>(firstSet);
         intersection.retainAll(secondSet);
         return intersection.size();

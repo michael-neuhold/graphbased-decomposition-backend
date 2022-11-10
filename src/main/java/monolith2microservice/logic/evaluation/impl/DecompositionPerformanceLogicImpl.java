@@ -29,7 +29,7 @@ public class DecompositionPerformanceLogicImpl implements DecompositionPerforman
     EvaluationMetricsRepository evaluationMetricsRepository;
 
     @Override
-    public List<CouplingPerformanceMetricsDto> getLogicalCouplingPerformanceMetric() {
+    public List<CouplingPerformanceMetricsDto> findLogicalCouplingMetrics() {
 
         List<Decomposition> decompositions = decompositionRepository.findAll();
 
@@ -48,7 +48,7 @@ public class DecompositionPerformanceLogicImpl implements DecompositionPerforman
     }
 
     @Override
-    public List<CouplingPerformanceMetricsDto> getContributorCouplingPerformanceMetric() {
+    public List<CouplingPerformanceMetricsDto> findContributorCouplingMetrics() {
 
         List<Decomposition> decompositions = decompositionRepository.findAll();
 
@@ -67,7 +67,7 @@ public class DecompositionPerformanceLogicImpl implements DecompositionPerforman
     }
 
     @Override
-    public List<CouplingPerformanceMetricsDto> getSemanticCouplingPerformanceMetric() {
+    public List<CouplingPerformanceMetricsDto> findSemanticCouplingMetrics() {
 
         List<Decomposition> decompositions = decompositionRepository.findAll();
 
@@ -86,7 +86,7 @@ public class DecompositionPerformanceLogicImpl implements DecompositionPerforman
     }
 
     @Override
-    public List<CouplingPerformanceMetricsDto> getDependencyCouplingPerformanceMetric() {
+    public List<CouplingPerformanceMetricsDto> findDependencyCouplingMetrics() {
 
         List<Decomposition> decompositions = decompositionRepository.findAll();
 

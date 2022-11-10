@@ -1,4 +1,4 @@
-package monolith2microservice.logic.decomposition.util;
+package monolith2microservice.util;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

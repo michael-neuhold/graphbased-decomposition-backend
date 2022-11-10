@@ -49,7 +49,7 @@ public class EvaluationLogicImpl implements EvaluationLogic {
     private List<MicroserviceMetrics> calculateMicroserviceMetrics(Decomposition decomposition) {
         return decomposition.getServices().stream()
                 .map(service -> serviceEvaluator
-                        .from(service, decomposition.getRepository(), decomposition.getHistory()))
+                        .computeMetrics(service, decomposition.getRepository(), decomposition.getHistory()))
                 .collect(Collectors.toList());
     }
 

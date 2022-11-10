@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface DecompositionPerformanceLogic {
 
-    List<CouplingPerformanceMetricsDto> getLogicalCouplingPerformanceMetric();
-    List<CouplingPerformanceMetricsDto> getContributorCouplingPerformanceMetric();
-    List<CouplingPerformanceMetricsDto> getSemanticCouplingPerformanceMetric();
-    List<CouplingPerformanceMetricsDto> getDependencyCouplingPerformanceMetric();
+    List<CouplingPerformanceMetricsDto> findLogicalCouplingMetrics();
+    List<CouplingPerformanceMetricsDto> findContributorCouplingMetrics();
+    List<CouplingPerformanceMetricsDto> findSemanticCouplingMetrics();
+    List<CouplingPerformanceMetricsDto> findDependencyCouplingMetrics();
 
 }

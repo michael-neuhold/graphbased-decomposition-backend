@@ -15,4 +15,6 @@ public class GraphVisualizationNodeDto {
 
     private String label;
 
+    private boolean couldBeApi;
+
 }

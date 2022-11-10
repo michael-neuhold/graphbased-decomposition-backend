@@ -1,6 +1,7 @@
 package monolith2microservice.logic.evaluation.impl.evaluators;
 
 import monolith2microservice.Configs;
+import monolith2microservice.util.PathBuilder;
 import monolith2microservice.shared.models.evaluation.MicroserviceMetrics;
 import monolith2microservice.shared.models.git.ChangeEvent;
 import monolith2microservice.shared.models.git.GitRepository;
@@ -13,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Component
 public class ServiceEvaluator {
@@ -24,15 +27,10 @@ public class ServiceEvaluator {
     @Autowired
     private Configs config;
 
-    public MicroserviceMetrics from(Component microservice, GitRepository repo, List<ChangeEvent> history) {
+    public MicroserviceMetrics computeMetrics(Component microservice, GitRepository repo, List<ChangeEvent> history) {
         MicroserviceMetrics metrics = new MicroserviceMetrics(microservice);
-        try {
-            Map<String, Set<String>> fileAuthorMap = generateAuthorMap(history);
-            metrics.setContributors(computeAuthorSet(microservice, fileAuthorMap));
-            metrics.setLOC(computeSizeInLoc(microservice, repo));
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        metrics.setContributors(computeAuthorSet(microservice, generateAuthorMap(history)));
+        metrics.setLOC(computeSizeInLinesOfCode(microservice, repo));
         return metrics;
     }
 
@@ -69,18 +67,25 @@ public class ServiceEvaluator {
         return authorSet;
     }
 
-    private int computeSizeInLoc(Component microservice, GitRepository repo) throws IOException {
+    private int computeSizeInLinesOfCode(Component microservice, GitRepository repo) {
+        List<String> filePaths = microservice.getNodes().stream()
+                .map(ClassNode::getId)
+                .collect(Collectors.toList());
 
-        List<String> filePaths = new ArrayList<>();
-        microservice.getNodes().forEach(node -> filePaths.add(node.getId()));
-        String pathPrefix = config.localRepositoryDirectory + "/" + repo.getName() + "_" + repo.getId();
+        Path repositoryDirectory = PathBuilder.buildLocalRepoPath(
+                config.localRepositoryDirectory,
+                repo.getName(),
+                repo.getId()
+        );
 
         int lineCounter = 0;
-
         for (String filePath : filePaths) {
-            BufferedReader reader = Files.newBufferedReader(Paths.get(pathPrefix + "/" + filePath));
-            while (reader.readLine() != null) {
-                lineCounter++;
+            try (BufferedReader reader = Files.newBufferedReader(Paths.get(repositoryDirectory + "/" + filePath))) {
+                while (reader.readLine() != null) {
+                    lineCounter++;
+                }
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
             }
         }
 

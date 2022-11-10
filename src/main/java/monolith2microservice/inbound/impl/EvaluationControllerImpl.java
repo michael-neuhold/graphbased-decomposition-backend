@@ -34,10 +34,10 @@ public class EvaluationControllerImpl implements EvaluationController {
     public ResponseEntity<PerformanceMetricsDto> exportPerformanceMetrics() {
         LOGGER.info("|-> exportPerformanceMetrics");
         return ResponseEntity.ok(PerformanceMetricsDto.of(
-                decompositionPerformanceLogic.getLogicalCouplingPerformanceMetric(),
-                decompositionPerformanceLogic.getContributorCouplingPerformanceMetric(),
-                decompositionPerformanceLogic.getSemanticCouplingPerformanceMetric(),
-                decompositionPerformanceLogic.getDependencyCouplingPerformanceMetric()
+                decompositionPerformanceLogic.findLogicalCouplingMetrics(),
+                decompositionPerformanceLogic.findContributorCouplingMetrics(),
+                decompositionPerformanceLogic.findSemanticCouplingMetrics(),
+                decompositionPerformanceLogic.findDependencyCouplingMetrics()
         ));
     }
 

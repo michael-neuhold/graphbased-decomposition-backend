@@ -3,7 +3,7 @@ package monolith2microservice.logic.decomposition.engine.impl.sc;
 import monolith2microservice.Configs;
 import monolith2microservice.logic.decomposition.engine.impl.shared.CouplingInput;
 import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.SemanticCouplingClassVisitorResult;
-import monolith2microservice.logic.decomposition.util.PathBuilder;
+import monolith2microservice.util.PathBuilder;
 import monolith2microservice.shared.models.couplings.impl.SemanticCoupling;
 import monolith2microservice.logic.decomposition.engine.impl.sc.classvisitor.SemanticCouplingClassVisitor;
 import monolith2microservice.logic.decomposition.engine.impl.shared.tfidf.TfIdfWrapper;
