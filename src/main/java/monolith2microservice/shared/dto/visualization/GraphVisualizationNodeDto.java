@@ -17,4 +17,6 @@ public class GraphVisualizationNodeDto {
 
     private boolean couldBeApi;
 
+    private boolean couldBeDatabaseAccess;
+
 }

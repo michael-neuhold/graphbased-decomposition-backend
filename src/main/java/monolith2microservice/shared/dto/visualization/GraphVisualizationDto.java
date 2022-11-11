@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import static monolith2microservice.util.VisualizationHelper.couldBeApi;
+import static monolith2microservice.util.VisualizationHelper.couldBeDatabaseAccess;
 
 @Getter
 @Setter
@@ -37,6 +38,7 @@ public class GraphVisualizationDto {
                         .group(graphRepresentation.getComponentId())
                         .label(node.getLabel())
                         .couldBeApi(couldBeApi(node.getLabel()))
+                        .couldBeDatabaseAccess(couldBeDatabaseAccess(node.getLabel()))
                         .build());
             });
         });
