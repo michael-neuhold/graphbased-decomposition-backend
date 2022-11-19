@@ -74,11 +74,10 @@ public class DecompositionService {
     }
 
     public Decomposition decompose(GitRepository repository, DecompositionCouplingParameters parameters) {
-
+        LOGGER.info("| begin |-> decompose | repositoryId={}", repository.getId());
+        LOGGER.info("Parameters: {}", parameters);
         try {
             List<ChangeEvent> history = computeHistory(repository);
-
-            logStrategyInformation(parameters);
 
             // calculate couplings
             ResultWithExecutionTime<List<BaseCoupling>> couplingsWithExecutionTime =
@@ -102,6 +101,7 @@ public class DecompositionService {
             // store decomposition information
             storeDecompositionInformation(decomposition);
 
+            LOGGER.info("| end <-| decompose");
             return decomposition;
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
@@ -109,37 +109,22 @@ public class DecompositionService {
         }
     }
 
-    private void logStrategyInformation(DecompositionCouplingParameters parameters) {
-        LOGGER.info("DECOMPOSITION-------------------------");
-        LOGGER.info(String.format(
-                "\nSTRATEGIES: \n\tLogical Coupling: %s\n\tSemantic Coupling: %s\n\tContributor Coupling: %s\n\tDependency Coupling: %s\n",
-                parameters.isLogicalCoupling(),
-                parameters.isSemanticCoupling(),
-                parameters.isContributorCoupling(),
-                parameters.isDependencyCoupling())
-        );
-        LOGGER.info(String.format(
-                "\nPARAMETERS: \n\tHistory Interval Size (s): %s\n\tTarget Number of Services: %s\n",
-                parameters.getIntervalSeconds(),
-                parameters.getNumServices())
-        );
-    }
-
     private void storeDecompositionInformation(Decomposition decomposition) {
-        LOGGER.info("Store decomposition information to database");
+        LOGGER.info("| begin |-> storeDecompositionInformation");
         decomposition.getServices().forEach(component -> {
             classNodeRepository.save(component.getNodes());
             componentRepository.save(component);
-            LOGGER.info(component.toString());
+            //LOGGER.info(component.toString());
         });
         parametersRepository.save(decomposition.getParameters());
         decompositionRepository.save(decomposition);
+        LOGGER.info("| end <-| storeDecompositionInformation");
     }
 
     private ResultWithExecutionTime<List<BaseCoupling>> calculateCouplings(GitRepository repository, List<ChangeEvent> history,
                                                                            DecompositionCouplingParameters parameters) {
 
-        LOGGER.info("Begin of coupling calculation");
+        LOGGER.info("| begin |-> calculateCouplings");
         long strategyStartTimestamp = System.currentTimeMillis();
         List<BaseCoupling> couplings =
                 LinearGraphCombination.createWith(repository, history, parameters)
@@ -157,14 +142,14 @@ public class DecompositionService {
                                 dependencyCouplingEngine)
                         .generate();
         long strategyExecutionTimeMillis = System.currentTimeMillis() - strategyStartTimestamp;
-        LOGGER.info("End of coupling calculation");
+        LOGGER.info("| end <-| calculateCouplings");
 
         return new ResultWithExecutionTime<>(couplings, strategyExecutionTimeMillis);
     }
 
     private ResultWithExecutionTime<Set<Component>> calculateComponents(List<BaseCoupling> couplings,
                                                                         DecompositionCouplingParameters parameters) {
-        LOGGER.info("Begin of cluster algorithm");
+        LOGGER.info("| begin |-> calculateComponents (clustering)");
         long clusteringStartTimestamp = System.currentTimeMillis();
         Set<Component> components =
                 MSTGraphClusterer.clusterWithSplit(
@@ -172,7 +157,7 @@ public class DecompositionService {
                         parameters.getSizeThreshold(),
                         parameters.getNumServices());
         long clusteringExecutionTimeMillis = System.currentTimeMillis() - clusteringStartTimestamp;
-        LOGGER.info("End of cluster algorithm");
+        LOGGER.info("| end <-| calculateComponents (clustering)");
 
         return new ResultWithExecutionTime<>(components, clusteringExecutionTimeMillis);
     }
