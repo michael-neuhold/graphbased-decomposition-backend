@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public interface DecompositionLogic {
 
-    Decomposition decompose(long id, DecompositionCouplingParameters decompositionDTO);
+    Decomposition decompose(long repositoryId, DecompositionCouplingParameters decompositionDTO);
 
-    Decomposition monolithication(long id, MonolithCouplingParametersDto monolithCouplingParametersDto);
+    Decomposition monolithication(long repositoryId, MonolithCouplingParametersDto monolithCouplingParametersDto);
 
     Decomposition findById(long decompositionId);
 

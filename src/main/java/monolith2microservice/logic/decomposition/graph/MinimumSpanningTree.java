@@ -11,17 +11,16 @@ import java.util.Set;
 
 public final class MinimumSpanningTree {
 
-
-    private MinimumSpanningTree(){
+    private MinimumSpanningTree() {
         //empty on purpose
     }
 
-    public static Set<WeightedEdge> of(List<? extends BaseCoupling> couplings){
+    public static Set<WeightedEdge> of(List<? extends BaseCoupling> couplings) {
         KruskalMinimumSpanningTree<String, WeightedEdge> mst = new KruskalMinimumSpanningTree<>(createWeightedGraph(couplings));
         return mst.getMinimumSpanningTreeEdgeSet();
     }
 
-    private static SimpleWeightedGraph<String, WeightedEdge> createWeightedGraph(List<? extends BaseCoupling> couplings){
+    private static SimpleWeightedGraph<String, WeightedEdge> createWeightedGraph(List<? extends BaseCoupling> couplings) {
         SimpleWeightedGraph<String, WeightedEdge> weightedGraph = new SimpleWeightedGraph<>(WeightedEdge.class);
 
         couplings.forEach(coupling -> {
@@ -29,10 +28,10 @@ public final class MinimumSpanningTree {
             weightedGraph.addVertex(coupling.getSecondFileName());
 
             WeightedEdge currentEdge = new WeightedEdge();
-            currentEdge.setScore(1/coupling.getScore());
-            weightedGraph.addEdge(coupling.getFirstFileName(), coupling.getSecondFileName(),currentEdge);
+            currentEdge.setScore(1 / coupling.getScore());
+            weightedGraph.addEdge(coupling.getFirstFileName(), coupling.getSecondFileName(), currentEdge);
 
-            //Add the score inversed (1/score) so that high score means close distance between vertices
+            // Add the score inversed (1/score) so that high score means close distance between vertices
             weightedGraph.setEdgeWeight(currentEdge, (1 / coupling.getScore()));
         });
 

@@ -76,39 +76,19 @@ public class DecompositionService {
     public Decomposition decompose(GitRepository repository, DecompositionCouplingParameters parameters) {
 
         try {
-
             List<ChangeEvent> history = computeHistory(repository);
 
-            LOGGER.info("DECOMPOSITION-------------------------");
-            LOGGER.info(String.format(
-                    "STRATEGIES: \n\tLogical Coupling: %s\n\tSemantic Coupling: %s\n\tContributor Coupling: %s\n\tDependency Coupling: %s\n",
-                    parameters.isLogicalCoupling(),
-                    parameters.isSemanticCoupling(),
-                    parameters.isContributorCoupling(),
-                    parameters.isDependencyCoupling())
-            );
-            LOGGER.info(String.format(
-                    "PARAMETERS: \n\tHistory Interval Size (s): %s\n\tTarget Number of Services: %s\n",
-                    parameters.getIntervalSeconds(),
-                    parameters.getNumServices())
-            );
+            logStrategyInformation(parameters);
 
+            // calculate couplings
             ResultWithExecutionTime<List<BaseCoupling>> couplingsWithExecutionTime =
                     calculateCouplings(repository, history, parameters);
 
+            // calculate clusters
             ResultWithExecutionTime<Set<Component>> calculatedComponentsWithExecutionTime =
                     calculateComponents(couplingsWithExecutionTime.result, parameters);
 
-            LOGGER.info("Saving decomposition to database.");
-
-            calculatedComponentsWithExecutionTime.result.forEach(c -> {
-                classNodeRepository.save(c.getNodes());
-                componentRepository.save(c);
-                LOGGER.info(c.toString());
-            });
-
-            parametersRepository.save(parameters);
-
+            // build decomposition result
             Decomposition decomposition =
                     Decomposition.builder()
                             .services(calculatedComponentsWithExecutionTime.result)
@@ -119,21 +99,47 @@ public class DecompositionService {
                             .strategyTime(couplingsWithExecutionTime.executionTime)
                             .build();
 
-            decompositionRepository.save(decomposition);
-
-            LOGGER.info("Saved all decomposition info and components to database!");
+            // store decomposition information
+            storeDecompositionInformation(decomposition);
 
             return decomposition;
-
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
             throw new RuntimeException(exception);
         }
     }
 
+    private void logStrategyInformation(DecompositionCouplingParameters parameters) {
+        LOGGER.info("DECOMPOSITION-------------------------");
+        LOGGER.info(String.format(
+                "\nSTRATEGIES: \n\tLogical Coupling: %s\n\tSemantic Coupling: %s\n\tContributor Coupling: %s\n\tDependency Coupling: %s\n",
+                parameters.isLogicalCoupling(),
+                parameters.isSemanticCoupling(),
+                parameters.isContributorCoupling(),
+                parameters.isDependencyCoupling())
+        );
+        LOGGER.info(String.format(
+                "\nPARAMETERS: \n\tHistory Interval Size (s): %s\n\tTarget Number of Services: %s\n",
+                parameters.getIntervalSeconds(),
+                parameters.getNumServices())
+        );
+    }
+
+    private void storeDecompositionInformation(Decomposition decomposition) {
+        LOGGER.info("Store decomposition information to database");
+        decomposition.getServices().forEach(component -> {
+            classNodeRepository.save(component.getNodes());
+            componentRepository.save(component);
+            LOGGER.info(component.toString());
+        });
+        parametersRepository.save(decomposition.getParameters());
+        decompositionRepository.save(decomposition);
+    }
+
     private ResultWithExecutionTime<List<BaseCoupling>> calculateCouplings(GitRepository repository, List<ChangeEvent> history,
                                                                            DecompositionCouplingParameters parameters) {
 
+        LOGGER.info("Begin of coupling calculation");
         long strategyStartTimestamp = System.currentTimeMillis();
         List<BaseCoupling> couplings =
                 LinearGraphCombination.createWith(repository, history, parameters)
@@ -151,16 +157,22 @@ public class DecompositionService {
                                 dependencyCouplingEngine)
                         .generate();
         long strategyExecutionTimeMillis = System.currentTimeMillis() - strategyStartTimestamp;
+        LOGGER.info("End of coupling calculation");
 
         return new ResultWithExecutionTime<>(couplings, strategyExecutionTimeMillis);
     }
 
     private ResultWithExecutionTime<Set<Component>> calculateComponents(List<BaseCoupling> couplings,
                                                                         DecompositionCouplingParameters parameters) {
-
+        LOGGER.info("Begin of cluster algorithm");
         long clusteringStartTimestamp = System.currentTimeMillis();
-        Set<Component> components = MSTGraphClusterer.clusterWithSplit(couplings, parameters.getSizeThreshold(), parameters.getNumServices());
+        Set<Component> components =
+                MSTGraphClusterer.clusterWithSplit(
+                        couplings,
+                        parameters.getSizeThreshold(),
+                        parameters.getNumServices());
         long clusteringExecutionTimeMillis = System.currentTimeMillis() - clusteringStartTimestamp;
+        LOGGER.info("End of cluster algorithm");
 
         return new ResultWithExecutionTime<>(components, clusteringExecutionTimeMillis);
     }

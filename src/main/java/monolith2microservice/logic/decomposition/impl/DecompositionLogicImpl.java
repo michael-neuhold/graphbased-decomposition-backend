@@ -31,15 +31,19 @@ public class DecompositionLogicImpl implements DecompositionLogic {
     @Autowired
     private EvaluationLogic evaluationLogic;
 
-    private final Logger logger = LoggerFactory.getLogger(DecompositionLogicImpl.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(DecompositionLogicImpl.class);
 
     @Override
     public Decomposition decompose(long repositoryId, DecompositionCouplingParameters decompositionDTO) {
+        LOGGER.info("Decompose of repository #{}", repositoryId);
 
         //find repository to be decomposed
-        GitRepository repo = repositoryLogic.findById(repositoryId);
+        GitRepository gitRepository = repositoryLogic.findById(repositoryId);
 
-        Decomposition decomposition = decompositionService.decompose(repo, decompositionDTO);
+        // decompose
+        Decomposition decomposition = decompositionService.decompose(
+                gitRepository,
+                decompositionDTO);
 
         // Compute evaluation metrics
         evaluationLogic.evaluate(decomposition);
@@ -49,10 +53,16 @@ public class DecompositionLogicImpl implements DecompositionLogic {
     }
 
     @Override
-    public Decomposition monolithication(long id, MonolithCouplingParametersDto monolithCouplingParametersDto) {
+    public Decomposition monolithication(long repositoryId, MonolithCouplingParametersDto monolithCouplingParametersDto) {
+        LOGGER.info("Monolithication of repository #{}", repositoryId);
 
-        GitRepository gitRepository = repositoryLogic.findById(id);
-        Decomposition decomposition = decompositionService.decompose(gitRepository, monolithCouplingParametersDto.toDecompositionParameters());
+        // find repository for monolithication
+        GitRepository gitRepository = repositoryLogic.findById(repositoryId);
+
+        // monolithify^^
+        Decomposition decomposition = decompositionService.decompose(
+                gitRepository,
+                monolithCouplingParametersDto.toDecompositionParameters());
 
         // Compute evaluation metrics
         evaluationLogic.evaluate(decomposition);
