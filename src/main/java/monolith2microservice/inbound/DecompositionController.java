@@ -18,7 +18,7 @@ public interface DecompositionController {
 
     ResponseEntity<Set<GraphRepresentation>> getDecompositionByIdAsGraph(Long decompositionId);
 
-    ResponseEntity<GraphVisualizationDto> getDecompositionByIdAsVisualization(Long decompositionId);
+    ResponseEntity<GraphVisualizationDto> getDecompositionByIdAsVisualization(Long decompositionId, Boolean guessClassTask);
 
     ResponseEntity<Set<GraphRepresentation>> decomposeRepositoryById(Long repoId, DecompositionCouplingParametersDto decompositionDTO);
 

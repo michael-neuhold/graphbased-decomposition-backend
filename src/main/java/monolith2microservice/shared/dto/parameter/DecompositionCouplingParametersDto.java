@@ -24,6 +24,8 @@ public class DecompositionCouplingParametersDto {
 
     private int classClusterThreshold;
 
+    private boolean guessClassTask;
+
     public DecompositionCouplingParameters toDecompositionParameters() {
         return DecompositionCouplingParameters.builder()
                 .intervalSeconds(intervalSeconds)

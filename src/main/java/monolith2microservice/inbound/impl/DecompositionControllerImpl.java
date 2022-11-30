@@ -66,8 +66,8 @@ public class DecompositionControllerImpl implements DecompositionController {
 
     @Override
     @CrossOrigin
-    @RequestMapping(value="{decompositionId}/visualization", method = RequestMethod.GET)
-    public ResponseEntity<GraphVisualizationDto> getDecompositionByIdAsVisualization(@PathVariable Long decompositionId) {
+    @RequestMapping(value="{decompositionId}/visualization/{guessClassTask}", method = RequestMethod.GET)
+    public ResponseEntity<GraphVisualizationDto> getDecompositionByIdAsVisualization(@PathVariable Long decompositionId, @PathVariable Boolean guessClassTask) {
         LOGGER.info("getDecompositionByIdAsVisualization");
         Decomposition decomposition = decompositionLogic.findById(decompositionId);
         if (decomposition == null) {
@@ -77,7 +77,7 @@ public class DecompositionControllerImpl implements DecompositionController {
         Set<GraphRepresentation> graph =
                 DecompositionLogic.getGraphRepresentation(decomposition);
 
-        return ResponseEntity.ok().body(GraphVisualizationDto.of(graph));
+        return ResponseEntity.ok().body(GraphVisualizationDto.of(graph, guessClassTask));
     }
 
     @Override
@@ -128,7 +128,7 @@ public class DecompositionControllerImpl implements DecompositionController {
         Set<GraphRepresentation> graph =
                 DecompositionLogic.getGraphRepresentation(decomposition);
 
-        return ResponseEntity.ok().body(GraphVisualizationDto.of(graph));
+        return ResponseEntity.ok().body(GraphVisualizationDto.of(graph, decompositionParameters.isGuessClassTask()));
     }
 
     @Override
@@ -146,7 +146,7 @@ public class DecompositionControllerImpl implements DecompositionController {
         Set<GraphRepresentation> graph =
                 DecompositionLogic.getGraphRepresentation(decomposition);
 
-        return ResponseEntity.ok().body(GraphVisualizationDto.of(graph));
+        return ResponseEntity.ok().body(GraphVisualizationDto.of(graph, monolithCouplingParametersDto.isGuessClassTask()));
     }
 
 }

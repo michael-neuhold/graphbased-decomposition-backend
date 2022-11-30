@@ -21,7 +21,7 @@ public class GraphVisualizationDto {
 
     private List<GraphVisualizationNodeDto> nodes;
 
-    public static GraphVisualizationDto of(Set<GraphRepresentation> graphRepresentations) {
+    public static GraphVisualizationDto of(Set<GraphRepresentation> graphRepresentations, boolean guessClassTask) {
         List<GraphVisualizationLinkDto> graphVisualizationLinkDtos = new LinkedList<>();
         List<GraphVisualizationNodeDto> graphVisualizationNodeDtos = new LinkedList<>();
         graphRepresentations.forEach(graphRepresentation -> {
@@ -37,8 +37,8 @@ public class GraphVisualizationDto {
                         .id(node.getId())
                         .group(graphRepresentation.getComponentId())
                         .label(node.getLabel())
-                        .couldBeApi(couldBeApi(node.getLabel()))
-                        .couldBeDatabaseAccess(couldBeDatabaseAccess(node.getLabel()))
+                        .couldBeApi(guessClassTask && couldBeApi(node.getLabel()))
+                        .couldBeDatabaseAccess(guessClassTask && couldBeDatabaseAccess(node.getLabel()))
                         .build());
             });
         });

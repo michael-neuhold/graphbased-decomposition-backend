@@ -24,6 +24,8 @@ public class MonolithCouplingParametersDto {
 
     private double intervalSeconds;
 
+    private boolean guessClassTask;
+
     public DecompositionCouplingParameters toDecompositionParameters() {
         return DecompositionCouplingParameters.builder()
                 .contributorCoupling(contributorCoupling)
