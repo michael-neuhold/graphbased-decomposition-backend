@@ -8,6 +8,7 @@ import monolith2microservice.shared.dto.parameter.DecompositionCouplingParameter
 import monolith2microservice.shared.dto.DecompositionDto;
 import monolith2microservice.shared.dto.parameter.MonolithCouplingParametersDto;
 import monolith2microservice.shared.dto.visualization.GraphVisualizationDto;
+import monolith2microservice.shared.models.graph.Component;
 import monolith2microservice.shared.models.graph.Decomposition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +50,19 @@ public class DecompositionControllerImpl implements DecompositionController {
         }
 
         return ResponseEntity.ok(decomposition);
+    }
+
+    @Override
+    @CrossOrigin
+    @RequestMapping(value="{decompositionId}/{javaSuffix}", method= RequestMethod.GET)
+    public ResponseEntity<List<Component>> searchFileInDecomposition(@PathVariable Long decompositionId, @PathVariable boolean javaSuffix, @RequestParam String searchTerm) {
+        LOGGER.info("|-> searchFileInDecomposition");
+        List<Component> components = decompositionLogic.searchComponent(decompositionId, searchTerm, javaSuffix);
+        if (components.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(components);
     }
 
     @Override

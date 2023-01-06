@@ -8,11 +8,11 @@ import java.util.function.Predicate;
 
 public class FilterService {
 
-    private final String[] BLACKLIST = {"Gemfile", "Gemfile.lock", "routes.rb", "*.xml", "*.jar", "settings.py", "urls.py", "__init__.py", "requirements.txt", "*.po", "*.gitignore", "*.json"};
+    private static final String[] BLACKLIST = {"Gemfile", "Gemfile.lock", "routes.rb", "*.xml", "*.jar", "settings.py", "urls.py", "__init__.py", "requirements.txt", "*.po", "*.gitignore", "*.json"};
 
 
     //Define predicate to filter only files that were added or modified and conform to the file patterns
-    private Predicate<DiffEntry> filterPredicate = (entry) -> {
+    private static final Predicate<DiffEntry> filterPredicate = (entry) -> {
         //filter out Git changes that did not add or modify files
         if (entry.getChangeType() == DiffEntry.ChangeType.ADD ||
                 entry.getChangeType() == DiffEntry.ChangeType.MODIFY ||
@@ -36,7 +36,7 @@ public class FilterService {
     };
 
 
-    public List<DiffEntry> filterBlackList(List<DiffEntry> diffFiles) {
+    public static List<DiffEntry> filterBlackList(List<DiffEntry> diffFiles) {
         List<DiffEntry> filteredEntries = new ArrayList<>();
         diffFiles.stream().filter(filterPredicate).forEach(filteredEntries::add);
         return filteredEntries;

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -75,6 +76,18 @@ public class DecompositionLogicImpl implements DecompositionLogic {
     @Override
     public Decomposition findById(long decompositionId) {
         return decompositionRepository.findById(decompositionId);
+    }
+
+    @Override
+    public List<monolith2microservice.shared.models.graph.Component> searchComponent(long decompositionId, String searchTerm, boolean javaSuffix) {
+        Decomposition decomposition = decompositionRepository.findById(decompositionId);
+        List<monolith2microservice.shared.models.graph.Component> results = new ArrayList<>();
+        for (monolith2microservice.shared.models.graph.Component component : decomposition.getServices()) {
+           if (component.getNodes().stream().anyMatch(node -> node.getId().contains(searchTerm + (javaSuffix ? ".java" : "")))) {
+               results.add(component);
+           }
+        }
+        return results;
     }
 
     @Override

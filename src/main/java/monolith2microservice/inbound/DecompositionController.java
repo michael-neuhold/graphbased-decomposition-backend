@@ -5,8 +5,10 @@ import monolith2microservice.shared.dto.parameter.DecompositionCouplingParameter
 import monolith2microservice.shared.dto.DecompositionDto;
 import monolith2microservice.shared.dto.parameter.MonolithCouplingParametersDto;
 import monolith2microservice.shared.dto.visualization.GraphVisualizationDto;
+import monolith2microservice.shared.models.graph.Component;
 import monolith2microservice.shared.models.graph.Decomposition;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Set;
@@ -15,6 +17,8 @@ public interface DecompositionController {
     ResponseEntity<List<DecompositionDto>> getAllDecompositions();
 
     ResponseEntity<Decomposition> getDecompositionById(Long decompositionId);
+
+    ResponseEntity<List<Component>> searchFileInDecomposition(Long decompositionId, boolean javaSuffix, String searchTerm);
 
     ResponseEntity<Set<GraphRepresentation>> getDecompositionByIdAsGraph(Long decompositionId);
 

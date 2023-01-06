@@ -10,4 +10,9 @@ public class PathBuilder {
         return Paths.get(path);
     }
 
+    public static String buildLocalRepoPathString(String localRepositoryDirectory,
+                                                  String repositoryName, long repositoryId) {
+        return String.format("%s/%s_%s/.git", localRepositoryDirectory, repositoryName, repositoryId);
+    }
+
 }
